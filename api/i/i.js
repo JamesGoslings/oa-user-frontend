@@ -28,9 +28,11 @@ export function saveAndBackImg(userMsg) {
 					console.log(res);
 					console.log("临时路径" + tempFilePath);
 					
+					// 修改缓存中的userMsg的图片地址
 					let userInfo = uni.getStorageSync('userMsg')
 					userInfo.avatarUrl = res.data
 					uni.setStorageSync('userMsg',userInfo)
+					// 直接给页面的userMsg赋值，实现操作完成即可显示图片
 					userMsg.value.avatar = res.data
 				}
 			});

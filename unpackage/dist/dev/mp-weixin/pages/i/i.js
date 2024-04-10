@@ -22,7 +22,6 @@ if (!Math) {
 const _sfc_main = {
   __name: "i",
   setup(__props) {
-    common_vendor.ref("/static/image/default_avatar.png");
     let iHead = common_vendor.ref({ title: "我的", fun: "2" });
     let userMsg = common_vendor.ref({ name: "未登录", avatar: "/static/image/default_avatar.png" });
     const test = async () => {
@@ -37,7 +36,6 @@ const _sfc_main = {
     };
     function changeAvatar() {
       api_i_i.saveAndBackImg(userMsg);
-      getMyAvatar();
     }
     function info() {
       let userInfo = common_vendor.index.getStorageSync("userMsg");

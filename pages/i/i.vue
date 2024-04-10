@@ -74,8 +74,6 @@
 // import {setCookie, getCookie} from '@/utils/common_utils/myCookie.js'
 import { saveAndBackImg,getUserInfo } from '@/api/i/i.js';
 
-let savedAvatarPath = ref("/static/image/default_avatar.png")
-
 let iHead = ref({title:"我的",fun:"2"})
 let userMsg = ref({name:"未登录",avatar:"/static/image/default_avatar.png"})
 
@@ -92,9 +90,6 @@ const test = async ()=>{
 
 function changeAvatar(){
 	saveAndBackImg(userMsg)
-
-	getMyAvatar()
-
 }
 
 function info(){
