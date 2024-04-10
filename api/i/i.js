@@ -25,8 +25,8 @@ export function saveAndBackImg(userMsg) {
 				name:'myFile',
 				success: (uploadFileRes) => {
 					let res = JSON.parse(uploadFileRes.data)
-					console.log(res);
-					console.log("临时路径" + tempFilePath);
+					// console.log(res);
+					// console.log("临时路径" + tempFilePath);
 					
 					// 修改缓存中的userMsg的图片地址
 					let userInfo = uni.getStorageSync('userMsg')
