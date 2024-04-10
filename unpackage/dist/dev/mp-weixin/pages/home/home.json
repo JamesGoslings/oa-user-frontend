@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "home",
+  "usingComponents": {
+    "my-header": "../../components/myHeader/myHeader",
+    "uni-notice-bar": "../../uni_modules/uni-notice-bar/components/uni-notice-bar/uni-notice-bar",
+    "uni-list-item": "../../uni_modules/uni-list/components/uni-list-item/uni-list-item",
+    "uni-list": "../../uni_modules/uni-list/components/uni-list/uni-list",
+    "uni-card": "../../uni_modules/uni-card/components/uni-card/uni-card",
+    "login-fail-popup": "../../components/loginFailPopup/loginFailPopup"
+  }
+}

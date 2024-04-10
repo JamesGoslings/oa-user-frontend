@@ -1,0 +1,1 @@
+<view> demo界面 <button bindtap="{{a}}">按钮</button><uni-popup wx:if="{{c}}" class="r" u-s="{{['d']}}" u-r="popup" u-i="4e58ded5-0" bind:__l="__l" u-p="{{c}}">底部弹出 Popup 自定义圆角</uni-popup></view>

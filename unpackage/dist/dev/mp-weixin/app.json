@@ -1,0 +1,44 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/home/home",
+    "pages/telep/telep",
+    "pages/i/i",
+    "pages/demo/demo",
+    "pages/home/webview",
+    "pages/login/login"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "enablePullDownRefresh": true,
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#fff",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#FE1C32",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "static/image/icon/home.png",
+        "selectedIconPath": "static/image/icon/home_a.png"
+      },
+      {
+        "pagePath": "pages/telep/telep",
+        "text": "通讯录",
+        "iconPath": "static/image/icon/txl.png",
+        "selectedIconPath": "static/image/icon/txl_a.png"
+      },
+      {
+        "pagePath": "pages/i/i",
+        "text": "我的",
+        "iconPath": "static/image/icon/i.png",
+        "selectedIconPath": "static/image/icon/i_a.png"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
