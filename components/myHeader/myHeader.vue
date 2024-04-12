@@ -1,9 +1,10 @@
 <template>
 	<view class="layout">
-		<view class="navbor">
+		<view class="navbor" :style="{background: head.color}">
 			<view class="statusBar" :style="{height: statusBarHeight+'px'}"></view>
 			<view class="titleBar" :style="{height: getTitleBarHeight()+'px' ,justifyContent: justifyContentValue}">
-				<view class="title">{{head.title}}</view>
+				<view class="title" v-if="head.title !== '' && head.title !== null">
+				{{head.title}}</view>
 				<view class="search" v-if="head.fun === '1'">
 					<uni-icons type="search" color="#888" size="22" class="icon"></uni-icons>
 					<uni-icons type="scan" color="#888" size="22" class="icon" @click="onScan()"></uni-icons>
@@ -25,7 +26,7 @@ defineProps({
 	head:{
 		type:Object,
 		default(){
-			return {title:"标题",fun:"1"}
+			return {title:"标题",fun:"1",color:"#FFF"}
 		}
 	}
 })
@@ -72,6 +73,7 @@ justifyContentValue = 'flex-start'
 </script>
 
 <style lang="scss" scoped>
+@import url(/static/font/iconfont.css);
 .layout{
 	.navbor{
 		position: fixed;
@@ -79,13 +81,11 @@ justifyContentValue = 'flex-start'
 		left: 0;
 		width: 100%;
 		z-index: 10;
-		background-color: white;
 		.statusBar{}
 		.titleBar{
 			padding:0 30rpx;
 			align-items: center;
 			display: flex;
-			}
 			.title{
 				font-size: 20px;
 				// font-weight: 700;
@@ -96,8 +96,8 @@ justifyContentValue = 'flex-start'
 					padding-left: 30rpx;
 				}
 			}
-	.fill{
 		}
+	.fill{}
 	}
 }
 

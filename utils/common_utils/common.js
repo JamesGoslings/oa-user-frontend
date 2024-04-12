@@ -4,9 +4,10 @@
 //系统信息
 export const SYSTEM_INFO = uni.getSystemInfoSync()
 
-//主机地址10.21.48.214
+//主机地址
 export const HOST = 'http://localhost:8800'
-// export const HOST = 'http://10.21.48.214:8800'
+// export const HOST = 'http://192.168.43.189:8800'
+
 
 //api服务器
 export const API_HOST = SYSTEM_INFO.uniPlatform === 'web' ? '' : HOST
@@ -15,7 +16,7 @@ export const API_HOST = SYSTEM_INFO.uniPlatform === 'web' ? '' : HOST
 export const API_PROXY = SYSTEM_INFO.uniPlatform === 'web' ? '/h5api' : ''
 
 /**
- * 组装接口url
+ * 组装接口url 
 */
 export const packApiUrl = (url = '') => {
 	console.log(API_HOST);

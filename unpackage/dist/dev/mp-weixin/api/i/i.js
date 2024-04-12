@@ -18,8 +18,6 @@ function saveAndBackImg(userMsg) {
         name: "myFile",
         success: (uploadFileRes) => {
           let res = JSON.parse(uploadFileRes.data);
-          console.log(res);
-          console.log("临时路径" + tempFilePath);
           let userInfo = common_vendor.index.getStorageSync("userMsg");
           userInfo.avatarUrl = res.data;
           common_vendor.index.setStorageSync("userMsg", userInfo);

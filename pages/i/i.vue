@@ -95,6 +95,10 @@ function changeAvatar(){
 function info(){
 	let userInfo = uni.getStorageSync('userMsg')
 	userMsg.value.name = userInfo.name
+	let url = userMsg.value.avatar
+	if(url === null || url === ''){
+		return;
+	}
 	userMsg.value.avatar = userInfo.avatarUrl
 }
 

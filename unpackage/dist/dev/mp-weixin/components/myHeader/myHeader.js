@@ -15,7 +15,7 @@ const _sfc_main = {
     head: {
       type: Object,
       default() {
-        return { title: "标题", fun: "1" };
+        return { title: "标题", fun: "1", color: "#FFF" };
       }
     }
   },
@@ -51,31 +51,35 @@ const _sfc_main = {
     return (_ctx, _cache) => {
       return common_vendor.e({
         a: common_vendor.unref(utils_common_utils_system.statusBarHeight) + "px",
-        b: common_vendor.t(__props.head.title),
-        c: __props.head.fun === "1"
+        b: __props.head.title !== "" && __props.head.title !== null
+      }, __props.head.title !== "" && __props.head.title !== null ? {
+        c: common_vendor.t(__props.head.title)
+      } : {}, {
+        d: __props.head.fun === "1"
       }, __props.head.fun === "1" ? {
-        d: common_vendor.p({
+        e: common_vendor.p({
           type: "search",
           color: "#888",
           size: "22"
         }),
-        e: common_vendor.o(($event) => onScan()),
-        f: common_vendor.p({
+        f: common_vendor.o(($event) => onScan()),
+        g: common_vendor.p({
           type: "scan",
           color: "#888",
           size: "22"
         })
       } : __props.head.fun === "2" ? {
-        h: common_vendor.p({
+        i: common_vendor.p({
           type: "gear",
           color: "#888",
           size: "22"
         })
       } : {}, {
-        g: __props.head.fun === "2",
-        i: common_vendor.unref(utils_common_utils_system.getTitleBarHeight)() + "px",
-        j: common_vendor.unref(justifyContentValue),
-        k: common_vendor.unref(utils_common_utils_system.statusBarHeight) + common_vendor.unref(utils_common_utils_system.getTitleBarHeight)() + "px"
+        h: __props.head.fun === "2",
+        j: common_vendor.unref(utils_common_utils_system.getTitleBarHeight)() + "px",
+        k: common_vendor.unref(justifyContentValue),
+        l: __props.head.color,
+        m: common_vendor.unref(utils_common_utils_system.statusBarHeight) + common_vendor.unref(utils_common_utils_system.getTitleBarHeight)() + "px"
       });
     };
   }

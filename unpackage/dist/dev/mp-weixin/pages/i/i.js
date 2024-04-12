@@ -40,6 +40,10 @@ const _sfc_main = {
     function info() {
       let userInfo = common_vendor.index.getStorageSync("userMsg");
       userMsg.value.name = userInfo.name;
+      let url = userMsg.value.avatar;
+      if (url === null || url === "") {
+        return;
+      }
       userMsg.value.avatar = userInfo.avatarUrl;
     }
     common_vendor.onShow(() => {

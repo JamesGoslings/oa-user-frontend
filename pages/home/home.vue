@@ -75,7 +75,7 @@ function onPage(){
 		url:"/pages/demo/demo"
 	})
 }	
-let homeHead = ref({title:"首页",fun:"1"})
+let homeHead = ref({title:"首页",fun:"1",color:"#FFF"})
 
 let isShow = ref(true)
 onShow(()=>{

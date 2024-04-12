@@ -21,7 +21,7 @@ if (!Math) {
 const _sfc_main = {
   __name: "home",
   setup(__props) {
-    let homeHead = common_vendor.ref({ title: "首页", fun: "1" });
+    let homeHead = common_vendor.ref({ title: "首页", fun: "1", color: "#FFF" });
     let isShow = common_vendor.ref(true);
     common_vendor.onShow(() => {
       if (isShow.value) {

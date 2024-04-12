@@ -2,30 +2,21 @@
 const common_vendor = require("../../common/vendor.js");
 if (!Array) {
   const _easycom_myHeader2 = common_vendor.resolveComponent("myHeader");
-  _easycom_myHeader2();
+  const _easycom_loginFailPopup2 = common_vendor.resolveComponent("loginFailPopup");
+  (_easycom_myHeader2 + _easycom_loginFailPopup2)();
 }
 const _easycom_myHeader = () => "../../components/myHeader/myHeader.js";
+const _easycom_loginFailPopup = () => "../../components/loginFailPopup/loginFailPopup.js";
 if (!Math) {
-  _easycom_myHeader();
+  (_easycom_myHeader + _easycom_loginFailPopup)();
 }
 const _sfc_main = {
   __name: "telep",
   setup(__props) {
-    let teleHead = common_vendor.ref({ title: "通讯录", fun: "0" });
-    function OnClick() {
-      common_vendor.index.showModal({
-        title: "是否删除???",
-        content: "删除后无法恢复",
-        success: (res) => {
-          console.log(res);
-          if (res.confirm)
-            common_vendor.index.showToast({
-              title: "删除成功~"
-            });
-        },
-        fail: (res) => {
-          console.log(res);
-        }
+    let teleHead = common_vendor.ref({ title: "通讯录", fun: "0", color: "#FFF" });
+    function goSearch() {
+      common_vendor.index.navigateTo({
+        url: "/pages/searchLinkMan/searchLinkMan"
       });
     }
     return (_ctx, _cache) => {
@@ -33,7 +24,7 @@ const _sfc_main = {
         a: common_vendor.p({
           head: common_vendor.unref(teleHead)
         }),
-        b: common_vendor.o(($event) => OnClick())
+        b: common_vendor.o(($event) => goSearch())
       };
     };
   }

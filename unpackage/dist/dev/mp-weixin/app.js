@@ -9,6 +9,7 @@ if (!Math) {
   "./pages/demo/demo.js";
   "./pages/home/webview.js";
   "./pages/login/login.js";
+  "./pages/searchLinkMan/searchLinkMan.js";
 }
 console.log("/???");
 const _sfc_main = {

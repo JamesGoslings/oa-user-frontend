@@ -2,6 +2,7 @@
   "navigationBarTitleText": "telep",
   "enablePullDownRefresh": false,
   "usingComponents": {
-    "my-header": "../../components/myHeader/myHeader"
+    "my-header": "../../components/myHeader/myHeader",
+    "login-fail-popup": "../../components/loginFailPopup/loginFailPopup"
   }
 }

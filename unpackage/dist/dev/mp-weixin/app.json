@@ -6,7 +6,8 @@
     "pages/i/i",
     "pages/demo/demo",
     "pages/home/webview",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/searchLinkMan/searchLinkMan"
   ],
   "window": {
     "navigationStyle": "custom",

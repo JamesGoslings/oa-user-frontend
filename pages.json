@@ -52,6 +52,14 @@
 				"navigationBarTitleText" : "login",
 				"enablePullDownRefresh" : false
 			}
+		},
+		{
+			"path" : "pages/searchLinkMan/searchLinkMan",
+			"style" : 
+			{
+				"navigationBarTitleText" : "搜 索",
+				"enablePullDownRefresh" : false
+			}
 		}
 	],
 	"globalStyle": {
@@ -62,7 +70,6 @@
 		"navigationBarBackgroundColor": "#fff",
 		"backgroundColor": "#F8F8F8"
 	},
-	"uniIdRouter": {},
 	
 	"tabBar": {
 		"color": "#999",// 文字颜色
