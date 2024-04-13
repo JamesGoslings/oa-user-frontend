@@ -4,23 +4,54 @@
 		<view class="searchBar">
 			<view class="search" @click="goSearch()">
 				<view class="iconfont ico">&#xe607;</view>
-				<text class="iptTxt">请输入</text>
+				<text class="iptTxt">请输入电话号码或联系人姓名</text>
 			</view>
 		</view>
-		
-		
+		<view class="linkManBar" v-for="(item,index) in LinkManBarMsg" :key="index">
+			<view class="iconfont linkIco">&#xe623;</view>
+			<view class="topLinkTxt">{{item.topLinkTxt}}</view>
+			<view class="menuIco iconfont">
+				<text class="iconfont aIco" v-if="!item.isChoose" @click="openLinkManList(item)">
+					&#xe656;
+				</text>
+				<text class="iconfont aIco" v-else  @click="item.isChoose = !item.isChoose"
+				style="-moz-transform: rotate(90deg);-webkit-transform: rotate(90deg);">
+					&#xe656;
+				</text>
+			</view>
+		</view>
+	
 		<loginFailPopup></loginFailPopup>
 	</view>
 </template>
 
 <script setup>
 let teleHead = ref({title:"通讯录",fun:"0",color:"#FFF"})
-
+let isChoose  = ref(false)
+let LinkManBarMsg = ref([
+	{
+		topLinkTxt: '公司通讯录',
+		isChoose: false
+	},
+	{
+		topLinkTxt: '个人通讯录',
+		isChoose: false
+	},
+	{
+		topLinkTxt: '公共通讯录',
+		isChoose: false
+	}
+])
 function goSearch(){
 	uni.navigateTo({
 		url:'/pages/searchLinkMan/searchLinkMan'
 	})
 }
+function openLinkManList(item){
+	item.isChoose = !item.isChoose
+	
+}
+
 
 </script>
 
@@ -57,6 +88,32 @@ function goSearch(){
 			.iptTxt{
 				font-size: 30rpx;
 				color: rgb(102,102,102);
+			}
+		}
+	}
+	.linkManBar{
+		width: 100%;
+		height: 5%;
+		background: #fff;
+		border-radius: 20rpx;
+		display: flex;
+		align-items: center;
+		margin-bottom: 10rpx;
+		.linkIco{
+			margin-left: 20rpx;
+			margin-right: 30rpx;
+			font-size: 50rpx;
+		}
+		.topLinkTxt{
+			font-size: 35rpx;
+			
+		}
+		.menuIco{
+			width: 60%;
+			float: right;
+			.aIco{
+				float: right;
+				// padding-right: 10rpx;
 			}
 		}
 	}
