@@ -30,32 +30,80 @@
        url('//at.alicdn.com/t/c/font_4494328_vjqj5wivkhe.woff?t=1713015263073') format('woff'),
        url('//at.alicdn.com/t/c/font_4494328_vjqj5wivkhe.ttf?t=1713015263073') format('truetype');
 }
-.iconfont.data-v-5fa7a163 {
+.iconfont.data-v-8f4dddb7 {
   font-family: "iconfont" !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-a-10daka.data-v-5fa7a163:before {
+.icon-a-10daka.data-v-8f4dddb7:before {
   content: "\edba";
 }
-.layout .navbor.data-v-5fa7a163 {
+.linkManPageSty.data-v-8f4dddb7 {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 10;
+  height: 100%;
+  overflow: auto;
 }
-.layout .navbor .titleBar.data-v-5fa7a163 {
-  padding: 0 30rpx;
-  align-items: center;
+.linkManPageSty .pageTop.data-v-8f4dddb7 {
+  width: 100%;
+  height: 25%;
+  background: linear-gradient(to bottom, transparent, #fff 400rpx), linear-gradient(to right, #beecd8 20%, #F4E2D8);
+  margin-bottom: 15%;
+}
+.linkManPageSty .pageTop .backBtn.data-v-8f4dddb7 {
+  width: 100%;
+  height: 45%;
   display: flex;
+  align-items: center;
 }
-.layout .navbor .titleBar .title.data-v-5fa7a163 {
-  font-size: 20px;
-  color: black;
+.linkManPageSty .pageTop .backBtn .btn.data-v-8f4dddb7 {
+  width: 70rpx;
+  height: 70rpx;
+  margin-left: 20rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  color: rgba(0, 0, 0, 0.5);
 }
-.layout .navbor .titleBar .search .icon.data-v-5fa7a163 {
-  padding-left: 30rpx;
+.linkManPageSty .pageTop .avatarView.data-v-8f4dddb7 {
+  margin-top: 10%;
+  width: 100%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+}
+.linkManPageSty .pageTop .avatarView .avatar.data-v-8f4dddb7 {
+  width: 200rpx;
+  height: 200rpx;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.linkManPageSty .pageTop .avatarView .avatar .avatarImg.data-v-8f4dddb7 {
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+}
+.linkManPageSty .showLinkManMsg.data-v-8f4dddb7 {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50rpx;
+}
+.linkManPageSty .phoneIco.data-v-8f4dddb7 {
+  font-size: 50rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

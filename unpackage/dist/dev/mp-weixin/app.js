@@ -10,6 +10,7 @@ if (!Math) {
   "./pages/home/webview.js";
   "./pages/login/login.js";
   "./pages/searchLinkMan/searchLinkMan.js";
+  "./pages/linkManPage/linkManPage.js";
 }
 console.log("/???");
 const _sfc_main = {

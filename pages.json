@@ -60,6 +60,14 @@
 				"navigationBarTitleText" : "搜 索",
 				"enablePullDownRefresh" : false
 			}
+		},
+		{
+			"path" : "pages/linkManPage/linkManPage",
+			"style" : 
+			{
+				"navigationBarTitleText" : "linkManPage",
+				"enablePullDownRefresh" : false
+			}
 		}
 	],
 	"globalStyle": {

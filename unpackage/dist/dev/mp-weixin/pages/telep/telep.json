@@ -3,6 +3,7 @@
   "enablePullDownRefresh": false,
   "usingComponents": {
     "my-header": "../../components/myHeader/myHeader",
+    "tree-link-man": "../../components/treeLinkMan/treeLinkMan",
     "login-fail-popup": "../../components/loginFailPopup/loginFailPopup"
   }
 }

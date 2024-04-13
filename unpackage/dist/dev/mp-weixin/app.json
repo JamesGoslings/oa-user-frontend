@@ -7,7 +7,8 @@
     "pages/demo/demo",
     "pages/home/webview",
     "pages/login/login",
-    "pages/searchLinkMan/searchLinkMan"
+    "pages/searchLinkMan/searchLinkMan",
+    "pages/linkManPage/linkManPage"
   ],
   "window": {
     "navigationStyle": "custom",

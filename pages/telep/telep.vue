@@ -7,18 +7,40 @@
 				<text class="iptTxt">请输入电话号码或联系人姓名</text>
 			</view>
 		</view>
-		<view class="linkManBar" v-for="(item,index) in LinkManBarMsg" :key="index">
-			<view class="iconfont linkIco">&#xe623;</view>
-			<view class="topLinkTxt">{{item.topLinkTxt}}</view>
-			<view class="menuIco iconfont">
-				<text class="iconfont aIco" v-if="!item.isChoose" @click="openLinkManList(item)">
-					&#xe656;
-				</text>
-				<text class="iconfont aIco" v-else  @click="item.isChoose = !item.isChoose"
-				style="-moz-transform: rotate(90deg);-webkit-transform: rotate(90deg);">
-					&#xe656;
-				</text>
+		<view class="linkManModule" v-for="(item,index) in linkManBarMsg" :key="index">
+			<view class="linkManBar">
+				<view class="iconfont linkIco">&#xe623;</view>
+				<view class="topLinkTxt">{{item.topLinkTxt}}</view>
+				<view class="menuIco iconfont">
+					<text class="iconfont aIco" v-if="!item.isChoose" @click="openLinkManList(item)">
+						&#xe656;
+					</text>
+					<text class="iconfont aIco" v-else  @click="item.isChoose = !item.isChoose"
+					style="-moz-transform: rotate(90deg);-webkit-transform: rotate(90deg);">
+						&#xe656;
+					</text>
+				</view>
 			</view>
+			
+			<treeLinkMan :dataList="linkManBarDetail" v-if="item.isChoose && index === 0"></treeLinkMan>
+
+<!-- 			<view class="linkManBarDetail" v-if="item.isChoose">
+				<view class="detailOne" v-if="index === 0" v-for="(it,i) in linkManBarDetail" :key="i">
+					<view class="detailOneTxt">{{it.deptName}}</view>
+					<view class="icoDetail iconfont">
+						<text class="iconfont icoUp" v-if="!it.isChoose" @click="openLinkManList(it)">
+							&#xe61d;
+						</text>
+						<text class="iconfont icoUp" v-else  @click="it.isChoose = !it.isChoose"
+						style="-moz-transform: rotate(90deg);-webkit-transform: rotate(90deg);">
+							&#xe61d;
+						</text>
+					</view>
+					
+				</view>
+			</view> -->
+	
+			
 		</view>
 	
 		<loginFailPopup></loginFailPopup>
@@ -26,9 +48,10 @@
 </template>
 
 <script setup>
+import { callWithErrorHandling } from 'vue';
 let teleHead = ref({title:"通讯录",fun:"0",color:"#FFF"})
 let isChoose  = ref(false)
-let LinkManBarMsg = ref([
+let linkManBarMsg = ref([
 	{
 		topLinkTxt: '公司通讯录',
 		isChoose: false
@@ -42,6 +65,108 @@ let LinkManBarMsg = ref([
 		isChoose: false
 	}
 ])
+let linkManBarDetail = ref([
+	{
+		deptName: '总经理',
+		leader: {
+			name: '李四',
+			phone: '10086',
+			post: '总经理'
+		},
+		isChoose: false,
+		children:[]
+	},
+	{
+		deptName: '研发中心',
+		leader:{
+			name: '李四',
+			phone: '10086',
+			post: '研发部经理'
+		},
+		isChoose: false,
+		floor: 0,
+		children:[
+			{
+				deptName: '产品研发部',
+				leader:{
+					name: '李四',
+					phone: '10086',
+					post: '产品经理'
+				},
+				isChoose: false,
+				floor: 1,
+				children:[]
+			},
+			{
+				deptName: '运维部',
+				leader:{
+					name: '李四',
+					phone: '10086',
+					psot: '运维经理'
+				},
+				isChoose: false,
+				floor: 1,
+				children:[
+					{
+						deptName: '运维支部1',
+						leader:{
+							name: '李四',
+							phone: '10086',
+							post: '运维一支部经理'
+						},
+						isChoose: false,
+						floor: 2,
+						children:[]
+					},
+					{
+						deptName: '运维支部2',
+						leader:{
+							name: '李四',
+							phone: '10086',
+							post: '运维二支部经理'
+						},
+						isChoose: false,
+						floor: 2,
+						children:[]
+					}
+				]
+			},
+			{
+				deptName: '平台运营部',
+				leader:{
+					name: '李四',
+					phone: '10086',
+					post: '平台运营经理'
+				},
+				isChoose: false,
+				floor: 1,
+				children:[]
+			}
+		]
+	},
+	{
+		deptName: '营销中心',
+		leader:{
+			name: '李四',
+			phone: '10086',
+			post: '营销部经理'
+		},
+		isChoose: false,
+		floor: 0,
+		children:[]
+	},
+	{
+		deptName: '行政中心',
+		leader:{
+			name: '李四',
+			phone: '10086',
+			post: '行政中心经理'
+		},
+		isChoose: false,
+		floor: 0,
+		children:[]
+	}
+])
 function goSearch(){
 	uni.navigateTo({
 		url:'/pages/searchLinkMan/searchLinkMan'
@@ -49,9 +174,8 @@ function goSearch(){
 }
 function openLinkManList(item){
 	item.isChoose = !item.isChoose
-	
+	// console.log(linkManBarMsg.value.length);
 }
-
 
 </script>
 
@@ -91,29 +215,62 @@ function openLinkManList(item){
 			}
 		}
 	}
-	.linkManBar{
-		width: 100%;
-		height: 5%;
-		background: #fff;
-		border-radius: 20rpx;
-		display: flex;
-		align-items: center;
+	.linkManModule{
 		margin-bottom: 10rpx;
-		.linkIco{
-			margin-left: 20rpx;
-			margin-right: 30rpx;
-			font-size: 50rpx;
-		}
-		.topLinkTxt{
-			font-size: 35rpx;
-			
-		}
-		.menuIco{
-			width: 60%;
-			float: right;
-			.aIco{
+		.linkManBar{
+			width: 100%;
+			height: 5%;
+			background: #fff;
+			border-radius: 20rpx;
+			display: flex;
+			align-items: center;
+			margin-bottom: 10rpx;
+			.linkIco{
+				margin-left: 20rpx;
+				margin-right: 30rpx;
+				font-size: 50rpx;
+			}
+			.topLinkTxt{
+				font-size: 35rpx;
+				
+			}
+			.menuIco{
+				width: 60%;
 				float: right;
-				// padding-right: 10rpx;
+				.aIco{
+					float: right;
+					// padding-right: 10rpx;
+				}
+			}
+		}
+		.linkManBarDetail{
+			width: 100%;
+			height: 5%;
+			margin-top: 10rpx;
+			margin-bottom: 10rpx;
+			.detailOne{
+				width: 100%;
+				height: 100%;
+				background: rgba(255,255,255, 0.8);
+				display: flex;
+				margin-top: 2rpx;
+				margin-bottom: 2rpx;
+				// border: #c4c4c4 1rpx solid;
+				.detailOneTxt{
+					width: 20%;
+					// height: 100%;
+					color: #6d6d6d;
+					margin-left: 100rpx;
+				}
+				.icoDetail{
+					width: 65%;
+					float: right;
+					.icoUp{
+						font-size: 50rpx;
+						float: right;
+						color: rgba(0,0,0,0.3);
+					}
+				}
 			}
 		}
 	}
