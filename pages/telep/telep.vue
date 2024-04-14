@@ -157,36 +157,36 @@ onShow(()=>{
 				}
 			}
 		}
-		.linkManBarDetail{
-			width: 100%;
-			height: 5%;
-			margin-top: 10rpx;
-			margin-bottom: 10rpx;
-			.detailOne{
-				width: 100%;
-				height: 100%;
-				background: rgba(255,255,255, 0.8);
-				display: flex;
-				margin-top: 2rpx;
-				margin-bottom: 2rpx;
-				// border: #c4c4c4 1rpx solid;
-				.detailOneTxt{
-					width: 20%;
-					// height: 100%;
-					color: #6d6d6d;
-					margin-left: 100rpx;
-				}
-				.icoDetail{
-					width: 65%;
-					float: right;
-					.icoUp{
-						font-size: 50rpx;
-						float: right;
-						color: rgba(0,0,0,0.3);
-					}
-				}
-			}
-		}
+		// .linkManBarDetail{
+		// 	width: 100%;
+		// 	height: 5%;
+		// 	margin-top: 10rpx;
+		// 	margin-bottom: 10rpx;
+		// 	.detailOne{
+		// 		width: 100%;
+		// 		height: 100%;
+		// 		background: rgba(255,255,255, 0.8);
+		// 		display: flex;
+		// 		margin-top: 2rpx;
+		// 		margin-bottom: 2rpx;
+		// 		// border: #c4c4c4 1rpx solid;
+		// 		.detailOneTxt{
+		// 			width: 20%;
+		// 			// height: 100%;
+		// 			color: #6d6d6d;
+		// 			margin-left: 100rpx;
+		// 		}
+		// 		.icoDetail{
+		// 			width: 65%;
+		// 			float: right;
+		// 			.icoUp{
+		// 				font-size: 50rpx;
+		// 				float: right;
+		// 				color: rgba(0,0,0,0.3);
+		// 			}
+		// 		}
+		// 	}
+		// }
 	}
 }
 </style>
