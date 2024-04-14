@@ -69,7 +69,7 @@ justifyContentValue = 'flex-start'
 	// left: 0;
 	width: 100%; 
 	height: 100%;
-	overflow: auto;
+	// overflow: auto;
 	.layout{
 		width: 100%;
 		display: flex;

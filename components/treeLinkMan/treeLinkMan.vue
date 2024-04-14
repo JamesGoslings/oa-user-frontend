@@ -2,7 +2,7 @@
 	<view class="tree">
 		<view class="linkManBarDetail" v-for="(item,index) in dataList" :key="index">
 			<view class="detailOne">
-				<view class="detailOneTxt" :style="{paddingLeft: (item.floor * 30) + 'rpx'}">{{item.deptName}}</view>
+				<view class="detailOneTxt" :style="{paddingLeft: (item.floor * 30) + 'rpx'}">{{numbers[item.floor] + ' ' + item.deptName}}</view>
 				<view class="icoDetail iconfont">
 					<text class="iconfont icoUp" v-if="!item.isChoose" @click="item.isChoose = !item.isChoose">
 						&#xe61d;
@@ -15,7 +15,7 @@
 			</view>
 			<view class="leaderMsg" v-if="item.isChoose" :style="{paddingLeft: (item.floor * 30) + 'rpx'}" @click="openLeaderPage(item.leader)">
 				<view class="iconfont leaderIco">&#xe68c;</view>
-				<text class="leaderLabel" v-if="item.deptName !== '总经理'">负责人</text>
+				<text class="leaderLabel" v-if="item.deptName !== '经理' && item.deptName !== '董事会'">负责人</text>
 				<text class="leaderLabel">{{item.leader.name}}</text>
 				<text class="leaderLabel">{{item.leader.phone}}</text>
 			</view>
@@ -26,6 +26,7 @@
 </template>
 
 <script setup>
+let numbers = ref(['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ','Ⅵ','Ⅶ','Ⅷ','Ⅸ','Ⅹ','Ⅺ','Ⅻ'])
 defineProps({
 	dataList: {
 		type: Array,
@@ -50,18 +51,22 @@ function openLeaderPage(leader){
 	.linkManBarDetail{
 		width: 100%;
 		height: 5%;
+		// height: 100rpx;
 		// margin-top: 10rpx;
 		// margin-bottom: 10rpx;
 		margin-bottom: 5rpx;
 		.detailOne{
+			padding: 15rpx 0;
 			width: 100%;
 			height: 100%;
+			font-size: 35rpx;
 			background: rgba(255,255,255, 0.8);
 			display: flex;
 			// border: #c4c4c4 1rpx solid;
 			.detailOneTxt{
 				// padding-left: 20rpx;
-				width: 30%;
+				// width: 30%;
+				width: 100%;
 				// height: 100%;
 				color: #6d6d6d;
 				margin-left: 100rpx;
@@ -79,6 +84,7 @@ function openLeaderPage(leader){
 		.leaderMsg{
 			width: 100%;
 			height: 100%;
+			padding: 10rpx 0;
 			background: rgba(255,255,255, 0.8);
 			display: flex;
 			align-items: center;
@@ -89,9 +95,11 @@ function openLeaderPage(leader){
 				font-size: 50rpx;
 			}
 			.leaderLabel{
-				font-size: 28rpx;
+				// font-size: 28rpx;
+				font-size: 32rpx;
 				padding-left: 50rpx;
-				color: #6d6d6d;
+				// color: #6d6d6d;
+				color: #aa0000;
 			}
 		}
 	}

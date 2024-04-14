@@ -25,6 +25,7 @@
 			<treeLinkMan :dataList="linkManBarDetail" v-if="item.isChoose && index === 0"></treeLinkMan>			
 		</view>
 	
+		<view class="fill"></view>
 		<loginFailPopup></loginFailPopup>
 	</view>
 </template>
@@ -113,9 +114,11 @@ onShow(()=>{
 	}
 	.linkManModule{
 		margin-bottom: 10rpx;
+		// height: 10%;
 		.linkManBar{
 			width: 100%;
-			height: 5%;
+			// height: 5%;
+			padding: 5% 0 ;
 			background: #fff;
 			border-radius: 20rpx;
 			display: flex;
@@ -139,6 +142,9 @@ onShow(()=>{
 				}
 			}
 		}
+	}
+	.fill{
+		height: 10%;
 	}
 }
 </style>
