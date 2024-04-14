@@ -46,6 +46,7 @@ function openLeaderPage(leader){
 <style lang="scss" scoped>
 @import url(@/static/font/iconfont.css);
 .tree{
+	overflow: hidden;
 	.linkManBarDetail{
 		width: 100%;
 		height: 5%;

@@ -49,6 +49,7 @@
 
 <script setup>
 import { callWithErrorHandling } from 'vue';
+import { getLinkManListInfo } from '../../api/telep';
 let teleHead = ref({title:"通讯录",fun:"0",color:"#FFF"})
 let isChoose  = ref(false)
 let linkManBarMsg = ref([
@@ -65,108 +66,7 @@ let linkManBarMsg = ref([
 		isChoose: false
 	}
 ])
-let linkManBarDetail = ref([
-	{
-		deptName: '总经理',
-		leader: {
-			name: '李四',
-			phone: '10086',
-			post: '总经理'
-		},
-		isChoose: false,
-		children:[]
-	},
-	{
-		deptName: '研发中心',
-		leader:{
-			name: '李四',
-			phone: '10086',
-			post: '研发部经理'
-		},
-		isChoose: false,
-		floor: 0,
-		children:[
-			{
-				deptName: '产品研发部',
-				leader:{
-					name: '李四',
-					phone: '10086',
-					post: '产品经理'
-				},
-				isChoose: false,
-				floor: 1,
-				children:[]
-			},
-			{
-				deptName: '运维部',
-				leader:{
-					name: '李四',
-					phone: '10086',
-					psot: '运维经理'
-				},
-				isChoose: false,
-				floor: 1,
-				children:[
-					{
-						deptName: '运维支部1',
-						leader:{
-							name: '李四',
-							phone: '10086',
-							post: '运维一支部经理'
-						},
-						isChoose: false,
-						floor: 2,
-						children:[]
-					},
-					{
-						deptName: '运维支部2',
-						leader:{
-							name: '李四',
-							phone: '10086',
-							post: '运维二支部经理'
-						},
-						isChoose: false,
-						floor: 2,
-						children:[]
-					}
-				]
-			},
-			{
-				deptName: '平台运营部',
-				leader:{
-					name: '李四',
-					phone: '10086',
-					post: '平台运营经理'
-				},
-				isChoose: false,
-				floor: 1,
-				children:[]
-			}
-		]
-	},
-	{
-		deptName: '营销中心',
-		leader:{
-			name: '李四',
-			phone: '10086',
-			post: '营销部经理'
-		},
-		isChoose: false,
-		floor: 0,
-		children:[]
-	},
-	{
-		deptName: '行政中心',
-		leader:{
-			name: '李四',
-			phone: '10086',
-			post: '行政中心经理'
-		},
-		isChoose: false,
-		floor: 0,
-		children:[]
-	}
-])
+let linkManBarDetail = ref([])
 function goSearch(){
 	uni.navigateTo({
 		url:'/pages/searchLinkMan/searchLinkMan'
@@ -176,6 +76,16 @@ function openLinkManList(item){
 	item.isChoose = !item.isChoose
 	// console.log(linkManBarMsg.value.length);
 }
+const linkManInfo = async ()=>{
+	let {data:{data}} = await getLinkManListInfo()
+	console.log("==============LinkManListData=================");
+	console.log(data);
+	console.log("==============LinkManListData=================");
+	linkManBarDetail.value = data
+}
+onShow(()=>{
+	linkManInfo()
+})
 
 </script>
 
