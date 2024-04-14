@@ -29,7 +29,7 @@ const openPopup = ()=>{
 const checkLogin = async()=>{
 	let myToken = uni.getStorageSync('token')
 	if(myToken !== "" && myToken !== null){
-		console.log("有token,值为: " + myToken);
+		// console.log("有token,值为: " + myToken);
 		return;
 	}
 	console.log("mytoken==>");

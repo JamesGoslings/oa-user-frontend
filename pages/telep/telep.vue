@@ -77,7 +77,7 @@ const privateLinkManList = async ()=>{
 	// console.log("==============LinkManListData2=================");
 	privateLinkManBarDetail.value = data
 }
-let isShow = true 
+let isShow = true
 onShow(()=>{
 	if(isShow){
 		linkManInfo()
