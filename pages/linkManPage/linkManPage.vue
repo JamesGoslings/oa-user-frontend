@@ -8,7 +8,7 @@
 			</view>
 			<view class="avatarView">
 				<view class="avatar">
-					<image class="avatarImg" src="../../static/image/logo.png" mode="aspectFill"></image>
+					<image class="avatarImg" :src="linkManAvatar" mode="aspectFill"></image>
 				</view>
 			</view>
 		</view>
@@ -33,6 +33,15 @@ let linkMan = ref(uni.getStorageSync('linkMan'))
 function goBack(){
 	uni.navigateBack()
 }
+let linkManAvatar = ref('/static/image/logo.png')
+function setLinkManAvatar(){
+	let url = linkMan.value.avatarUrl
+	if(url === null || url === ''){
+		return;
+	}
+	linkManAvatar.value = url
+}
+setLinkManAvatar()
 function call(){
 	uni.makePhoneCall({
 		phoneNumber: linkMan.value.phone,

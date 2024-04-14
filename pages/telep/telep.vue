@@ -83,8 +83,12 @@ const linkManInfo = async ()=>{
 	console.log("==============LinkManListData=================");
 	linkManBarDetail.value = data
 }
+let isShow = true 
 onShow(()=>{
-	linkManInfo()
+	if(isShow){
+		linkManInfo()
+		isShow = false
+	}
 })
 
 </script>
