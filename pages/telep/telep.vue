@@ -22,25 +22,7 @@
 				</view>
 			</view>
 			
-			<treeLinkMan :dataList="linkManBarDetail" v-if="item.isChoose && index === 0"></treeLinkMan>
-
-<!-- 			<view class="linkManBarDetail" v-if="item.isChoose">
-				<view class="detailOne" v-if="index === 0" v-for="(it,i) in linkManBarDetail" :key="i">
-					<view class="detailOneTxt">{{it.deptName}}</view>
-					<view class="icoDetail iconfont">
-						<text class="iconfont icoUp" v-if="!it.isChoose" @click="openLinkManList(it)">
-							&#xe61d;
-						</text>
-						<text class="iconfont icoUp" v-else  @click="it.isChoose = !it.isChoose"
-						style="-moz-transform: rotate(90deg);-webkit-transform: rotate(90deg);">
-							&#xe61d;
-						</text>
-					</view>
-					
-				</view>
-			</view> -->
-	
-			
+			<treeLinkMan :dataList="linkManBarDetail" v-if="item.isChoose && index === 0"></treeLinkMan>			
 		</view>
 	
 		<loginFailPopup></loginFailPopup>
@@ -157,36 +139,6 @@ onShow(()=>{
 				}
 			}
 		}
-		// .linkManBarDetail{
-		// 	width: 100%;
-		// 	height: 5%;
-		// 	margin-top: 10rpx;
-		// 	margin-bottom: 10rpx;
-		// 	.detailOne{
-		// 		width: 100%;
-		// 		height: 100%;
-		// 		background: rgba(255,255,255, 0.8);
-		// 		display: flex;
-		// 		margin-top: 2rpx;
-		// 		margin-bottom: 2rpx;
-		// 		// border: #c4c4c4 1rpx solid;
-		// 		.detailOneTxt{
-		// 			width: 20%;
-		// 			// height: 100%;
-		// 			color: #6d6d6d;
-		// 			margin-left: 100rpx;
-		// 		}
-		// 		.icoDetail{
-		// 			width: 65%;
-		// 			float: right;
-		// 			.icoUp{
-		// 				font-size: 50rpx;
-		// 				float: right;
-		// 				color: rgba(0,0,0,0.3);
-		// 			}
-		// 		}
-		// 	}
-		// }
 	}
 }
 </style>
