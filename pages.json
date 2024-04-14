@@ -68,6 +68,14 @@
 				"navigationBarTitleText" : "linkManPage",
 				"enablePullDownRefresh" : false
 			}
+		},
+		{
+			"path" : "pages/editLinkManPage/editLinkManPage",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
 		}
 	],
 	"globalStyle": {

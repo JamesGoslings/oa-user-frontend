@@ -9,7 +9,9 @@
 		</view>
 		<view class="linkManModule" v-for="(item,index) in linkManBarMsg" :key="index">
 			<view class="linkManBar">
-				<view class="iconfont linkIco">&#xe623;</view>
+				<view class="iconfont linkIco" v-if="index === 0">&#xe623;</view>
+				<view class="iconfont linkIco" v-else-if="index === 1">&#xe601;</view>
+				<view class="iconfont linkIco" v-else-if="index === 2">&#xec93;</view>
 				<view class="topLinkTxt">{{item.topLinkTxt}}</view>
 				<view class="menuIco iconfont">
 					<text class="iconfont aIco" v-if="!item.isChoose" @click="openLinkManList(item)">
@@ -23,8 +25,8 @@
 			</view>
 			
 			<treeLinkMan :dataList="linkManBarDetail" v-if="item.isChoose && index === 0"></treeLinkMan>			
+			<privateLinkMan :dataList="privateLinkManBarDetail" v-else-if="item.isChoose && index === 1"></privateLinkMan>
 		</view>
-	
 		<view class="fill"></view>
 		<loginFailPopup></loginFailPopup>
 	</view>
@@ -32,7 +34,11 @@
 
 <script setup>
 import { callWithErrorHandling } from 'vue';
-import { getLinkManListInfo } from '../../api/telep';
+import { getLinkManListInfo } from '@/api/telep/telep.js'
+import { getPrivateLinkManList } from '@/api/privateLinkMan/privateLinkMan';
+
+let icoStr = ref('&#xe607;')
+
 let teleHead = ref({title:"通讯录",fun:"0",color:"#FFF"})
 let isChoose  = ref(false)
 let linkManBarMsg = ref([
@@ -50,6 +56,7 @@ let linkManBarMsg = ref([
 	}
 ])
 let linkManBarDetail = ref([])
+let privateLinkManBarDetail = ref([])
 function goSearch(){
 	uni.navigateTo({
 		url:'/pages/searchLinkMan/searchLinkMan'
@@ -61,15 +68,20 @@ function openLinkManList(item){
 }
 const linkManInfo = async ()=>{
 	let {data:{data}} = await getLinkManListInfo()
-	console.log("==============LinkManListData=================");
-	console.log(data);
-	console.log("==============LinkManListData=================");
 	linkManBarDetail.value = data
+}
+const privateLinkManList = async ()=>{
+	let {data:{data}} = await getPrivateLinkManList()
+	// console.log("==============LinkManListData2=================");
+	// console.log(data);
+	// console.log("==============LinkManListData2=================");
+	privateLinkManBarDetail.value = data
 }
 let isShow = true 
 onShow(()=>{
 	if(isShow){
 		linkManInfo()
+		privateLinkManList()
 		isShow = false
 	}
 })

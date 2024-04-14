@@ -5,6 +5,9 @@
 				<view class="btn iconfont" @click="goBack()">
 					&#xe604;
 				</view>
+				<view class="btn editBtn iconfont" @click="goEdit()" v-if="detail.typeId === 2">
+					&#xe602;
+				</view>
 			</view>
 			<view class="avatarView">
 				<view class="avatar">
@@ -16,27 +19,41 @@
 			<text>{{linkMan.name}}</text>
 		</view>
 		<uni-list :border="false">
-			<uni-list-item :title="linkMan.post" note="联系人职位"></uni-list-item>
+			<uni-list-item :title="linkMan.post" note="联系人职位" v-if="detail.typeId === 1"></uni-list-item>
+			<uni-list-item :title="linkMan.relationship" note="关系" v-else-if="detail.typeId === 2" :border="false"></uni-list-item>
 			<uni-list-item :title="linkMan.phone" note="联系人手机号码">
 				<template v-slot:footer>
 					<view class="iconfont phoneIco" @click="call()">&#xe610;</view>
 				</template>
 			</uni-list-item>
-			<uni-list-item title="公司通讯录" note="当前通讯录"></uni-list-item>
+			<uni-list-item :title="linkMan.createTime" note="创建时间" v-if="detail.typeId === 2"></uni-list-item>
+			<uni-list-item :title="detail.typeName" note="当前通讯录"></uni-list-item>
 		</uni-list>
+		<loginFailPopup></loginFailPopup>
 	</view>
 
 </template>
 
 <script setup>
-let linkMan = ref(uni.getStorageSync('linkMan'))
+let detail = ref(uni.getStorageSync('linkManDetail'))
+let linkMan = ref(detail.value.linkMan)
 function goBack(){
 	uni.navigateBack()
 }
-let linkManAvatar = ref('/static/image/logo.png')
+function goEdit(){
+	uni.navigateTo({
+		url: '/pages/editLinkManPage/editLinkManPage'
+	})
+}
+
+let linkManAvatar = ref('/static/image/default_avatar.png')
 function setLinkManAvatar(){
+	if(detail.value.typeId === 2){
+		linkManAvatar.value = '/static/image/logo.png'
+		return;
+	}
 	let url = linkMan.value.avatarUrl
-	if(url === null || url === ''){
+	if(url === undefined || url === null || url === ''){
 		return;
 	}
 	linkManAvatar.value = url
@@ -80,6 +97,7 @@ function call(){
 			// border: #000 1rpx solid;
 			display: flex;
 			align-items: center;
+			justify-content: space-between;
 			.btn{
 				width: 70rpx;
 				height: 70rpx;
@@ -91,6 +109,10 @@ function call(){
 				justify-content: center;
 				font-size: 40rpx;
 				color: rgba(0,0,0,0.5);
+			}
+			.editBtn{
+				margin-right: 20rpx;
+				display: flex;
 			}
 			
 		}

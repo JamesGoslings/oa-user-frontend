@@ -1,4 +1,5 @@
-import { request } from "../utils/common_utils/request";
+// import { request } from "../utils/common_utils/request";
+import { request } from "/utils/common_utils/request"
 const telepUrl = '/admin/system/dept/'
 
 export function getLinkManListInfo(){

@@ -37,7 +37,9 @@ defineProps({
 })
 
 function openLeaderPage(leader){
-	uni.setStorageSync('linkMan',leader)
+	// uni.setStorageSync('linkMan',leader)
+	let linkManDetail = {linkMan: leader,typeId: 1,typeName: '公司通讯录'}
+	uni.setStorageSync('linkManDetail',linkManDetail)
 	uni.navigateTo({
 		url:'/pages/linkManPage/linkManPage'
 	})
@@ -50,7 +52,7 @@ function openLeaderPage(leader){
 	overflow: hidden;
 	.linkManBarDetail{
 		width: 100%;
-		height: 5%;
+		// height: 5%;
 		// height: 100rpx;
 		// margin-top: 10rpx;
 		// margin-bottom: 10rpx;
