@@ -9,9 +9,7 @@
 		</view>
 		<view class="linkManModule" v-for="(item,index) in linkManBarMsg" :key="index">
 			<view class="linkManBar">
-				<view class="iconfont linkIco" v-if="index === 0">&#xe623;</view>
-				<view class="iconfont linkIco" v-else-if="index === 1">&#xe601;</view>
-				<view class="iconfont linkIco" v-else-if="index === 2">&#xec93;</view>
+				<view class="iconfont linkIco" v-html="item.ico"></view>
 				<view class="topLinkTxt">{{item.topLinkTxt}}</view>
 				<view class="menuIco iconfont">
 					<text class="iconfont aIco" v-if="!item.isChoose" @click="openLinkManList(item)">
@@ -44,15 +42,18 @@ let isChoose  = ref(false)
 let linkManBarMsg = ref([
 	{
 		topLinkTxt: '公司通讯录',
-		isChoose: false
+		isChoose: false,
+		ico: '&#xe623;'
 	},
 	{
 		topLinkTxt: '个人通讯录',
-		isChoose: false
+		isChoose: false,
+		ico: '&#xe601;'
 	},
 	{
 		topLinkTxt: '公共通讯录',
-		isChoose: false
+		isChoose: false,
+		ico: '&#xec93;'
 	}
 ])
 let linkManBarDetail = ref([])
