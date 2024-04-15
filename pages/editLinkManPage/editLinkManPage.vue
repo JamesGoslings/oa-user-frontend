@@ -2,37 +2,85 @@
 	<view class="editLinkManSty">
 		<myHeader :head="head"></myHeader>
 		<view class="topbar">
-			<view class="iconfont topIco">&#xe647;</view>
+			<view class="iconfont topIco" @click="goBack()">&#xe647;</view>
 			<view class="topTxt">编辑联系人</view>
-			<view class="iconfont topIco">&#xe648;</view>
+			<view class="iconfont topIco" @click="submitMsg()">&#xe648;</view>
 		</view>
 		<view class="ico iconfont">&#xe60b;</view>
 		<view class="cards">
 			<view class="card" v-for="(item,index) in editMode" :key="index">
 				<view class="iconfont modeIco" v-html="item.ico"></view>
-				<input class="ipt" :placeholder="item.placeholder"/>
+				<input class="ipt" :placeholder="item.placeholder" v-model="linkMan[item.key]"/>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script setup>
+import { updatePrivateLinkMan } from '../../api/privateLinkMan/privateLinkMan';
 let head = ref({title:"",fun:"0",color:"#F5F5F5"})
-let iptSty = ref({width: "50rpx"})
+let linkMan = ref({id: 0,name: '',phone: '',relationship: ''})
+let nickName = ref({})
 let editMode = ref([
 	{
 		ico: '&#xe615;',
-		placeholder: '名称'
+		placeholder: '名称',
+		key: 'name'
 	},
 	{
 		ico: '&#xe6d0;',
-		placeholder: '电话号码'
+		placeholder: '电话号码',
+		key: 'phone'
 	},
 	{
 		ico: '&#xe63e;',
-		placeholder: '与联系人的关系'
+		placeholder: '与联系人的关系',
+		key: 'relationship'
 	}
-	])
+])
+
+onLoad(data=>{
+	linkMan.value = JSON.parse(data.originData)
+})
+
+const updateLinkManMsg = async()=>{
+	let {data:{code}} = await updatePrivateLinkMan(linkMan.value)
+	if(code === 200){
+		let detail = uni.getStorageSync('linkManDetail')
+		detail.linkMan = linkMan.value
+		uni.setStorageSync('linkManDetail',detail)
+		console.log('===========Detail============');
+		console.log(uni.getStorageSync('linkManDetail'));
+		console.log('===========Detail============');
+	}
+}
+
+function submitMsg(){
+	uni.showModal({
+		title:'是否保存修改',
+		success: res => {
+			if (res.confirm) {
+				console.log('用户点击确定');
+				updateLinkManMsg()
+				uni.navigateBack()
+			} else if (res.cancel) {
+				console.log('用户点击取消');
+			}
+		}
+	})
+}
+function goBack(){
+	uni.showModal({
+		title:'未保存修改是否退出',
+		success: res => {
+			if (res.confirm) {
+				uni.navigateBack()
+			} else if (res.cancel) {
+				console.log('用户点击取消~');
+			}
+		}
+	})
+}
 </script>
 
 <style lang="scss" scoped>
@@ -93,7 +141,8 @@ let editMode = ref([
 				display: flex;
 				align-items: center;
 				margin-left: 50rpx;
-				font-size: 40rpx;
+				font-size: 38rpx;
+				color: #3d3d3d;
 			}
 		}
 	}

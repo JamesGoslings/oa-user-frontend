@@ -8,7 +8,8 @@
     "pages/home/webview",
     "pages/login/login",
     "pages/searchLinkMan/searchLinkMan",
-    "pages/linkManPage/linkManPage"
+    "pages/linkManPage/linkManPage",
+    "pages/editLinkManPage/editLinkManPage"
   ],
   "window": {
     "navigationStyle": "custom",

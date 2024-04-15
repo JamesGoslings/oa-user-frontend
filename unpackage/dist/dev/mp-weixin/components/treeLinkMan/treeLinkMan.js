@@ -19,8 +19,10 @@ const _sfc_main = {
     }
   },
   setup(__props) {
+    let numbers = common_vendor.ref(["Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ", "Ⅴ", "Ⅵ", "Ⅶ", "Ⅷ", "Ⅸ", "Ⅹ", "Ⅺ", "Ⅻ"]);
     function openLeaderPage(leader) {
-      common_vendor.index.setStorageSync("linkMan", leader);
+      let linkManDetail = { linkMan: leader, typeId: 1, typeName: "公司通讯录" };
+      common_vendor.index.setStorageSync("linkManDetail", linkManDetail);
       common_vendor.index.navigateTo({
         url: "/pages/linkManPage/linkManPage"
       });
@@ -29,7 +31,7 @@ const _sfc_main = {
       return {
         a: common_vendor.f(__props.dataList, (item, index, i0) => {
           return common_vendor.e({
-            a: common_vendor.t(item.deptName),
+            a: common_vendor.t(common_vendor.unref(numbers)[item.floor] + " " + item.deptName),
             b: item.floor * 30 + "rpx",
             c: !item.isChoose
           }, !item.isChoose ? {
@@ -39,8 +41,8 @@ const _sfc_main = {
           }, {
             f: item.isChoose
           }, item.isChoose ? common_vendor.e({
-            g: item.deptName !== "总经理"
-          }, item.deptName !== "总经理" ? {} : {}, {
+            g: item.deptName !== "经理" && item.deptName !== "董事会"
+          }, item.deptName !== "经理" && item.deptName !== "董事会" ? {} : {}, {
             h: common_vendor.t(item.leader.name),
             i: common_vendor.t(item.leader.phone),
             j: item.floor * 30 + "rpx",

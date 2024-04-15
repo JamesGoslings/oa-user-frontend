@@ -11,6 +11,7 @@ if (!Math) {
   "./pages/login/login.js";
   "./pages/searchLinkMan/searchLinkMan.js";
   "./pages/linkManPage/linkManPage.js";
+  "./pages/editLinkManPage/editLinkManPage.js";
 }
 console.log("/???");
 const _sfc_main = {

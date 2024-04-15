@@ -1,7 +1,8 @@
 <template>
 	<view class="linkManPageSty">
 		<view class="pageTop">
-			<view class="backBtn">
+			<!-- <view class="fill" :style="{height: getTitleBarHeight() + statusBarHeight+'px' }"></view> -->
+			<view class="backBtn" :style="{justifyContent: justifyContentValue}">
 				<view class="btn iconfont" @click="goBack()">
 					&#xe604;
 				</view>
@@ -35,6 +36,15 @@
 </template>
 
 <script setup>
+import{statusBarHeight,getTitleBarHeight} from '@/utils/common_utils/system.js'
+
+//TODO 让h5和app端的头部图标位于最右，小程序中图标紧靠标题
+let justifyContentValue = 'space-between'
+// #ifdef MP
+justifyContentValue = 'flex-start'
+// #endif
+
+
 let detail = ref(uni.getStorageSync('linkManDetail'))
 let linkMan = ref(detail.value.linkMan)
 function goBack(){
@@ -42,7 +52,7 @@ function goBack(){
 }
 function goEdit(){
 	uni.navigateTo({
-		url: '/pages/editLinkManPage/editLinkManPage'
+		url: '/pages/editLinkManPage/editLinkManPage?originData=' + JSON.stringify(linkMan.value)
 	})
 }
 
@@ -126,8 +136,8 @@ function call(){
 			.avatar{
 				// width: 27%;
 				// height: 100%;
-				width: 200rpx;
-				height: 200rpx;
+				width: 250rpx;
+				height: 250rpx;
 				// background: gray;
 				background: #fff;
 				border-radius: 50%;

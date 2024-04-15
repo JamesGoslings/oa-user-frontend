@@ -30,62 +30,69 @@
        url('//at.alicdn.com/t/c/font_4494328_lbolix230lg.woff?t=1713106294734') format('woff'),
        url('//at.alicdn.com/t/c/font_4494328_lbolix230lg.ttf?t=1713106294734') format('truetype');
 }
-.iconfont.data-v-07e72d3c {
+.iconfont.data-v-7c733174 {
   font-family: "iconfont" !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-a-10daka.data-v-07e72d3c:before {
+.icon-a-10daka.data-v-7c733174:before {
   content: "\edba";
 }
-.globalMod.data-v-07e72d3c{
-	background-color: #F5F5F5;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%; 
-	height: 100%;
-	overflow: auto;
+.editLinkManSty.data-v-7c733174 {
+  background-color: #F5F5F5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
-.homeSty .logo.data-v-07e72d3c {
-  background: linear-gradient(to bottom, transparent, #fff 400rpx), linear-gradient(to right, #c4d0ec, #92b4f4);
-  height: 200rpx;
-  margin: 20rpx 50rpx;
-  border-radius: 40rpx;
-  align-items: center;
+.editLinkManSty .topbar.data-v-7c733174 {
+  width: 100%;
+  height: 8%;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.homeSty .logo .titleText.data-v-07e72d3c {
-  padding: 0rpx 60rpx;
-  color: #fff;
-}
-.homeSty .logo .titleText .mainText.data-v-07e72d3c {
-  font-size: 37rpx;
-}
-.homeSty .logo .titleText .aText.data-v-07e72d3c {
-  font-size: 28rpx;
-}
-.homeSty .logo .logoImg.data-v-07e72d3c {
-  width: 150rpx;
-  height: 150rpx;
-  border-radius: 50%;
-}
-.homeSty .funMode.data-v-07e72d3c {
-  margin-right: 15rpx;
-}
-.homeSty .funMode .modeOne.data-v-07e72d3c {
-  float: left;
-  width: 25%;
-  text-align: center;
-  padding-bottom: 20rpx;
-}
-.homeSty .funMode .modeOne .iconSize.data-v-07e72d3c {
+.editLinkManSty .topbar .topIco.data-v-7c733174 {
   font-size: 80rpx;
-  padding-bottom: 20rpx;
-  padding-top: 20rpx;
 }
-.homeSty .fill.data-v-07e72d3c {
-  height: 120rpx;
+.editLinkManSty .topbar .topTxt.data-v-7c733174 {
+  font-family: 幼圆;
+  font-size: 45rpx;
+}
+.editLinkManSty .ico.data-v-7c733174 {
+  padding-top: 40rpx;
+  padding-bottom: 30rpx;
+  width: 100%;
+  text-align: center;
+  font-size: 120rpx;
+}
+.editLinkManSty .cards.data-v-7c733174 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.editLinkManSty .cards .card.data-v-7c733174 {
+  width: 95%;
+  height: 200rpx;
+  margin-bottom: 60rpx;
+  background: #fff;
+  border-radius: 60rpx;
+  display: flex;
+  align-items: center;
+}
+.editLinkManSty .cards .card .modeIco.data-v-7c733174 {
+  margin-left: 40rpx;
+  font-size: 60rpx;
+}
+.editLinkManSty .cards .card .ipt.data-v-7c733174 {
+  width: 70%;
+  display: flex;
+  align-items: center;
+  margin-left: 50rpx;
+  font-size: 40rpx;
 }

@@ -23,7 +23,6 @@ const _sfc_main = {
     const checkLogin = async () => {
       let myToken = common_vendor.index.getStorageSync("token");
       if (myToken !== "" && myToken !== null) {
-        console.log("有token,值为: " + myToken);
         return;
       }
       console.log("mytoken==>");

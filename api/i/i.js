@@ -12,6 +12,8 @@ export function getUserInfo(){
 	return request({url:userUrl + 'userInfo',method:"POST"})
 }
 
+
+// 选择图片并且上传到后端，再接收后端返回的转成Base64字符串的url
 export function saveAndBackImg(userMsg) {
 	let tempFilePath = ''
 	uni.chooseImage({
