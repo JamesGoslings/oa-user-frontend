@@ -94,5 +94,6 @@
   display: flex;
   align-items: center;
   margin-left: 50rpx;
-  font-size: 40rpx;
+  font-size: 38rpx;
+  color: #3d3d3d;
 }

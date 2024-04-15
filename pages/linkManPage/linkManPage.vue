@@ -1,7 +1,9 @@
+
+<!--显示单个联系人具体信息的页面  -->
+
 <template>
 	<view class="linkManPageSty">
 		<view class="pageTop">
-			<!-- <view class="fill" :style="{height: getTitleBarHeight() + statusBarHeight+'px' }"></view> -->
 			<view class="backBtn" :style="{justifyContent: justifyContentValue}">
 				<view class="btn iconfont" @click="goBack()">
 					&#xe604;
@@ -44,9 +46,13 @@ let justifyContentValue = 'space-between'
 justifyContentValue = 'flex-start'
 // #endif
 
-
-let detail = ref(uni.getStorageSync('linkManDetail'))
-let linkMan = ref(detail.value.linkMan)
+let detail = ref({})
+let linkMan = ref({})
+onShow(()=>{
+	detail.value = uni.getStorageSync('linkManDetail')
+	linkMan.value = detail.value.linkMan
+	setLinkManAvatar()
+})
 function goBack(){
 	uni.navigateBack()
 }
@@ -68,7 +74,7 @@ function setLinkManAvatar(){
 	}
 	linkManAvatar.value = url
 }
-setLinkManAvatar()
+
 function call(){
 	uni.makePhoneCall({
 		phoneNumber: linkMan.value.phone,

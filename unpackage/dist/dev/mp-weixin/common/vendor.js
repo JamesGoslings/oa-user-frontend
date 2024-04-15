@@ -6879,6 +6879,7 @@ const createHook = (lifecycle) => (hook, target = getCurrentInstance()) => {
 };
 const onShow = /* @__PURE__ */ createHook(ON_SHOW);
 const onLoad = /* @__PURE__ */ createHook(ON_LOAD);
+const onUnload = /* @__PURE__ */ createHook(ON_UNLOAD);
 exports._export_sfc = _export_sfc;
 exports.createSSRApp = createSSRApp;
 exports.e = e;
@@ -6889,6 +6890,7 @@ exports.n = n;
 exports.o = o;
 exports.onLoad = onLoad;
 exports.onShow = onShow;
+exports.onUnload = onUnload;
 exports.p = p;
 exports.ref = ref;
 exports.resolveComponent = resolveComponent;

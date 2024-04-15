@@ -18,8 +18,13 @@ const _sfc_main = {
   setup(__props) {
     let justifyContentValue = "space-between";
     justifyContentValue = "flex-start";
-    let detail = common_vendor.ref(common_vendor.index.getStorageSync("linkManDetail"));
-    let linkMan = common_vendor.ref(detail.value.linkMan);
+    let detail = common_vendor.ref({});
+    let linkMan = common_vendor.ref({});
+    common_vendor.onShow(() => {
+      detail.value = common_vendor.index.getStorageSync("linkManDetail");
+      linkMan.value = detail.value.linkMan;
+      setLinkManAvatar();
+    });
     function goBack() {
       common_vendor.index.navigateBack();
     }
@@ -40,7 +45,6 @@ const _sfc_main = {
       }
       linkManAvatar.value = url;
     }
-    setLinkManAvatar();
     function call() {
       common_vendor.index.makePhoneCall({
         phoneNumber: linkMan.value.phone,

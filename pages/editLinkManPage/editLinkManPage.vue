@@ -20,7 +20,6 @@
 import { updatePrivateLinkMan } from '../../api/privateLinkMan/privateLinkMan';
 let head = ref({title:"",fun:"0",color:"#F5F5F5"})
 let linkMan = ref({id: 0,name: '',phone: '',relationship: ''})
-let nickName = ref({})
 let editMode = ref([
 	{
 		ico: '&#xe615;',
@@ -55,6 +54,18 @@ const updateLinkManMsg = async()=>{
 	}
 }
 
+// onBackPress( res =>{
+// 	console.log(res);
+// 	console.log('为什么不触发事件,cnm');
+// 	return true
+// })
+onUnload(res=>{
+	console.log('cnm,为什么不在当前页面就触发这个事件，之后触发有毛用');
+	console.log(res);
+	return true
+})
+
+
 function submitMsg(){
 	uni.showModal({
 		title:'是否保存修改',
@@ -69,6 +80,9 @@ function submitMsg(){
 		}
 	})
 }
+
+
+
 function goBack(){
 	uni.showModal({
 		title:'未保存修改是否退出',
