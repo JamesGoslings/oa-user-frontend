@@ -59,21 +59,24 @@ const updateLinkManMsg = async()=>{
 // 	console.log('为什么不触发事件,cnm');
 // 	return true
 // })
-onUnload(res=>{
-	console.log('cnm,为什么不在当前页面就触发这个事件，之后触发有毛用');
-	console.log(res);
-	return true
-})
+// onUnload(res=>{
+// 	console.log('cnm,为什么不在当前页面就触发这个事件，之后触发有毛用');
+// 	console.log(res);
+// 	return true
+// })
 
 
-function submitMsg(){
+const submitMsg = async ()=>{
 	uni.showModal({
 		title:'是否保存修改',
 		success: res => {
 			if (res.confirm) {
 				console.log('用户点击确定');
-				updateLinkManMsg()
-				uni.navigateBack()
+				updateLinkManMsg().then(()=>{
+					uni.setStorageSync('isShowTelePage',true)
+					uni.navigateBack()
+				})
+				
 			} else if (res.cancel) {
 				console.log('用户点击取消');
 			}

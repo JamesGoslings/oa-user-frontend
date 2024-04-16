@@ -78,12 +78,14 @@ const privateLinkManList = async ()=>{
 	// console.log("==============LinkManListData2=================");
 	privateLinkManBarDetail.value = data
 }
-let isShow = true
+// let isShow = true
+uni.setStorageSync('isShowTelePage',true)
 onShow(()=>{
-	if(isShow){
+	if(uni.getStorageSync('isShowTelePage')){
 		linkManInfo()
 		privateLinkManList()
-		isShow = false
+		uni.setStorageSync('isShowTelePage',false)
+		// isShow = false
 	}
 })
 

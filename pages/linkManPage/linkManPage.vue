@@ -52,7 +52,27 @@ onShow(()=>{
 	detail.value = uni.getStorageSync('linkManDetail')
 	linkMan.value = detail.value.linkMan
 	setLinkManAvatar()
+	
+	console.log('OnShow执行了');
+	console.log('=============NEWDATA==============');
+	console.log(uni.getStorageSync('linkManDetail'));
+	console.log(linkMan.value);
+	console.log('=============NEWDATA==============');
+	
 })
+
+// onLoad( data =>{
+// 	detail.value = JSON.parse(data.linkManDetail)
+// 	linkMan.value = detail.value.linkMan
+// 	setLinkManAvatar()
+	
+// 	console.log('=============NEWDATA==============');
+// 	console.log(detail.value);
+// 	console.log(linkMan.value);
+// 	console.log('=============NEWDATA==============');
+	
+// })
+
 function goBack(){
 	uni.navigateBack()
 }

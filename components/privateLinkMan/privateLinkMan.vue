@@ -23,6 +23,7 @@ function goToDetailPage(linkMan){
 	uni.setStorageSync('linkManDetail',linkManDetail)
 	uni.navigateTo({
 		url: '/pages/linkManPage/linkManPage'
+		// url: '/pages/linkManPage/linkManPage?linkManDetail=' + JSON.stringify(linkManDetail)
 	})
 }
 </script>
