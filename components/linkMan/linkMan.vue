@@ -1,10 +1,10 @@
 <template>
 	<view class="privateLinkManSty">
-		<view @click="goToDetailPage(item)" class="privateLinkManOne" v-for="(item,index) in dataList" :key="index">
+		<view @click="goToDetailPage(item,myType)" class="privateLinkManOne" v-for="(item,index) in dataList" :key="index">
 			<view class="iconfont ico">&#xe68c;</view>
 			<view class="textMsg">{{item.name}}</view>
 			<view class="textMsg">{{item.phone}}</view>
-			<view class="textMsg">{{'( ' + item.relationship + ' )'}}</view>
+			<view class="textMsg" v-if="item.relationship !== undefined ">{{'( ' + item.relationship + ' )'}}</view>
 		</view>
 	</view>
 </template>
@@ -16,10 +16,17 @@ defineProps({
 		default(){
 			return []
 		}
+	},
+	myType: {
+		type: Object,
+		default(){
+			return {typeId: -1,typeName: ''}
+		}
 	}
 })
-function goToDetailPage(linkMan){
-	let linkManDetail = {linkMan: linkMan,typeId: 2,typeName: '个人通讯录'}
+function goToDetailPage(linkMan,myType){
+	// let linkManDetail = {linkMan: linkMan,typeId: 2,typeName: '个人通讯录'}
+	let linkManDetail = {linkMan: linkMan,typeId: myType.typeId,typeName: myType.typeName}
 	uni.setStorageSync('linkManDetail',linkManDetail)
 	uni.navigateTo({
 		url: '/pages/linkManPage/linkManPage'

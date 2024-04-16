@@ -22,8 +22,9 @@
 				</view>
 			</view>
 			
-			<treeLinkMan :dataList="linkManBarDetail" v-if="item.isChoose && index === 0"></treeLinkMan>			
-			<privateLinkMan :dataList="privateLinkManBarDetail" v-else-if="item.isChoose && index === 1"></privateLinkMan>
+			<treeLinkMan :dataList="item.detail" v-if="item.isChoose && index === 0"></treeLinkMan>
+			
+			<linkMan :dataList="item.detail" :myType="item.myType" v-else-if="item.isChoose && index > 0"></linkMan>
 		</view>
 		<view class="fill"></view>
 		<loginFailPopup></loginFailPopup>
@@ -33,7 +34,8 @@
 <script setup>
 import { callWithErrorHandling } from 'vue';
 import { getLinkManListInfo } from '@/api/telep/telep.js'
-import { getPrivateLinkManList } from '@/api/privateLinkMan/privateLinkMan';
+// import { getPrivateLinkManList } from '@/api/privateLinkMan/privateLinkMan';
+import { getPrivateLinkManList,getPublicLinkManList } from '@/api/linkMan/linkMan';
 
 let icoStr = ref('&#xe607;')
 
@@ -43,21 +45,27 @@ let linkManBarMsg = ref([
 	{
 		topLinkTxt: '公司通讯录',
 		isChoose: false,
-		ico: '&#xe623;'
+		ico: '&#xe623;',
+		myType: {},
+		detail: []
 	},
 	{
 		topLinkTxt: '个人通讯录',
 		isChoose: false,
-		ico: '&#xe601;'
+		ico: '&#xe601;',
+		myType: {typeId: 2, typeName: '个人通讯录'},
+		detail: []
 	},
 	{
 		topLinkTxt: '公共通讯录',
 		isChoose: false,
-		ico: '&#xec93;'
+		ico: '&#xec93;',
+		myType: {typeId: 3, typeName: '公共通讯录'},
+		detail: []
 	}
 ])
-let linkManBarDetail = ref([])
-let privateLinkManBarDetail = ref([])
+// let linkManBarDetail = ref([])
+// let privateLinkManBarDetail = ref([])
 function goSearch(){
 	uni.navigateTo({
 		url:'/pages/searchLinkMan/searchLinkMan'
@@ -69,23 +77,30 @@ function openLinkManList(item){
 }
 const linkManInfo = async ()=>{
 	let {data:{data}} = await getLinkManListInfo()
-	linkManBarDetail.value = data
+	// linkManBarDetail.value = data
+	linkManBarMsg.value[0].detail = data
 }
+
+// 从后台获取全部的个人联系人的列表
 const privateLinkManList = async ()=>{
 	let {data:{data}} = await getPrivateLinkManList()
-	// console.log("==============LinkManListData2=================");
-	// console.log(data);
-	// console.log("==============LinkManListData2=================");
-	privateLinkManBarDetail.value = data
+	// privateLinkManBarDetail.value = data
+	linkManBarMsg.value[1].detail = data
 }
-// let isShow = true
+
+const publicLinkManList = async ()=>{
+	let {data:{data}} = await getPublicLinkManList()
+	linkManBarMsg.value[2].detail = data
+}
+
+// 设置isShowTelePage缓存来确定该页面是否需要重新加载（减少资源消耗）
 uni.setStorageSync('isShowTelePage',true)
 onShow(()=>{
 	if(uni.getStorageSync('isShowTelePage')){
 		linkManInfo()
 		privateLinkManList()
+		publicLinkManList()
 		uni.setStorageSync('isShowTelePage',false)
-		// isShow = false
 	}
 })
 

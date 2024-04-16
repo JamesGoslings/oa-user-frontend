@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { updatePrivateLinkMan } from '../../api/privateLinkMan/privateLinkMan';
+import { updatePrivateLinkMan } from '@/api/linkMan/linkMan';
 let head = ref({title:"",fun:"0",color:"#F5F5F5"})
 let linkMan = ref({id: 0,name: '',phone: '',relationship: ''})
 let editMode = ref([
