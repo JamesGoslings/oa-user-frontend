@@ -8,20 +8,36 @@ if (!Array) {
   const _easycom_myHeader2 = common_vendor.resolveComponent("myHeader");
   const _easycom_treeLinkMan2 = common_vendor.resolveComponent("treeLinkMan");
   const _easycom_linkMan2 = common_vendor.resolveComponent("linkMan");
+  const _easycom_uni_fab2 = common_vendor.resolveComponent("uni-fab");
   const _easycom_loginFailPopup2 = common_vendor.resolveComponent("loginFailPopup");
-  (_easycom_myHeader2 + _easycom_treeLinkMan2 + _easycom_linkMan2 + _easycom_loginFailPopup2)();
+  (_easycom_myHeader2 + _easycom_treeLinkMan2 + _easycom_linkMan2 + _easycom_uni_fab2 + _easycom_loginFailPopup2)();
 }
 const _easycom_myHeader = () => "../../components/myHeader/myHeader.js";
 const _easycom_treeLinkMan = () => "../../components/treeLinkMan/treeLinkMan.js";
 const _easycom_linkMan = () => "../../components/linkMan/linkMan.js";
+const _easycom_uni_fab = () => "../../uni_modules/uni-fab/components/uni-fab/uni-fab.js";
 const _easycom_loginFailPopup = () => "../../components/loginFailPopup/loginFailPopup.js";
 if (!Math) {
-  (_easycom_myHeader + _easycom_treeLinkMan + _easycom_linkMan + _easycom_loginFailPopup)();
+  (_easycom_myHeader + _easycom_treeLinkMan + _easycom_linkMan + _easycom_uni_fab + _easycom_loginFailPopup)();
 }
 const _sfc_main = {
   __name: "telep",
   setup(__props) {
-    common_vendor.ref("&#xe607;");
+    let isShowFab = common_vendor.ref(true);
+    let menus = common_vendor.ref([
+      {
+        iconPath: "http://picture.gptkong.com/images/d8e7aa93d72f40baa50a7984def4aecc.png",
+        text: "搜索"
+      },
+      {
+        iconPath: "http://picture.gptkong.com/images/3ef797faa49f40f1932aabc738b902c1.png",
+        text: "新建"
+      },
+      {
+        iconPath: "http://picture.gptkong.com/images/28596118e63848d8b5bef54f0b70d788.png",
+        text: "隐藏"
+      }
+    ]);
     let teleHead = common_vendor.ref({ title: "通讯录", fun: "0", color: "#FFF" });
     common_vendor.ref(false);
     let linkManBarMsg = common_vendor.ref([
@@ -47,6 +63,21 @@ const _sfc_main = {
         detail: []
       }
     ]);
+    function trigger(e) {
+      console.log(e.index);
+      const i = e.index;
+      if (i === 0) {
+        common_vendor.index.navigateTo({
+          url: "/pages/searchLinkMan/searchLinkMan"
+        });
+      } else if (i === 1) {
+        common_vendor.index.navigateTo({
+          url: "/pages/editLinkManPage/editLinkManPage"
+        });
+      } else if (i == 2) {
+        isShowFab.value = false;
+      }
+    }
     function goSearch() {
       common_vendor.index.navigateTo({
         url: "/pages/searchLinkMan/searchLinkMan"
@@ -77,7 +108,7 @@ const _sfc_main = {
       }
     });
     return (_ctx, _cache) => {
-      return {
+      return common_vendor.e({
         a: common_vendor.p({
           head: common_vendor.unref(teleHead)
         }),
@@ -105,8 +136,17 @@ const _sfc_main = {
             h: item.isChoose && index > 0,
             k: index
           });
+        }),
+        d: common_vendor.unref(isShowFab)
+      }, common_vendor.unref(isShowFab) ? {
+        e: common_vendor.o(trigger),
+        f: common_vendor.p({
+          horizontal: "right",
+          content: common_vendor.unref(menus)
         })
-      };
+      } : {
+        g: common_vendor.o(($event) => common_vendor.isRef(isShowFab) ? isShowFab.value = true : isShowFab = true)
+      });
     };
   }
 };

@@ -101,6 +101,7 @@
   height: 6%;
   display: flex;
   justify-content: center;
+  margin-bottom: 80rpx;
 }
 .all .content .iptAll .ipt.data-v-7ad502e0 {
   background: #FFF;
@@ -139,4 +140,47 @@
 }
 .all .content .iptAll .ipt .btn .btn_a.data-v-7ad502e0 {
   background: #52a6ff;
+}
+.all .content .linkManBarAll.data-v-7ad502e0 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 50rpx;
+}
+.all .content .linkManBarAll .linkManBarOne.data-v-7ad502e0 {
+  width: 98%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  box-shadow: 0 0 5px 1px #999;
+  border-radius: 10rpx;
+  margin-bottom: 50rpx;
+}
+.all .content .linkManBarAll .linkManBarOne .card.data-v-7ad502e0 {
+  width: 100%;
+  background: #fff;
+  height: 120rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  display: flex;
+  align-items: center;
+}
+.all .content .linkManBarAll .linkManBarOne .card .linkManIco.data-v-7ad502e0 {
+  font-size: 70rpx;
+}
+.all .content .linkManBarAll .linkManBarOne .card .textMsg.data-v-7ad502e0 {
+  padding-left: 50rpx;
+}
+.all .content .linkManBarAll .linkManBarOne .linkManBar.data-v-7ad502e0 {
+  width: 100%;
+  height: 50rpx;
+  background: #eeeeee;
+}
+.all .content .linkManBarAll .linkManBarOne .linkManBar .barTxt.data-v-7ad502e0 {
+  margin-left: 20rpx;
+}
+.all .content .fillBottom.data-v-7ad502e0 {
+  width: 100%;
+  height: 10%;
 }

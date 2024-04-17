@@ -23,7 +23,13 @@ const _sfc_main = {
   __name: "i",
   setup(__props) {
     let iHead = common_vendor.ref({ title: "我的", fun: "2" });
-    let userMsg = common_vendor.ref({ name: "未登录", avatar: "/static/image/default_avatar.png" });
+    let userMsg = common_vendor.ref(
+      {
+        name: "未登录",
+        avatar: "/static/image/default_avatar.png",
+        post: ""
+      }
+    );
     const test = async () => {
       let { data: { data } } = await api_i_i.getUserInfo();
       console.log("===========DATA===========");
@@ -40,6 +46,7 @@ const _sfc_main = {
     function info() {
       let userInfo = common_vendor.index.getStorageSync("userMsg");
       userMsg.value.name = userInfo.name;
+      userMsg.value.post = userInfo.post;
       let url = userMsg.value.avatar;
       if (url === null || url === "") {
         return;
@@ -52,6 +59,11 @@ const _sfc_main = {
         index: 2
       });
     });
+    function goUserDetailPage() {
+      common_vendor.index.navigateTo({
+        url: "/pages/userDetail/userDetail"
+      });
+    }
     return (_ctx, _cache) => {
       return {
         a: common_vendor.p({
@@ -60,26 +72,28 @@ const _sfc_main = {
         b: common_vendor.unref(userMsg).avatar,
         c: common_vendor.o(($event) => changeAvatar()),
         d: common_vendor.t(common_vendor.unref(userMsg).name),
-        e: common_vendor.p({
+        e: common_vendor.t(common_vendor.unref(userMsg).post),
+        f: common_vendor.o(($event) => goUserDetailPage()),
+        g: common_vendor.p({
           margin: "50rpx"
         }),
-        f: common_vendor.p({
+        h: common_vendor.p({
           showArrow: true
         }),
-        g: common_vendor.p({
-          showArrow: true,
-          border: false
-        }),
-        h: common_vendor.o(($event) => test()),
         i: common_vendor.p({
           showArrow: true,
           border: false
         }),
-        j: common_vendor.p({
+        j: common_vendor.o(($event) => test()),
+        k: common_vendor.p({
           showArrow: true,
           border: false
         }),
-        k: common_vendor.p({
+        l: common_vendor.p({
+          showArrow: true,
+          border: false
+        }),
+        m: common_vendor.p({
           border: false
         })
       };

@@ -102,6 +102,15 @@
 .teleSty .linkManModule .linkManBar .menuIco .aIco.data-v-2f532b38 {
   float: right;
 }
+.teleSty .hideFab.data-v-2f532b38 {
+  position: fixed;
+  right: 0rpx;
+  bottom: 22%;
+  width: 20rpx;
+  height: 120rpx;
+  border-radius: 20rpx;
+  background: #007aff;
+}
 .teleSty .fill.data-v-2f532b38 {
   height: 10%;
 }

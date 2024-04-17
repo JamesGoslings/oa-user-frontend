@@ -1,0 +1,1 @@
+<view class="userDetailSty"><my-header u-i="bd95e196-0" bind:__l="__l"></my-header> 用户详情页 </view>

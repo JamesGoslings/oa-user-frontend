@@ -12,6 +12,7 @@ if (!Math) {
   "./pages/searchLinkMan/searchLinkMan.js";
   "./pages/linkManPage/linkManPage.js";
   "./pages/editLinkManPage/editLinkManPage.js";
+  "./pages/userDetail/userDetail.js";
 }
 console.log("/???");
 const _sfc_main = {

@@ -3,8 +3,8 @@
 		<myHeader :head="head"></myHeader>
 		<view class="topbar">
 			<view class="iconfont topIco" @click="goBack()">&#xe647;</view>
-			<view class="topTxt">编辑联系人</view>
-			<view class="iconfont topIco" @click="submitMsg()">&#xe648;</view>
+			<view class="topTxt">{{pageTextMsg[funIndex].topText}}</view>
+			<view class="iconfont topIco" @click="submitMsg(pageTextMsg[funIndex].isUpdate)">&#xe648;</view>
 		</view>
 		<view class="ico iconfont">&#xe60b;</view>
 		<view class="cards">
@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { updatePrivateLinkMan } from '@/api/linkMan/linkMan';
+import { updatePrivateLinkMan, savePrivateLinkMan } from '@/api/linkMan/linkMan';
 let head = ref({title:"",fun:"0",color:"#F5F5F5"})
 let linkMan = ref({id: 0,name: '',phone: '',relationship: ''})
 let editMode = ref([
@@ -38,8 +38,24 @@ let editMode = ref([
 	}
 ])
 
+let pageTextMsg = ref([
+	{
+		topText: '编辑联系人',
+		isUpdate: true
+	},
+	{
+		topText: '新建联系人',
+		isUpdate: false
+	}
+])
+let funIndex = ref(0)
 onLoad(data=>{
-	linkMan.value = JSON.parse(data.originData)
+	const originData = data.originData
+	if(originData === undefined){
+		funIndex.value = 1
+		return;
+	}
+	linkMan.value = JSON.parse(originData)
 })
 
 const updateLinkManMsg = async()=>{
@@ -54,6 +70,11 @@ const updateLinkManMsg = async()=>{
 	}
 }
 
+const saveLinkManMsg = async()=>{
+	let {data} = await savePrivateLinkMan(linkMan.value)
+	console.log(data);
+}
+
 // onBackPress( res =>{
 // 	console.log(res);
 // 	console.log('为什么不触发事件,cnm');
@@ -66,13 +87,22 @@ const updateLinkManMsg = async()=>{
 // })
 
 
-const submitMsg = async ()=>{
+const submitMsg = async (isUpdate)=>{
+	
+	let title = isUpdate ? '是否保存修改' : '是否新建联系人'
+	
 	uni.showModal({
-		title:'是否保存修改',
+		title: title,
 		success: res => {
 			if (res.confirm) {
 				console.log('用户点击确定');
-				updateLinkManMsg().then(()=>{
+				if(isUpdate){
+					updateLinkManMsg().then(()=>{
+						uni.setStorageSync('isShowTelePage',true)
+						uni.navigateBack()
+					})
+				}
+				saveLinkManMsg().then(()=>{
 					uni.setStorageSync('isShowTelePage',true)
 					uni.navigateBack()
 				})

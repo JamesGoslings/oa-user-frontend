@@ -1,15 +1,36 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const utils_common_utils_system = require("../../utils/common_utils/system.js");
+const api_linkMan_linkMan = require("../../api/linkMan/linkMan.js");
+require("../../utils/common_utils/request.js");
+require("../../utils/common_utils/common.js");
 const _sfc_main = {
   __name: "searchLinkMan",
   setup(__props) {
-    let iptValue = common_vendor.ref();
-    function search() {
+    let iptValue = common_vendor.ref("");
+    let linkManDetailData = common_vendor.ref([]);
+    const search = async () => {
       console.log(iptValue.value);
-    }
+      let { data: { data } } = await api_linkMan_linkMan.searchLinkManList(iptValue.value);
+      linkManDetailData.value = data;
+    };
     function goBack() {
       common_vendor.index.navigateBack();
+    }
+    common_vendor.onShow(() => {
+      if (iptValue.value !== "") {
+        search(iptValue.value);
+      }
+    });
+    function goDetailPage(linkMandetail) {
+      if (linkMandetail.typeId === 1) {
+        const leader = linkMandetail.leader;
+        linkMandetail.linkMan = leader;
+      }
+      common_vendor.index.setStorageSync("linkManDetail", linkMandetail);
+      common_vendor.index.navigateTo({
+        url: "/pages/linkManPage/linkManPage"
+      });
     }
     return (_ctx, _cache) => {
       return {
@@ -20,7 +41,26 @@ const _sfc_main = {
         e: common_vendor.unref(utils_common_utils_system.statusBarHeight) + common_vendor.unref(utils_common_utils_system.getTitleBarHeight)() + "px",
         f: common_vendor.unref(iptValue),
         g: common_vendor.o(($event) => common_vendor.isRef(iptValue) ? iptValue.value = $event.detail.value : iptValue = $event.detail.value),
-        h: common_vendor.o(($event) => search())
+        h: common_vendor.o(($event) => search()),
+        i: common_vendor.f(common_vendor.unref(linkManDetailData), (item, index, i0) => {
+          return common_vendor.e({
+            a: item.typeId === 1
+          }, item.typeId === 1 ? {
+            b: common_vendor.t(item.leader.name),
+            c: common_vendor.t(item.leader.phone)
+          } : {
+            d: common_vendor.t(item.linkMan.name),
+            e: common_vendor.t(item.linkMan.phone)
+          }, {
+            f: common_vendor.t(item.typeName),
+            g: item.deptName !== void 0 && item.deptName !== null && item.deptName !== ""
+          }, item.deptName !== void 0 && item.deptName !== null && item.deptName !== "" ? {
+            h: common_vendor.t("-" + item.deptName)
+          } : {}, {
+            i: index,
+            j: common_vendor.o(($event) => goDetailPage(item), index)
+          });
+        })
       };
     };
   }

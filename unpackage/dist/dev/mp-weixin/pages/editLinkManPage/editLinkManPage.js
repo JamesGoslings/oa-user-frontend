@@ -33,8 +33,24 @@ const _sfc_main = {
         key: "relationship"
       }
     ]);
+    let pageTextMsg = common_vendor.ref([
+      {
+        topText: "编辑联系人",
+        isUpdate: true
+      },
+      {
+        topText: "新建联系人",
+        isUpdate: false
+      }
+    ]);
+    let funIndex = common_vendor.ref(0);
     common_vendor.onLoad((data) => {
-      linkMan.value = JSON.parse(data.originData);
+      const originData = data.originData;
+      if (originData === void 0) {
+        funIndex.value = 1;
+        return;
+      }
+      linkMan.value = JSON.parse(originData);
     });
     const updateLinkManMsg = async () => {
       let { data: { code } } = await api_linkMan_linkMan.updatePrivateLinkMan(linkMan.value);
@@ -47,13 +63,24 @@ const _sfc_main = {
         console.log("===========Detail============");
       }
     };
-    const submitMsg = async () => {
+    const saveLinkManMsg = async () => {
+      let { data } = await api_linkMan_linkMan.savePrivateLinkMan(linkMan.value);
+      console.log(data);
+    };
+    const submitMsg = async (isUpdate) => {
+      let title = isUpdate ? "是否保存修改" : "是否新建联系人";
       common_vendor.index.showModal({
-        title: "是否保存修改",
+        title,
         success: (res) => {
           if (res.confirm) {
             console.log("用户点击确定");
-            updateLinkManMsg().then(() => {
+            if (isUpdate) {
+              updateLinkManMsg().then(() => {
+                common_vendor.index.setStorageSync("isShowTelePage", true);
+                common_vendor.index.navigateBack();
+              });
+            }
+            saveLinkManMsg().then(() => {
               common_vendor.index.setStorageSync("isShowTelePage", true);
               common_vendor.index.navigateBack();
             });
@@ -81,8 +108,9 @@ const _sfc_main = {
           head: common_vendor.unref(head)
         }),
         b: common_vendor.o(($event) => goBack()),
-        c: common_vendor.o(($event) => submitMsg()),
-        d: common_vendor.f(common_vendor.unref(editMode), (item, index, i0) => {
+        c: common_vendor.t(common_vendor.unref(pageTextMsg)[common_vendor.unref(funIndex)].topText),
+        d: common_vendor.o(($event) => submitMsg(common_vendor.unref(pageTextMsg)[common_vendor.unref(funIndex)].isUpdate)),
+        e: common_vendor.f(common_vendor.unref(editMode), (item, index, i0) => {
           return {
             a: item.ico,
             b: item.placeholder,

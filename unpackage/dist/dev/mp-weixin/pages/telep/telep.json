@@ -5,6 +5,7 @@
     "my-header": "../../components/myHeader/myHeader",
     "tree-link-man": "../../components/treeLinkMan/treeLinkMan",
     "link-man": "../../components/linkMan/linkMan",
+    "uni-fab": "../../uni_modules/uni-fab/components/uni-fab/uni-fab",
     "login-fail-popup": "../../components/loginFailPopup/loginFailPopup"
   }
 }

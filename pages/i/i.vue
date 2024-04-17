@@ -7,13 +7,13 @@
 				<view class="cardTexts">
 					<text class="cardMainText">{{userMsg.name}}</text>
 					<view class="position">
-						<text>项目经理</text>
+						<text>{{userMsg.post}}</text>
 					</view>
 				</view>
 				<view class="status">
 					在职
 				</view>
-				<view class="msg iconfont">
+				<view class="msg iconfont" @click="goUserDetailPage()">
 					个人资料 &#xe656;
 				</view>
 			</view>
@@ -75,7 +75,13 @@
 import { saveAndBackImg,getUserInfo } from '@/api/i/i.js';
 
 let iHead = ref({title:"我的",fun:"2"})
-let userMsg = ref({name:"未登录",avatar:"/static/image/default_avatar.png"})
+let userMsg = ref(
+	{
+		name:"未登录",
+		avatar:"/static/image/default_avatar.png",
+		post: ""
+	}
+)
 
 const test = async ()=>{
 	let {data:{data}} = await getUserInfo()
@@ -95,6 +101,7 @@ function changeAvatar(){
 function info(){
 	let userInfo = uni.getStorageSync('userMsg')
 	userMsg.value.name = userInfo.name
+	userMsg.value.post = userInfo.post
 	let url = userMsg.value.avatar
 	if(url === null || url === ''){
 		return;
@@ -109,7 +116,11 @@ onShow(()=>{
 	})
 })
 
-
+function goUserDetailPage(){
+	uni.navigateTo({
+		url: '/pages/userDetail/userDetail'
+	})
+}
 
 </script>
 

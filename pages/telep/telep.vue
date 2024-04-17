@@ -25,6 +25,11 @@
 			
 			<linkMan :dataList="item.detail" :myType="item.myType" v-else-if="item.isChoose && index > 0"></linkMan>
 		</view>
+		
+		<uni-fab horizontal="right" :content="menus" @trigger="trigger" v-if="isShowFab">
+		</uni-fab>
+		<view class="hideFab" v-else @click="isShowFab = true"></view>
+		<!-- <view class="hideFab"></view> -->
 		<view class="fill"></view>
 		<loginFailPopup></loginFailPopup>
 	</view>
@@ -36,7 +41,22 @@ import { getLinkManListInfo } from '@/api/telep/telep.js'
 // import { getPrivateLinkManList } from '@/api/privateLinkMan/privateLinkMan';
 import { getPrivateLinkManList,getPublicLinkManList } from '@/api/linkMan/linkMan';
 
-let icoStr = ref('&#xe607;')
+let isShowFab = ref(true)
+
+let menus = ref([
+	{
+		iconPath: 'http://picture.gptkong.com/images/d8e7aa93d72f40baa50a7984def4aecc.png',
+		text: '搜索'
+	},
+	{
+		iconPath: 'http://picture.gptkong.com/images/3ef797faa49f40f1932aabc738b902c1.png',
+		text: '新建'
+	},
+	{
+		iconPath: 'http://picture.gptkong.com/images/28596118e63848d8b5bef54f0b70d788.png',
+		text: '隐藏'
+	}
+])
 
 let teleHead = ref({title:"通讯录",fun:"0",color:"#FFF"})
 let isChoose  = ref(false)
@@ -63,8 +83,26 @@ let linkManBarMsg = ref([
 		detail: []
 	}
 ])
-// let linkManBarDetail = ref([])
-// let privateLinkManBarDetail = ref([])
+
+// 悬浮菜单的处理方法
+function trigger(e){
+	console.log(e.index);
+	const i = e.index
+	if(i === 0){
+		uni.navigateTo({
+			url: '/pages/searchLinkMan/searchLinkMan'
+		})
+	}
+	else if(i === 1){
+		uni.navigateTo({
+			url: '/pages/editLinkManPage/editLinkManPage'
+		})
+	}
+	else if(i == 2){
+		isShowFab.value = false
+	}
+}
+
 function goSearch(){
 	uni.navigateTo({
 		url:'/pages/searchLinkMan/searchLinkMan'
@@ -74,6 +112,8 @@ function openLinkManList(item){
 	item.isChoose = !item.isChoose
 	// console.log(linkManBarMsg.value.length);
 }
+
+// 从后端获取树型的公司通讯录
 const linkManInfo = async ()=>{
 	let {data:{data}} = await getLinkManListInfo()
 	// linkManBarDetail.value = data
@@ -171,6 +211,16 @@ onShow(()=>{
 				}
 			}
 		}
+	}
+	.hideFab{
+		position: fixed;
+		right: 0rpx;
+		bottom: 22%;
+		width: 20rpx;
+		height: 120rpx;
+		border-radius: 20rpx;
+		background: rgb(0,122,255);
+		// border: #000 1rpx solid;
 	}
 	.fill{
 		height: 10%;

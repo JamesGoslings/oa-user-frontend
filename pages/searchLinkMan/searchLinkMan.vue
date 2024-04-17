@@ -49,8 +49,8 @@
 					
 				</view>
 			</view>
+			<view class="fillBottom"></view>
 		</view>
-
 	</view>
 </template>
 
@@ -58,16 +58,13 @@
 import { statusBarHeight, getTitleBarHeight } from '@/utils/common_utils/system.js'
 import { searchLinkManList } from '@/api/linkMan/linkMan';
 
-let iptValue = ref()
+let iptValue = ref('')
 
 let linkManDetailData = ref([])
 
 const search = async ()=>{
 	console.log(iptValue.value);
 	let {data:{data}} = await searchLinkManList(iptValue.value)
-	console.log('==============SearchData==================');
-	console.log(data);
-	console.log('==============SearchData==================');
 	linkManDetailData.value = data
 }
 
@@ -75,10 +72,14 @@ function goBack(){
 	uni.navigateBack()
 }
 
+// 处理编辑后，信息更新的问题
+onShow(()=>{
+	if(iptValue.value !== ''){
+		search(iptValue.value)
+	}
+})
 
 function goDetailPage(linkMandetail){
-	console.log('nb');
-	console.log(linkMandetail);
 	if(linkMandetail.typeId === 1){
 		const leader = linkMandetail.leader
 		linkMandetail.linkMan = leader
@@ -254,8 +255,14 @@ justifyContentValue = 'flex-start'
 				
 			}
 		}
+		
+		.fillBottom{
+			width: 100%;
+			height: 10%;
+			// border: #000 1rpx solid;
+		}
 	}
 	
-
+	
 }
 </style>

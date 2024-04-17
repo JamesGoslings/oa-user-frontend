@@ -9,7 +9,8 @@
     "pages/login/login",
     "pages/searchLinkMan/searchLinkMan",
     "pages/linkManPage/linkManPage",
-    "pages/editLinkManPage/editLinkManPage"
+    "pages/editLinkManPage/editLinkManPage",
+    "pages/userDetail/userDetail"
   ],
   "window": {
     "navigationStyle": "custom",
