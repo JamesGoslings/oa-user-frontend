@@ -14,3 +14,7 @@ export function getPublicLinkManList(){
 export function updatePrivateLinkMan(linkManData = {}){
 	return request({url: linkManUrl + 'updatePrivateLinkMan', method:'PUT',data: linkManData})
 }
+
+export function searchLinkManList(key = ''){
+	return request({url: linkManUrl + 'searchLinkManList/' + userId + '/' + key})
+}

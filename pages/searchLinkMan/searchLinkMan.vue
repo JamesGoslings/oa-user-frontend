@@ -31,12 +31,20 @@
 				<view class="linkManBarOne" v-for="(item,index) in linkManDetailData" :key="index" @click="goDetailPage(item)">
 					<view class="card">
 						<view class="iconfont linkManIco">&#xe68c;</view>
-						<view class="textMsg">{{item.linkMan.name}}</view>
-						<view class="textMsg">{{item.linkMan.phone}}</view>
+						<view v-if="item.typeId === 1">
+							<view class="textMsg">{{item.leader.name}}</view>
+							<view class="textMsg">{{item.leader.phone}}</view>
+						</view>
+						<view v-else >
+							<view class="textMsg">{{item.linkMan.name}}</view>
+							<view class="textMsg">{{item.linkMan.phone}}</view>
+						</view>
 					</view>
 					<view class="linkManBar">
-						<text class="barTxt">{{'来源：' + item.typeName}}</text>
-						<text v-if="item.deptName !== undefined">{{'-' + item.deptName}}</text>
+						<text class="barTxt">来源：</text>
+						<text>{{ item.typeName }}</text>
+						<text v-if="item.deptName !== undefined && item.deptName !== null && item.deptName !== '' " >
+						{{'-' + item.deptName}}</text>
 					</view>
 					
 				</view>
@@ -47,51 +55,34 @@
 </template>
 
 <script setup>
-import{statusBarHeight,getTitleBarHeight} from '@/utils/common_utils/system.js'
+import { statusBarHeight, getTitleBarHeight } from '@/utils/common_utils/system.js'
+import { searchLinkManList } from '@/api/linkMan/linkMan';
 
 let iptValue = ref()
 
-function search(){
+let linkManDetailData = ref([])
+
+const search = async ()=>{
 	console.log(iptValue.value);
+	let {data:{data}} = await searchLinkManList(iptValue.value)
+	console.log('==============SearchData==================');
+	console.log(data);
+	console.log('==============SearchData==================');
+	linkManDetailData.value = data
 }
 
 function goBack(){
 	uni.navigateBack()
 }
 
-let linkManDetailData = ref([
-	{
-		typeId: 1,
-		typeName: '公司通讯录',
-		deptName: '董事会',
-		linkMan:{
-			phone: '110',
-			name: '李董',
-			post: '董事长'
-		}
-	},
-	{
-		typeId: 2,
-		typeName: '个人通讯录',
-		linkMan:{
-			createTime: '2024.4.17',
-			phone: '110',
-			name: '李si',
-			relationship: '亲属'
-		}
-	},
-	{
-		typeId: 3,
-		typeName: '公共通讯录',
-		linkMan:{
-			phone: '110',
-			name: '李si'
-		}
-	}
-])
+
 function goDetailPage(linkMandetail){
 	console.log('nb');
 	console.log(linkMandetail);
+	if(linkMandetail.typeId === 1){
+		const leader = linkMandetail.leader
+		linkMandetail.linkMan = leader
+	}
 	uni.setStorageSync('linkManDetail',linkMandetail)
 	uni.navigateTo({
 		url: '/pages/linkManPage/linkManPage'
@@ -228,22 +219,15 @@ justifyContentValue = 'flex-start'
 			display: flex;
 			justify-content: center;
 			flex-wrap: wrap;
+			margin-bottom: 50rpx;
 			.linkManBarOne{
-				width: 80%;
+				width: 98%;
 				display: flex;
 				justify-content: center;
 				flex-wrap: wrap;
 				box-shadow: 0 0 5px 1px #999;
 				border-radius: 10rpx;
 				margin-bottom: 50rpx;
-				.linkManBar{
-					width: 100%;
-					height: 50rpx;
-					background: rgb(238,238,238);
-					.barTxt{
-						margin-left: 20rpx;
-					}
-				}
 				.card{
 					width: 100%;
 					background: #fff;
@@ -256,9 +240,18 @@ justifyContentValue = 'flex-start'
 						font-size: 70rpx;
 					}
 					.textMsg{
-						padding-left: 30rpx;
+						padding-left: 50rpx;
 					}
 				}
+				.linkManBar{
+					width: 100%;
+					height: 50rpx;
+					background: rgb(238,238,238);
+					.barTxt{
+						margin-left: 20rpx;
+					}
+				}
+				
 			}
 		}
 	}
