@@ -8,15 +8,14 @@
 			</view>
 		</view>
 		<view class="linkManModule" v-for="(item,index) in linkManBarMsg" :key="index">
-			<view class="linkManBar">
+			<view class="linkManBar" @click="openLinkManList(item)">
 				<view class="iconfont linkIco" v-html="item.ico"></view>
 				<view class="topLinkTxt">{{item.topLinkTxt}}</view>
 				<view class="menuIco iconfont">
-					<text class="iconfont aIco" v-if="!item.isChoose" @click="openLinkManList(item)">
+					<text class="iconfont aIco" v-if="!item.isChoose">
 						&#xe656;
 					</text>
-					<text class="iconfont aIco" v-else  @click="item.isChoose = !item.isChoose"
-					style="-moz-transform: rotate(90deg);-webkit-transform: rotate(90deg);">
+					<text class="iconfont aIco" v-else style="-moz-transform: rotate(90deg);-webkit-transform: rotate(90deg);">
 						&#xe656;
 					</text>
 				</view>

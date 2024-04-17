@@ -1,13 +1,13 @@
 <template>
 	<view class="tree">
 		<view class="linkManBarDetail" v-for="(item,index) in dataList" :key="index">
-			<view class="detailOne">
+			<view class="detailOne"  @click="item.isChoose = !item.isChoose">
 				<view class="detailOneTxt" :style="{paddingLeft: (item.floor * 30) + 'rpx'}">{{numbers[item.floor] + ' ' + item.deptName}}</view>
 				<view class="icoDetail iconfont">
-					<text class="iconfont icoUp" v-if="!item.isChoose" @click="item.isChoose = !item.isChoose">
+					<text class="iconfont icoUp" v-if="!item.isChoose">
 						&#xe61d;
 					</text>
-					<text class="iconfont icoUp" v-else  @click="item.isChoose = !item.isChoose"
+					<text class="iconfont icoUp" v-else 
 					style="-moz-transform: rotate(90deg);-webkit-transform: rotate(90deg);">
 						&#xe61d;
 					</text>

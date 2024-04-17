@@ -1,5 +1,5 @@
 
-<!--显示单个联系人具体信息的页面  -->
+<!--显示单个联系人具体信息的页面(3个通讯录模块共用)  -->
 
 <template>
 	<view class="linkManPageSty">
@@ -53,25 +53,12 @@ onShow(()=>{
 	linkMan.value = detail.value.linkMan
 	setLinkManAvatar()
 	
-	console.log('OnShow执行了');
-	console.log('=============NEWDATA==============');
-	console.log(uni.getStorageSync('linkManDetail'));
-	console.log(linkMan.value);
-	console.log('=============NEWDATA==============');
+	// console.log('=============NEWDATA==============');
+	// console.log(uni.getStorageSync('linkManDetail'));
+	// console.log(linkMan.value);
+	// console.log('=============NEWDATA==============');
 	
 })
-
-// onLoad( data =>{
-// 	detail.value = JSON.parse(data.linkManDetail)
-// 	linkMan.value = detail.value.linkMan
-// 	setLinkManAvatar()
-	
-// 	console.log('=============NEWDATA==============');
-// 	console.log(detail.value);
-// 	console.log(linkMan.value);
-// 	console.log('=============NEWDATA==============');
-	
-// })
 
 function goBack(){
 	uni.navigateBack()

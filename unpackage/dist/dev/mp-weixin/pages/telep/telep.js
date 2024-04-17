@@ -1,22 +1,22 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const api_telep_telep = require("../../api/telep/telep.js");
-const api_privateLinkMan_privateLinkMan = require("../../api/privateLinkMan/privateLinkMan.js");
+const api_linkMan_linkMan = require("../../api/linkMan/linkMan.js");
 require("../../utils/common_utils/request.js");
 require("../../utils/common_utils/common.js");
 if (!Array) {
   const _easycom_myHeader2 = common_vendor.resolveComponent("myHeader");
   const _easycom_treeLinkMan2 = common_vendor.resolveComponent("treeLinkMan");
-  const _easycom_privateLinkMan2 = common_vendor.resolveComponent("privateLinkMan");
+  const _easycom_linkMan2 = common_vendor.resolveComponent("linkMan");
   const _easycom_loginFailPopup2 = common_vendor.resolveComponent("loginFailPopup");
-  (_easycom_myHeader2 + _easycom_treeLinkMan2 + _easycom_privateLinkMan2 + _easycom_loginFailPopup2)();
+  (_easycom_myHeader2 + _easycom_treeLinkMan2 + _easycom_linkMan2 + _easycom_loginFailPopup2)();
 }
 const _easycom_myHeader = () => "../../components/myHeader/myHeader.js";
 const _easycom_treeLinkMan = () => "../../components/treeLinkMan/treeLinkMan.js";
-const _easycom_privateLinkMan = () => "../../components/privateLinkMan/privateLinkMan.js";
+const _easycom_linkMan = () => "../../components/linkMan/linkMan.js";
 const _easycom_loginFailPopup = () => "../../components/loginFailPopup/loginFailPopup.js";
 if (!Math) {
-  (_easycom_myHeader + _easycom_treeLinkMan + _easycom_privateLinkMan + _easycom_loginFailPopup)();
+  (_easycom_myHeader + _easycom_treeLinkMan + _easycom_linkMan + _easycom_loginFailPopup)();
 }
 const _sfc_main = {
   __name: "telep",
@@ -28,21 +28,25 @@ const _sfc_main = {
       {
         topLinkTxt: "公司通讯录",
         isChoose: false,
-        ico: "&#xe623;"
+        ico: "&#xe623;",
+        myType: {},
+        detail: []
       },
       {
         topLinkTxt: "个人通讯录",
         isChoose: false,
-        ico: "&#xe601;"
+        ico: "&#xe601;",
+        myType: { typeId: 2, typeName: "个人通讯录" },
+        detail: []
       },
       {
         topLinkTxt: "公共通讯录",
         isChoose: false,
-        ico: "&#xec93;"
+        ico: "&#xec93;",
+        myType: { typeId: 3, typeName: "公共通讯录" },
+        detail: []
       }
     ]);
-    let linkManBarDetail = common_vendor.ref([]);
-    let privateLinkManBarDetail = common_vendor.ref([]);
     function goSearch() {
       common_vendor.index.navigateTo({
         url: "/pages/searchLinkMan/searchLinkMan"
@@ -53,18 +57,23 @@ const _sfc_main = {
     }
     const linkManInfo = async () => {
       let { data: { data } } = await api_telep_telep.getLinkManListInfo();
-      linkManBarDetail.value = data;
+      linkManBarMsg.value[0].detail = data;
     };
     const privateLinkManList = async () => {
-      let { data: { data } } = await api_privateLinkMan_privateLinkMan.getPrivateLinkManList();
-      privateLinkManBarDetail.value = data;
+      let { data: { data } } = await api_linkMan_linkMan.getPrivateLinkManList();
+      linkManBarMsg.value[1].detail = data;
     };
-    let isShow = true;
+    const publicLinkManList = async () => {
+      let { data: { data } } = await api_linkMan_linkMan.getPublicLinkManList();
+      linkManBarMsg.value[2].detail = data;
+    };
+    common_vendor.index.setStorageSync("isShowTelePage", true);
     common_vendor.onShow(() => {
-      if (isShow) {
+      if (common_vendor.index.getStorageSync("isShowTelePage")) {
         linkManInfo();
         privateLinkManList();
-        isShow = false;
+        publicLinkManList();
+        common_vendor.index.setStorageSync("isShowTelePage", false);
       }
     });
     return (_ctx, _cache) => {
@@ -78,25 +87,23 @@ const _sfc_main = {
             a: item.ico,
             b: common_vendor.t(item.topLinkTxt),
             c: !item.isChoose
-          }, !item.isChoose ? {
-            d: common_vendor.o(($event) => openLinkManList(item), index)
-          } : {
-            e: common_vendor.o(($event) => item.isChoose = !item.isChoose, index)
-          }, {
-            f: item.isChoose && index === 0
+          }, !item.isChoose ? {} : {}, {
+            d: common_vendor.o(($event) => openLinkManList(item), index),
+            e: item.isChoose && index === 0
           }, item.isChoose && index === 0 ? {
-            g: "2f532b38-1-" + i0,
-            h: common_vendor.p({
-              dataList: common_vendor.unref(linkManBarDetail)
+            f: "2f532b38-1-" + i0,
+            g: common_vendor.p({
+              dataList: item.detail
             })
-          } : item.isChoose && index === 1 ? {
-            j: "2f532b38-2-" + i0,
-            k: common_vendor.p({
-              dataList: common_vendor.unref(privateLinkManBarDetail)
+          } : item.isChoose && index > 0 ? {
+            i: "2f532b38-2-" + i0,
+            j: common_vendor.p({
+              dataList: item.detail,
+              myType: item.myType
             })
           } : {}, {
-            i: item.isChoose && index === 1,
-            l: index
+            h: item.isChoose && index > 0,
+            k: index
           });
         })
       };

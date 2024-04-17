@@ -21,29 +21,36 @@
 				<view class="ipt">
 					<view class="iconfont iptIco">&#xe740;丨
 					</view>
-					<input class="iptBar" v-model="iptValue" @focus="clearValue()" @blur="initValue()"/>
+					<input class="iptBar" v-model="iptValue" placeholder="请输入电话号码或联系人姓名"/>
 					<view class="btn">
 						<button class="btn1" hover-class="btn_a" @click="search()">搜索</button>
 					</view>
 				</view>
 			</view>
+			<view class="linkManBarAll">
+				<view class="linkManBarOne" v-for="(item,index) in linkManDetailData" :key="index" @click="goDetailPage(item)">
+					<view class="card">
+						<view class="iconfont linkManIco">&#xe68c;</view>
+						<view class="textMsg">{{item.linkMan.name}}</view>
+						<view class="textMsg">{{item.linkMan.phone}}</view>
+					</view>
+					<view class="linkManBar">
+						<text class="barTxt">{{'来源：' + item.typeName}}</text>
+						<text v-if="item.deptName !== undefined">{{'-' + item.deptName}}</text>
+					</view>
+					
+				</view>
+			</view>
 		</view>
+
 	</view>
 </template>
 
 <script setup>
 import{statusBarHeight,getTitleBarHeight} from '@/utils/common_utils/system.js'
 
-let iptValue = ref('请输入电话号码或联系人姓名')
-function clearValue(){
-	if(iptValue.value === '请输入电话号码或联系人姓名')
-	iptValue.value = ''
-}
-function initValue(){
-	if(iptValue.value === ''){
-		iptValue.value = '请输入电话号码或联系人姓名'
-	}
-}
+let iptValue = ref()
+
 function search(){
 	console.log(iptValue.value);
 }
@@ -52,6 +59,44 @@ function goBack(){
 	uni.navigateBack()
 }
 
+let linkManDetailData = ref([
+	{
+		typeId: 1,
+		typeName: '公司通讯录',
+		deptName: '董事会',
+		linkMan:{
+			phone: '110',
+			name: '李董',
+			post: '董事长'
+		}
+	},
+	{
+		typeId: 2,
+		typeName: '个人通讯录',
+		linkMan:{
+			createTime: '2024.4.17',
+			phone: '110',
+			name: '李si',
+			relationship: '亲属'
+		}
+	},
+	{
+		typeId: 3,
+		typeName: '公共通讯录',
+		linkMan:{
+			phone: '110',
+			name: '李si'
+		}
+	}
+])
+function goDetailPage(linkMandetail){
+	console.log('nb');
+	console.log(linkMandetail);
+	uni.setStorageSync('linkManDetail',linkMandetail)
+	uni.navigateTo({
+		url: '/pages/linkManPage/linkManPage'
+	})
+}
 
 //TODO 让h5和app端的头部图标位于最右，小程序中图标紧靠标题
 let justifyContentValue = 'space-between'
@@ -132,6 +177,7 @@ justifyContentValue = 'flex-start'
 			// border: #000 1rpx solid;
 			display: flex;
 			justify-content: center;
+			margin-bottom: 80rpx;
 			.ipt{
 				background: #FFF;
 				width: 95%;
@@ -177,6 +223,46 @@ justifyContentValue = 'flex-start'
 			}
 		}
 
+		.linkManBarAll{
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			.linkManBarOne{
+				width: 80%;
+				display: flex;
+				justify-content: center;
+				flex-wrap: wrap;
+				box-shadow: 0 0 5px 1px #999;
+				border-radius: 10rpx;
+				margin-bottom: 50rpx;
+				.linkManBar{
+					width: 100%;
+					height: 50rpx;
+					background: rgb(238,238,238);
+					.barTxt{
+						margin-left: 20rpx;
+					}
+				}
+				.card{
+					width: 100%;
+					background: #fff;
+					height: 120rpx;
+					padding-left: 20rpx;
+					padding-right: 20rpx;
+					display: flex;
+					align-items: center;
+					.linkManIco{
+						font-size: 70rpx;
+					}
+					.textMsg{
+						padding-left: 30rpx;
+					}
+				}
+			}
+		}
 	}
+	
+
 }
 </style>

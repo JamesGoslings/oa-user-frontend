@@ -34,28 +34,25 @@ const _sfc_main = {
             a: common_vendor.t(common_vendor.unref(numbers)[item.floor] + " " + item.deptName),
             b: item.floor * 30 + "rpx",
             c: !item.isChoose
-          }, !item.isChoose ? {
-            d: common_vendor.o(($event) => item.isChoose = !item.isChoose, index)
-          } : {
-            e: common_vendor.o(($event) => item.isChoose = !item.isChoose, index)
-          }, {
-            f: item.isChoose
+          }, !item.isChoose ? {} : {}, {
+            d: common_vendor.o(($event) => item.isChoose = !item.isChoose, index),
+            e: item.isChoose
           }, item.isChoose ? common_vendor.e({
-            g: item.deptName !== "经理" && item.deptName !== "董事会"
+            f: item.deptName !== "经理" && item.deptName !== "董事会"
           }, item.deptName !== "经理" && item.deptName !== "董事会" ? {} : {}, {
-            h: common_vendor.t(item.leader.name),
-            i: common_vendor.t(item.leader.phone),
-            j: item.floor * 30 + "rpx",
-            k: common_vendor.o(($event) => openLeaderPage(item.leader), index)
+            g: common_vendor.t(item.leader.name),
+            h: common_vendor.t(item.leader.phone),
+            i: item.floor * 30 + "rpx",
+            j: common_vendor.o(($event) => openLeaderPage(item.leader), index)
           }) : {}, {
-            l: item.isChoose && item.children !== void 0 && item.children !== null && item.children.length > 0
+            k: item.isChoose && item.children !== void 0 && item.children !== null && item.children.length > 0
           }, item.isChoose && item.children !== void 0 && item.children !== null && item.children.length > 0 ? {
-            m: "19626886-0-" + i0,
-            n: common_vendor.p({
+            l: "19626886-0-" + i0,
+            m: common_vendor.p({
               dataList: item.children
             })
           } : {}, {
-            o: index
+            n: index
           });
         })
       };

@@ -25,7 +25,6 @@ defineProps({
 	}
 })
 function goToDetailPage(linkMan,myType){
-	// let linkManDetail = {linkMan: linkMan,typeId: 2,typeName: '个人通讯录'}
 	let linkManDetail = {linkMan: linkMan,typeId: myType.typeId,typeName: myType.typeName}
 	uni.setStorageSync('linkManDetail',linkManDetail)
 	uni.navigateTo({

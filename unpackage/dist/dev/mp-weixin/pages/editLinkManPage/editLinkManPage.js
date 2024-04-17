@@ -1,6 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const api_privateLinkMan_privateLinkMan = require("../../api/privateLinkMan/privateLinkMan.js");
+const api_linkMan_linkMan = require("../../api/linkMan/linkMan.js");
 require("../../utils/common_utils/request.js");
 require("../../utils/common_utils/common.js");
 if (!Array) {
@@ -37,7 +37,7 @@ const _sfc_main = {
       linkMan.value = JSON.parse(data.originData);
     });
     const updateLinkManMsg = async () => {
-      let { data: { code } } = await api_privateLinkMan_privateLinkMan.updatePrivateLinkMan(linkMan.value);
+      let { data: { code } } = await api_linkMan_linkMan.updatePrivateLinkMan(linkMan.value);
       if (code === 200) {
         let detail = common_vendor.index.getStorageSync("linkManDetail");
         detail.linkMan = linkMan.value;
@@ -47,25 +47,22 @@ const _sfc_main = {
         console.log("===========Detail============");
       }
     };
-    common_vendor.onUnload((res) => {
-      console.log("cnm,为什么不在当前页面就触发这个事件，之后触发有毛用");
-      console.log(res);
-      return true;
-    });
-    function submitMsg() {
+    const submitMsg = async () => {
       common_vendor.index.showModal({
         title: "是否保存修改",
         success: (res) => {
           if (res.confirm) {
             console.log("用户点击确定");
-            updateLinkManMsg();
-            common_vendor.index.navigateBack();
+            updateLinkManMsg().then(() => {
+              common_vendor.index.setStorageSync("isShowTelePage", true);
+              common_vendor.index.navigateBack();
+            });
           } else if (res.cancel) {
             console.log("用户点击取消");
           }
         }
       });
-    }
+    };
     function goBack() {
       common_vendor.index.showModal({
         title: "未保存修改是否退出",

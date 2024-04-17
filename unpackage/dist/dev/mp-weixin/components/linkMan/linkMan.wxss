@@ -30,20 +30,20 @@
        url('//at.alicdn.com/t/c/font_4494328_lbolix230lg.woff?t=1713106294734') format('woff'),
        url('//at.alicdn.com/t/c/font_4494328_lbolix230lg.ttf?t=1713106294734') format('truetype');
 }
-.iconfont.data-v-6db8df14 {
+.iconfont.data-v-e1763781 {
   font-family: "iconfont" !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-a-10daka.data-v-6db8df14:before {
+.icon-a-10daka.data-v-e1763781:before {
   content: "\edba";
 }
-.privateLinkManSty.data-v-6db8df14 {
+.privateLinkManSty.data-v-e1763781 {
   overflow: hidden;
 }
-.privateLinkManSty .privateLinkManOne.data-v-6db8df14 {
+.privateLinkManSty .privateLinkManOne.data-v-e1763781 {
   width: 100%;
   margin-bottom: 5rpx;
   font-size: 35rpx;
@@ -52,11 +52,11 @@
   padding: 15rpx 0;
   align-items: center;
 }
-.privateLinkManSty .privateLinkManOne .ico.data-v-6db8df14 {
+.privateLinkManSty .privateLinkManOne .ico.data-v-e1763781 {
   margin-left: 20rpx;
   font-size: 50rpx;
 }
-.privateLinkManSty .privateLinkManOne .textMsg.data-v-6db8df14 {
+.privateLinkManSty .privateLinkManOne .textMsg.data-v-e1763781 {
   font-size: 32rpx;
   padding-left: 50rpx;
   color: #aa0000;

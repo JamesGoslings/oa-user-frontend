@@ -4,7 +4,7 @@
   "usingComponents": {
     "my-header": "../../components/myHeader/myHeader",
     "tree-link-man": "../../components/treeLinkMan/treeLinkMan",
-    "private-link-man": "../../components/privateLinkMan/privateLinkMan",
+    "link-man": "../../components/linkMan/linkMan",
     "login-fail-popup": "../../components/loginFailPopup/loginFailPopup"
   }
 }
