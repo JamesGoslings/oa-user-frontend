@@ -26,7 +26,7 @@ const _sfc_main = {
         }),
         b: common_vendor.unref(userDetailMsg).avatar,
         c: common_vendor.p({
-          spacing: 0
+          spacing: "0"
         })
       };
     };

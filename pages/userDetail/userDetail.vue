@@ -23,7 +23,7 @@
 			
 			<view class="workDetailMsg">
 				<view class="title">工作信息</view>
-				<uni-card :spacing="0">
+				<uni-card spacing='0'>
 					<view class="msg">
 						<view class="msgOne">
 							<view class="iconfont msgIco">&#xe7bd;</view>
