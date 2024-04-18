@@ -8,7 +8,7 @@
 				</view>
 			</view>
 			<view class="titleBar" :style="{height: getTitleBarHeight()+'px'}">
-				<text class="title">搜索</text>
+				<text class="title">{{lay.title}}</text>
 			</view>
 		</view>
 		<view class="fill" :style="{height: statusBarHeight+getTitleBarHeight()+'px'}">
@@ -20,13 +20,22 @@
 <script setup>
 import { statusBarHeight, getTitleBarHeight } from '@/utils/common_utils/system.js'
 
+defineProps({
+	lay:{
+		type:Object,
+		default(){
+			return {title:"标题",color:"#FFF"}
+		}
+	}
+})
+
 function goBack(){
 	uni.navigateBack()
 }
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import url(/static/font/iconfont.css);
 .layout{
 	width: 100%;

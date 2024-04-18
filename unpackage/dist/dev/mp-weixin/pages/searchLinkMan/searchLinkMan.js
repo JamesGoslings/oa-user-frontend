@@ -15,6 +15,7 @@ if (!Math) {
 const _sfc_main = {
   __name: "searchLinkMan",
   setup(__props) {
+    let myLay = common_vendor.ref({ title: "搜索", color: "#fff" });
     let iptValue = common_vendor.ref("");
     let linkManDetailData = common_vendor.ref([]);
     const search = async () => {
@@ -39,10 +40,13 @@ const _sfc_main = {
     }
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.unref(iptValue),
-        b: common_vendor.o(($event) => common_vendor.isRef(iptValue) ? iptValue.value = $event.detail.value : iptValue = $event.detail.value),
-        c: common_vendor.o(($event) => search()),
-        d: common_vendor.f(common_vendor.unref(linkManDetailData), (item, index, i0) => {
+        a: common_vendor.p({
+          lay: common_vendor.unref(myLay)
+        }),
+        b: common_vendor.unref(iptValue),
+        c: common_vendor.o(($event) => common_vendor.isRef(iptValue) ? iptValue.value = $event.detail.value : iptValue = $event.detail.value),
+        d: common_vendor.o(($event) => search()),
+        e: common_vendor.f(common_vendor.unref(linkManDetailData), (item, index, i0) => {
           return common_vendor.e({
             a: item.typeId === 1
           }, item.typeId === 1 ? {

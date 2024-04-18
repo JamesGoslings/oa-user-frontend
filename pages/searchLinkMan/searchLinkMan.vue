@@ -1,7 +1,7 @@
 <template>
 	<view class="all">
 
-		<layout></layout>
+		<layout :lay="myLay"></layout>
 		<view class="content">
 			<view class="iptAll">
 				<view class="ipt">
@@ -43,6 +43,8 @@
 <script setup>
 import { statusBarHeight, getTitleBarHeight } from '@/utils/common_utils/system.js'
 import { searchLinkManList } from '@/api/linkMan/linkMan';
+
+let myLay = ref({title: '搜索',color: '#fff'})
 
 let iptValue = ref('')
 
@@ -206,3 +208,4 @@ justifyContentValue = 'flex-start'
 	
 }
 </style>
+
