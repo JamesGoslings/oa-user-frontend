@@ -79,11 +79,12 @@ const _sfc_main = {
                 common_vendor.index.setStorageSync("isShowTelePage", true);
                 common_vendor.index.navigateBack();
               });
+            } else {
+              saveLinkManMsg().then(() => {
+                common_vendor.index.setStorageSync("isShowTelePage", true);
+                common_vendor.index.navigateBack();
+              });
             }
-            saveLinkManMsg().then(() => {
-              common_vendor.index.setStorageSync("isShowTelePage", true);
-              common_vendor.index.navigateBack();
-            });
           } else if (res.cancel) {
             console.log("用户点击取消");
           }

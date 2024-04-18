@@ -102,10 +102,12 @@ const submitMsg = async (isUpdate)=>{
 						uni.navigateBack()
 					})
 				}
-				saveLinkManMsg().then(()=>{
-					uni.setStorageSync('isShowTelePage',true)
-					uni.navigateBack()
-				})
+				else{
+					saveLinkManMsg().then(()=>{
+						uni.setStorageSync('isShowTelePage',true)
+						uni.navigateBack()
+					})
+				}
 				
 			} else if (res.cancel) {
 				console.log('用户点击取消');
