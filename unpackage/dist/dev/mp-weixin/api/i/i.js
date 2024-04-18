@@ -21,7 +21,12 @@ function saveAndBackImg(userMsg) {
           let userInfo = common_vendor.index.getStorageSync("userMsg");
           userInfo.avatarUrl = res.data;
           common_vendor.index.setStorageSync("userMsg", userInfo);
-          userMsg.value.avatar = res.data;
+          let avatar = userMsg.value.avatar;
+          if (avatar !== void 0) {
+            userMsg.value.avatar = res.data;
+          } else if (userMsg.value.avatarUrl !== void 0) {
+            userMsg.value.avatarUrl = res.data;
+          }
         }
       });
     }

@@ -35,7 +35,12 @@ export function saveAndBackImg(userMsg) {
 					userInfo.avatarUrl = res.data
 					uni.setStorageSync('userMsg',userInfo)
 					// 直接给页面的userMsg赋值，实现操作完成即可显示图片
-					userMsg.value.avatar = res.data
+					let avatar = userMsg.value.avatar
+					if(avatar !== undefined){
+						userMsg.value.avatar = res.data
+					}else if(userMsg.value.avatarUrl !== undefined){
+						userMsg.value.avatarUrl = res.data
+					}
 				}
 			});
 		}

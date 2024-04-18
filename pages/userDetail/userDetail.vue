@@ -2,10 +2,10 @@
 	<view class="userDetailSty">
 		<layout :lay="myLay"></layout>
 		<view class="titleMsg">
-			<image class="avatar" :src="userDetailMsg.avatar" mode="aspectFill"></image>
+			<image class="avatar" :src="userDetailMsg.avatarUrl" mode="aspectFill" @click="changeAvatar()"></image>
 			<view class="textMsg">
-				<view class="name">张三</view>
-				<view class="post">产品研发部</view>
+				<view class="name">{{userDetailMsg.name}}</view>
+				<view class="post">{{userDetailMsg.dept}}</view>
 			</view>
 		</view>
 		<view class="detailMsg">
@@ -13,7 +13,7 @@
 				<view class="title">个人信息</view>
 				<view class="msgOne">
 					<view class="iconfont msgIco">&#xe817;</view>
-					<view class="msgContent">18000000000</view>
+					<view class="msgContent">{{userDetailMsg.phone}}</view>
 				</view>
 				<view class="msgOne">
 					<view class="iconfont msgIco">&#xe818;</view>
@@ -30,7 +30,7 @@
 							<view class="icoTxt">职位</view>
 						</view>
 						<view class="detailOne">
-							java工程师
+							{{userDetailMsg.post}}
 						</view>
 					</view>
 					<view class="fill"></view>
@@ -40,7 +40,7 @@
 							<view class="icoTxt">部门</view>
 						</view>
 						<view class="detailOne">
-							产品研发部
+							{{userDetailMsg.dept}}
 						</view>
 					</view>
 					<view class="fill"></view>
@@ -50,7 +50,7 @@
 							<view class="icoTxt">入职时间</view>
 						</view>
 						<view class="detailOne">
-							2024.4.18
+							{{userDetailMsg.createTime}}
 						</view>
 					</view>
 					
@@ -61,19 +61,30 @@
 </template>
 
 <script setup>
+import { saveAndBackImg } from '@/api/i/i.js';
 // 用于设定顶头信息
 let myLay = ref({title: '个人详情页',mainColor:"#fff",btnColor:"#F5F5F5"})
 // 用于接收和显示用户详细信息
 let userDetailMsg = ref(
 	{
-		avatar: '/static/image/default_avatar.png'
+		avatarUrl: '/static/image/default_avatar.png',
+		createTime:'',
+		name:'未登录',
+		phone:'0',
+		post:'无',
+		dept:'无'
 	}
 )
+// 获取用户信息
+onShow(()=>{
+	userDetailMsg.value = uni.getStorageSync('userMsg')
+	// console.log(userDetailMsg.value);
+})
 
-// onShow(()=>{
-	
-// })
-
+// 修改头像并实现马上回显（非发网络请求回显）
+function changeAvatar(){
+	saveAndBackImg(userDetailMsg)
+}
 </script>
 
 <style lang="scss" scoped>
