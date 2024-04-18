@@ -1,7 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const SYSTEM_INFO = common_vendor.index.getSystemInfoSync();
-const HOST = "http://192.168.43.189:8800";
+const HOST = "http://localhost:8800";
 const API_HOST = SYSTEM_INFO.uniPlatform === "web" ? "" : HOST;
 const API_PROXY = SYSTEM_INFO.uniPlatform === "web" ? "/h5api" : "";
 const packApiUrl = (url = "") => {

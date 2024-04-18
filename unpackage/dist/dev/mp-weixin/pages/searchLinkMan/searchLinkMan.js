@@ -1,6 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const utils_common_utils_system = require("../../utils/common_utils/system.js");
+require("../../utils/common_utils/system.js");
 const api_linkMan_linkMan = require("../../api/linkMan/linkMan.js");
 require("../../utils/common_utils/request.js");
 require("../../utils/common_utils/common.js");
@@ -14,9 +14,6 @@ const _sfc_main = {
       let { data: { data } } = await api_linkMan_linkMan.searchLinkManList(iptValue.value);
       linkManDetailData.value = data;
     };
-    function goBack() {
-      common_vendor.index.navigateBack();
-    }
     common_vendor.onShow(() => {
       if (iptValue.value !== "") {
         search(iptValue.value);
@@ -34,15 +31,10 @@ const _sfc_main = {
     }
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.unref(utils_common_utils_system.statusBarHeight) + "px",
-        b: common_vendor.o(($event) => goBack()),
-        c: common_vendor.unref(utils_common_utils_system.getTitleBarHeight)() + "px",
-        d: common_vendor.unref(utils_common_utils_system.getTitleBarHeight)() + "px",
-        e: common_vendor.unref(utils_common_utils_system.statusBarHeight) + common_vendor.unref(utils_common_utils_system.getTitleBarHeight)() + "px",
-        f: common_vendor.unref(iptValue),
-        g: common_vendor.o(($event) => common_vendor.isRef(iptValue) ? iptValue.value = $event.detail.value : iptValue = $event.detail.value),
-        h: common_vendor.o(($event) => search()),
-        i: common_vendor.f(common_vendor.unref(linkManDetailData), (item, index, i0) => {
+        a: common_vendor.unref(iptValue),
+        b: common_vendor.o(($event) => common_vendor.isRef(iptValue) ? iptValue.value = $event.detail.value : iptValue = $event.detail.value),
+        c: common_vendor.o(($event) => search()),
+        d: common_vendor.f(common_vendor.unref(linkManDetailData), (item, index, i0) => {
           return common_vendor.e({
             a: item.typeId === 1
           }, item.typeId === 1 ? {

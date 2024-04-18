@@ -10,7 +10,15 @@ if (!Math) {
   _easycom_myHeader();
 }
 function _sfc_render(_ctx, _cache) {
-  return {};
+  return {
+    a: common_vendor.p({
+      head: {
+        title: "",
+        fun: 0,
+        color: "#FFF"
+      }
+    })
+  };
 }
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "D:/HBuilder_Files/HBulider_Pro/Demo002/pages/userDetail/userDetail.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-82cda788"], ["__file", "D:/HBuilder_Files/HBulider_Pro/Demo002/pages/userDetail/userDetail.vue"]]);
 wx.createPage(MiniProgramPage);
