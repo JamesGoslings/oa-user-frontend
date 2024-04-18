@@ -1,6 +1,7 @@
 <template>
 	<view class="all">
 
+		<layout></layout>
 		<view class="content">
 			<view class="iptAll">
 				<view class="ipt">

@@ -4,6 +4,14 @@ require("../../utils/common_utils/system.js");
 const api_linkMan_linkMan = require("../../api/linkMan/linkMan.js");
 require("../../utils/common_utils/request.js");
 require("../../utils/common_utils/common.js");
+if (!Array) {
+  const _easycom_layout2 = common_vendor.resolveComponent("layout");
+  _easycom_layout2();
+}
+const _easycom_layout = () => "../../components/layout/layout.js";
+if (!Math) {
+  _easycom_layout();
+}
 const _sfc_main = {
   __name: "searchLinkMan",
   setup(__props) {
