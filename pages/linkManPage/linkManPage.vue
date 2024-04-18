@@ -8,9 +8,17 @@
 				<view class="btn iconfont" @click="goBack()">
 					&#xe604;
 				</view>
-				<view class="btn editBtn iconfont" @click="goEdit()" v-if="detail.typeId === 2">
-					&#xe602;
+				<view class="btn moreBtn iconfont" v-if="detail.typeId === 2">
+					<text class="iconfont moreIco" @click="clickMore()" :style="{marginTop: topPx + 'rpx'}" >
+						&#xe68b;</text>
+					<view class="menu" v-if="isClickMore">
+						<text class="iconfont  menuIco" @click="goEdit()">&#xe602;</text>
+						<text class="iconfont  menuIco removeIco" @click="removeLinkMan()">&#xe632;</text>
+					</view>
 				</view>
+				<!-- <view class="btn editBtn iconfont" @click="goEdit()" v-if="detail.typeId === 2">
+					&#xe602;
+				</view> -->
 			</view>
 			<view class="avatarView">
 				<view class="avatar">
@@ -38,13 +46,22 @@
 </template>
 
 <script setup>
-import{statusBarHeight,getTitleBarHeight} from '@/utils/common_utils/system.js'
+import {statusBarHeight,getTitleBarHeight} from '@/utils/common_utils/system.js'
+import { removePrivateLinkMan } from '@/api/linkMan/linkMan';
 
 //TODO 让h5和app端的头部图标位于最右，小程序中图标紧靠标题
 let justifyContentValue = 'space-between'
 // #ifdef MP
 justifyContentValue = 'flex-start'
 // #endif
+
+let isClickMore = ref(false)
+
+let topPx = ref(0)
+function clickMore(){
+	isClickMore.value = !isClickMore.value
+	topPx.value = topPx.value === 0 ? 13 : 0;
+}
 
 let detail = ref({})
 let linkMan = ref({})
@@ -66,6 +83,31 @@ function goBack(){
 function goEdit(){
 	uni.navigateTo({
 		url: '/pages/editLinkManPage/editLinkManPage?originData=' + JSON.stringify(linkMan.value)
+	})
+}
+
+const removeOne = async()=>{
+	let {data} = await removePrivateLinkMan(linkMan.value.id)
+	console.log(data);
+}
+
+function removeLinkMan(){
+	uni.showModal({
+		title: '是否删除该联系人',
+		success: res => {
+			if (res.confirm) {
+				console.log('用户点击确定');
+				removeOne().then(()=>{
+					uni.navigateBack()
+					uni.showModal({
+						title:'删除成功',
+						showCancel: false
+					})
+				})
+			} else if (res.cancel) {
+				console.log('用户点击取消');
+			}
+		}
 	})
 }
 
@@ -132,6 +174,37 @@ function call(){
 				justify-content: center;
 				font-size: 40rpx;
 				color: rgba(0,0,0,0.5);
+			}
+			.moreBtn{
+				margin-right: 20rpx;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				align-items: center;
+				
+				.moreIco{
+					color: rgba(0,0,0);
+					// margin-top: 10rpx;
+					font-size: 40rpx;
+				}
+				.menu{
+					border-radius: 10rpx;
+					margin-top: 0rpx;
+					width: 100%;
+					height: 150rpx;
+					background: #f5f5f5;
+					display: flex;
+					justify-content: center;
+					flex-wrap: wrap;
+					color: rgba(255,255,255, 0.5);
+					.menuIco{
+						font-size: 40rpx;
+						margin-top: 30rpx;
+					}
+					.removeIco{
+						font-size: 45rpx;
+					}
+				}
 			}
 			.editBtn{
 				margin-right: 20rpx;

@@ -21,6 +21,10 @@ export function savePrivateLinkMan(linkManData = {}){
 	return request({url: linkManUrl + 'savePrivateLinkMan', method: 'POST', data: linkManData})
 }
 
+export function removePrivateLinkMan(id = 0){
+	return request({url: linkManUrl + 'remove/' + id, method: 'DELETE'})
+}
+
 export function searchLinkManList(key = ''){
 	return request({url: linkManUrl + 'searchLinkManList/' + userId + '/' + key})
 }
