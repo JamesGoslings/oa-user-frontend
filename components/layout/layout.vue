@@ -1,10 +1,10 @@
 <!-- 用于有回退要求的页面且页面无其他功能需求 -->
 <template>
 	<view class="layout">
-		<view class="navbor">
+		<view class="navbor" :style="{background: lay.mainColor}">
 			<view class="statusBar" :style="{height: statusBarHeight+'px'}"></view>
 			<view class="iconfont icoLeft" :style="{height: getTitleBarHeight()+'px'}">
-				<view class="icoRound" @click="goBack()">
+				<view class="icoRound" @click="goBack()" :style="{background: lay.btnColor}">
 					<text>&#xe604;</text>
 				</view>
 			</view>
@@ -21,11 +21,12 @@
 <script setup>
 import { statusBarHeight, getTitleBarHeight } from '@/utils/common_utils/system.js'
 
+
 defineProps({
 	lay:{
 		type:Object,
 		default(){
-			return {title:"标题",color:"#FFF"}
+			return {title:"标题",mainColor:"#fff", btnColor:"#fff"}
 		}
 	}
 })

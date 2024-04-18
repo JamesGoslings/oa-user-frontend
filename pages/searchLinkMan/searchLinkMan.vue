@@ -45,7 +45,7 @@ import { statusBarHeight, getTitleBarHeight } from '@/utils/common_utils/system.
 import { searchLinkManList } from '@/api/linkMan/linkMan';
 
 // 用于页面头部的显示信息
-let myLay = ref({title: '搜索',color: '#fff'})
+let myLay = ref({title: '搜索'})
 
 // 输入内容的双向绑定
 let iptValue = ref('')

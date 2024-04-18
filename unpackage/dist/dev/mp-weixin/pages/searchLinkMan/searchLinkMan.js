@@ -15,7 +15,7 @@ if (!Math) {
 const _sfc_main = {
   __name: "searchLinkMan",
   setup(__props) {
-    let myLay = common_vendor.ref({ title: "搜索", color: "#fff" });
+    let myLay = common_vendor.ref({ title: "搜索" });
     let iptValue = common_vendor.ref("");
     let linkManDetailData = common_vendor.ref([]);
     const search = async () => {
