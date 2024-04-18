@@ -44,12 +44,16 @@
 import { statusBarHeight, getTitleBarHeight } from '@/utils/common_utils/system.js'
 import { searchLinkManList } from '@/api/linkMan/linkMan';
 
+// 用于页面头部的显示信息
 let myLay = ref({title: '搜索',color: '#fff'})
 
+// 输入内容的双向绑定
 let iptValue = ref('')
 
+// 用于接收后端传来的搜索内容列表
 let linkManDetailData = ref([])
 
+// 发送搜索请求
 const search = async ()=>{
 	console.log(iptValue.value);
 	let {data:{data}} = await searchLinkManList(iptValue.value)
@@ -65,6 +69,7 @@ onShow(()=>{
 	}
 })
 
+// 跳转联系人详情页
 function goDetailPage(linkMandetail){
 	if(linkMandetail.typeId === 1){
 		const leader = linkMandetail.leader

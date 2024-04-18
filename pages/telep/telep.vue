@@ -41,8 +41,10 @@ import { getLinkManListInfo } from '@/api/telep/telep.js'
 // import { getPrivateLinkManList } from '@/api/privateLinkMan/privateLinkMan';
 import { getPrivateLinkManList,getPublicLinkManList } from '@/api/linkMan/linkMan';
 
+// 用于判断是否展示悬浮菜单按钮
 let isShowFab = ref(true)
 
+// 定义悬浮菜单各个功能按钮
 let menus = ref([
 	{
 		iconPath: 'http://picture.gptkong.com/images/d8e7aa93d72f40baa50a7984def4aecc.png',
@@ -58,8 +60,12 @@ let menus = ref([
 	}
 ])
 
+// myHeader组件的显示信息
 let teleHead = ref({title:"通讯录",fun:"0",color:"#FFF"})
+
 let isChoose  = ref(false)
+
+// 定义各个通讯录模块的数据模型
 let linkManBarMsg = ref([
 	{
 		topLinkTxt: '公司通讯录',
@@ -103,11 +109,14 @@ function trigger(e){
 	}
 }
 
+// 进入搜索页面
 function goSearch(){
 	uni.navigateTo({
 		url:'/pages/searchLinkMan/searchLinkMan'
 	})
 }
+
+// 判断选中
 function openLinkManList(item){
 	item.isChoose = !item.isChoose
 	// console.log(linkManBarMsg.value.length);
@@ -127,6 +136,7 @@ const privateLinkManList = async ()=>{
 	linkManBarMsg.value[1].detail = data
 }
 
+// 从后端获取全部的公共联系人的列表
 const publicLinkManList = async ()=>{
 	let {data:{data}} = await getPublicLinkManList()
 	linkManBarMsg.value[2].detail = data

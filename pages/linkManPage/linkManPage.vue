@@ -55,15 +55,19 @@ let justifyContentValue = 'space-between'
 justifyContentValue = 'flex-start'
 // #endif
 
+// 判断“更多”按钮是否选中
 let isClickMore = ref(false)
-
+// 动态修改"更多"图标的位置
 let topPx = ref(0)
 function clickMore(){
 	isClickMore.value = !isClickMore.value
 	topPx.value = topPx.value === 0 ? 13 : 0;
 }
 
+// 从缓存中接收linkManDeail对象
 let detail = ref({})
+
+// 从接收到的linkManDetail中拿到它的linMan
 let linkMan = ref({})
 onShow(()=>{
 	detail.value = uni.getStorageSync('linkManDetail')
@@ -77,20 +81,25 @@ onShow(()=>{
 	
 })
 
+// 回退
 function goBack(){
 	uni.navigateBack()
 }
+
+// 进入编辑页面（修改或新建）
 function goEdit(){
 	uni.navigateTo({
 		url: '/pages/editLinkManPage/editLinkManPage?originData=' + JSON.stringify(linkMan.value)
 	})
 }
 
+// 向后端发起删除单个联系人的请求
 const removeOne = async()=>{
 	let {data} = await removePrivateLinkMan(linkMan.value.id)
 	console.log(data);
 }
 
+// 删除单个联系人的方法
 function removeLinkMan(){
 	uni.showModal({
 		title: '是否删除该联系人',
@@ -111,8 +120,10 @@ function removeLinkMan(){
 		}
 	})
 }
-
+// 初始化头像（给出默认头像）
 let linkManAvatar = ref('/static/image/default_avatar.png')
+
+// 设置头像，没有头像就设置为对应联系人的默认头像
 function setLinkManAvatar(){
 	if(detail.value.typeId === 2){
 		linkManAvatar.value = '/static/image/logo.png'
@@ -125,6 +136,7 @@ function setLinkManAvatar(){
 	linkManAvatar.value = url
 }
 
+// 通话接口的调用
 function call(){
 	uni.makePhoneCall({
 		phoneNumber: linkMan.value.phone,

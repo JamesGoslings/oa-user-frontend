@@ -1,3 +1,4 @@
+<!-- 用于有回退要求的页面且页面无其他功能需求 -->
 <template>
 	<view class="layout">
 		<view class="navbor">

@@ -31,12 +31,14 @@
 import {useLogin} from '@/api/login/login.js'
 import { getUserInfo } from '../../api/i/i';
 
-
+// 封装用户输入的信息
 let user = ref({username:"",password:""})
+// 判断是否显示密码
 let showPwd = ref(false)
+// 用于接收拿到的用户信息
 let msg = ref("")
 
-
+// 从后端获取所需要的用户信息
 const info = async ()=>{
 	let {data:{data}} = await getUserInfo()
 	uni.setStorageSync('userMsg',data)
@@ -44,8 +46,9 @@ const info = async ()=>{
 	console.log(uni.getStorageSync('userMsg'));
 	console.log("===========DATA2===========");
 }
-
+// 登录方法的具体实现
 const login = async ()=>{
+	// 判断是否有空串
 	if(user.value.username === "" || user.value.password === ""){
 		msg.value = "* 别瞎输，用户名和密码都不能为空"
 		return;
@@ -63,7 +66,7 @@ const login = async ()=>{
 	uni.setStorageSync('token',data.data.token)
 	
 	info()
-	
+	// 所有步骤都成功，跳转首页
 	uni.reLaunch({
 		url:'/pages/home/home'
 	})
