@@ -1,6 +1,9 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 require("../../utils/common_utils/system.js");
+const api_linkMan_linkMan = require("../../api/linkMan/linkMan.js");
+require("../../utils/common_utils/request.js");
+require("../../utils/common_utils/common.js");
 if (!Array) {
   const _easycom_uni_list_item2 = common_vendor.resolveComponent("uni-list-item");
   const _easycom_uni_list2 = common_vendor.resolveComponent("uni-list");
@@ -18,6 +21,12 @@ const _sfc_main = {
   setup(__props) {
     let justifyContentValue = "space-between";
     justifyContentValue = "flex-start";
+    let isClickMore = common_vendor.ref(false);
+    let topPx = common_vendor.ref(0);
+    function clickMore() {
+      isClickMore.value = !isClickMore.value;
+      topPx.value = topPx.value === 0 ? 13 : 0;
+    }
     let detail = common_vendor.ref({});
     let linkMan = common_vendor.ref({});
     common_vendor.onShow(() => {
@@ -31,6 +40,30 @@ const _sfc_main = {
     function goEdit() {
       common_vendor.index.navigateTo({
         url: "/pages/editLinkManPage/editLinkManPage?originData=" + JSON.stringify(linkMan.value)
+      });
+    }
+    const removeOne = async () => {
+      let { data } = await api_linkMan_linkMan.removePrivateLinkMan(linkMan.value.id);
+      console.log(data);
+    };
+    function removeLinkMan() {
+      common_vendor.index.showModal({
+        title: "是否删除该联系人",
+        success: (res) => {
+          if (res.confirm) {
+            console.log("用户点击确定");
+            removeOne().then(() => {
+              common_vendor.index.navigateBack();
+              common_vendor.index.setStorageSync("isShowTelePage", true);
+              common_vendor.index.showModal({
+                title: "删除成功",
+                showCancel: false
+              });
+            });
+          } else if (res.cancel) {
+            console.log("用户点击取消");
+          }
+        }
       });
     }
     let linkManAvatar = common_vendor.ref("/static/image/default_avatar.png");
@@ -63,43 +96,48 @@ const _sfc_main = {
       return common_vendor.e({
         a: common_vendor.o(($event) => goBack()),
         b: common_vendor.unref(detail).typeId === 2
-      }, common_vendor.unref(detail).typeId === 2 ? {
-        c: common_vendor.o(($event) => goEdit())
-      } : {}, {
-        d: common_vendor.unref(justifyContentValue),
-        e: common_vendor.unref(linkManAvatar),
-        f: common_vendor.t(common_vendor.unref(linkMan).name),
-        g: common_vendor.unref(detail).typeId === 1
+      }, common_vendor.unref(detail).typeId === 2 ? common_vendor.e({
+        c: common_vendor.o(($event) => clickMore()),
+        d: common_vendor.unref(topPx) + "rpx",
+        e: common_vendor.unref(isClickMore)
+      }, common_vendor.unref(isClickMore) ? {
+        f: common_vendor.o(($event) => goEdit()),
+        g: common_vendor.o(($event) => removeLinkMan())
+      } : {}) : {}, {
+        h: common_vendor.unref(justifyContentValue),
+        i: common_vendor.unref(linkManAvatar),
+        j: common_vendor.t(common_vendor.unref(linkMan).name),
+        k: common_vendor.unref(detail).typeId === 1
       }, common_vendor.unref(detail).typeId === 1 ? {
-        h: common_vendor.p({
+        l: common_vendor.p({
           title: common_vendor.unref(linkMan).post,
           note: "联系人职位"
         })
       } : common_vendor.unref(detail).typeId === 2 ? {
-        j: common_vendor.p({
+        n: common_vendor.p({
           title: common_vendor.unref(linkMan).relationship,
           note: "关系",
           border: false
         })
       } : {}, {
-        i: common_vendor.unref(detail).typeId === 2,
-        k: common_vendor.o(($event) => call()),
-        l: common_vendor.p({
+        m: common_vendor.unref(detail).typeId === 2,
+        o: common_vendor.o(($event) => call()),
+        p: common_vendor.p({
           title: common_vendor.unref(linkMan).phone,
           note: "联系人手机号码"
         }),
-        m: common_vendor.unref(detail).typeId === 2
+        q: common_vendor.unref(detail).typeId === 2
       }, common_vendor.unref(detail).typeId === 2 ? {
-        n: common_vendor.p({
+        r: common_vendor.p({
           title: common_vendor.unref(linkMan).createTime,
           note: "创建时间"
         })
       } : {}, {
-        o: common_vendor.p({
+        s: common_vendor.p({
           title: common_vendor.unref(detail).typeName,
           note: "当前通讯录"
         }),
-        p: common_vendor.p({
+        t: common_vendor.p({
           border: false
         })
       });

@@ -99,6 +99,7 @@ function removeLinkMan(){
 				console.log('用户点击确定');
 				removeOne().then(()=>{
 					uni.navigateBack()
+					uni.setStorageSync('isShowTelePage',true)
 					uni.showModal({
 						title:'删除成功',
 						showCancel: false
