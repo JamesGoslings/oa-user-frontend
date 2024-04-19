@@ -6,6 +6,7 @@ let latitude = 0
 let missingLongitude = 0.06051
 let missingLatitude = 0.00823
 
+let locationData = {simpleLocation: '未授权位置信息',locationDetail: '未授权位置信息'}
 // 获取当前定位的经纬度（有误差）
 export function getLocation(){
 	uni.getLocation({
@@ -23,24 +24,17 @@ export function getLocation(){
 		}else{
 			console.log('无法直接获取到地址信息');
 		}
-
-	    // uni.showToast({
-	    //   title: '当前位置的经纬度：' + res.longitude + ',' + res.latitude,
-	    //   icon: 'success',
-	    //   mask: true
-	    // })
-
 		getAdress()
 		
 	  }, fail (error) {
 	    console.log('失败', error)
 	  }
 	})
+	return locationData
 }
 
 // 向高德的接口发请求，将经纬度解析为具体地址
 export function getAdress(){
-	let locationData = {simpleLocation: '未授权位置信息',locationDetail: '未授权位置信息'}
 	uni.request({
 		header:{
 			"Content-Type": "application/text"

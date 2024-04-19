@@ -4,6 +4,7 @@ let longitude = 0;
 let latitude = 0;
 let missingLongitude = 0.06051;
 let missingLatitude = 823e-5;
+let locationData = { simpleLocation: "未授权位置信息", locationDetail: "未授权位置信息" };
 function getLocation() {
   common_vendor.index.getLocation({
     // type: 'wgs84',
@@ -26,9 +27,9 @@ function getLocation() {
       console.log("失败", error);
     }
   });
+  return locationData;
 }
 function getAdress() {
-  let locationData = { simpleLocation: "未授权位置信息", locationDetail: "未授权位置信息" };
   common_vendor.index.request({
     header: {
       "Content-Type": "application/text"

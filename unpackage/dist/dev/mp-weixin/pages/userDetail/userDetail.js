@@ -34,8 +34,7 @@ const _sfc_main = {
     function changeAvatar() {
       api_i_i.saveAndBackImg(userDetailMsg);
     }
-    let location = common_vendor.ref("未授权位置信息");
-    common_vendor.ref("未授权位置信息");
+    let myLocationData = common_vendor.ref({ simpleLocation: "未授权位置信息", locationDetail: "未授权位置信息" });
     function getMyLocation() {
       common_vendor.index.getSetting({
         success(res) {
@@ -44,10 +43,11 @@ const _sfc_main = {
             common_vendor.index.authorize({
               scope: "scope.userLocation",
               success() {
-                let myLocationData = utils_location_location.getLocation();
+                myLocationData.value = utils_location_location.getLocation();
                 console.log("=========Location===========");
-                console.log(myLocationData);
+                console.log(myLocationData.value);
                 console.log("=========Location===========");
+                console.log(myLocationData.value.locationDetail);
               },
               fail(error) {
                 console.log("拒绝授权", error);
@@ -55,7 +55,11 @@ const _sfc_main = {
               }
             });
           } else {
-            utils_location_location.getLocation();
+            myLocationData.value = utils_location_location.getLocation();
+            console.log("=========Location===========");
+            console.log(myLocationData.value);
+            console.log("=========Location===========");
+            console.log(myLocationData.value.locationDetail);
           }
         }
       });
@@ -70,7 +74,7 @@ const _sfc_main = {
         d: common_vendor.t(common_vendor.unref(userDetailMsg).name),
         e: common_vendor.t(common_vendor.unref(userDetailMsg).dept),
         f: common_vendor.t(common_vendor.unref(userDetailMsg).phone),
-        g: common_vendor.t(common_vendor.unref(location)),
+        g: common_vendor.t(common_vendor.unref(myLocationData).simpleLocation),
         h: common_vendor.o(($event) => getMyLocation()),
         i: common_vendor.t(common_vendor.unref(userDetailMsg).post),
         j: common_vendor.t(common_vendor.unref(userDetailMsg).dept),

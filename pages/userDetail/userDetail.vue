@@ -18,7 +18,7 @@
 				<view class="msgOne" @click="getMyLocation()">
 					<view class="iconfont msgIco">&#xe818;</view>
 					<!-- <view class="msgContent">四川省成都信息工程大学航空港校区</view> -->
-					<view class="msgContent">{{location}}</view>
+					<view class="msgContent">{{myLocationData.simpleLocation}}</view>
 				</view>
 			</view>
 			
@@ -88,8 +88,9 @@ function changeAvatar(){
 	saveAndBackImg(userDetailMsg)
 }
 
-let location = ref('未授权位置信息')
-let locationDetail = ref('未授权位置信息')
+let myLocationData = ref({simpleLocation: '未授权位置信息',locationDetail: '未授权位置信息'})
+// let location = ref('未授权位置信息')
+// let locationDetail = ref('未授权位置信息')
 // 获取当前位置信息（中文的详细信息）
 function getMyLocation (){	
 	// 先查看是否授权
@@ -103,10 +104,11 @@ function getMyLocation (){
 						scope: 'scope.userLocation',
 						success () {
 							// 点击允许后--就一直会进入成功授权的回调 就可以使用获取的方法了
-							let myLocationData = getLocation();
+							myLocationData.value = getLocation();
 							console.log('=========Location===========');
-							console.log(myLocationData);
+							console.log(myLocationData.value);
 							console.log('=========Location===========');
+							console.log(myLocationData.value.locationDetail);
 							// location.value = myLocationData.simpleLocation
 							// locationDetail.value = myLocationData.locationDetail
 						},
@@ -118,7 +120,11 @@ function getMyLocation (){
 					})
 	          } else {
 	            // 有权限则直接获取
-				getLocation()
+				myLocationData.value = getLocation();
+				console.log('=========Location===========');
+				console.log(myLocationData.value);
+				console.log('=========Location===========');
+				console.log(myLocationData.value.locationDetail);
 			}
 	    }
 	})
