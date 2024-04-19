@@ -15,7 +15,7 @@
 					<view class="iconfont msgIco">&#xe817;</view>
 					<view class="msgContent">{{userDetailMsg.phone}}</view>
 				</view>
-				<view class="msgOne">
+				<view class="msgOne" @click="getLocation()">
 					<view class="iconfont msgIco">&#xe818;</view>
 					<view class="msgContent">四川省成都市</view>
 				</view>
@@ -84,6 +84,97 @@ onShow(()=>{
 // 修改头像并实现马上回显（非发网络请求回显）
 function changeAvatar(){
 	saveAndBackImg(userDetailMsg)
+}
+function getLocation (){	
+	
+	let that = {x:0,y:0}
+	uni.getSetting({
+	        success (res) {
+	          console.log(res)
+	
+	          // 如果没有授权
+	          if (!res.authSetting['scope.userLocation']) {
+	            // 则拉起授权窗口
+	            uni.authorize({
+	              scope: 'scope.userLocation',
+	              success () {
+	                //点击允许后--就一直会进入成功授权的回调 就可以使用获取的方法了
+	                uni.getLocation({
+	                  type: 'wgs84',
+	                  success: function (res) {
+	                    that.x = res.longitude
+	                    that.y = res.latitude
+	                    console.log(res)
+	                    console.log('当前位置的经度：' + res.longitude)
+	                    console.log('当前位置的纬度：' + res.latitude)
+	                    uni.showToast({
+	                      title: '当前位置的经纬度：' + res.longitude + ',' + res.latitude,
+	                      icon: 'success',
+	                      mask: true
+	                    })
+	                  }, fail (error) {
+	                    console.log('失败', error)
+	                  }
+	                })
+	              },
+	              fail (error) {
+	                //点击了拒绝授权后--就一直会进入失败回调函数--此时就可以在这里重新拉起授权窗口
+	                console.log('拒绝授权', error)
+	
+	                uni.showModal({
+	                  title: '提示',
+	                  content: '若点击不授权，将无法使用位置功能',
+	                  cancelText: '不授权',
+	                  cancelColor: '#999',
+	                  confirmText: '授权',
+	                  confirmColor: '#f94218',
+	                  success (res) {
+	                    console.log(res)
+	                    if (res.confirm) {
+	                      // 选择弹框内授权
+	                      uni.openSetting({
+	                        success (res) {
+	                          console.log(res.authSetting)
+	                        }
+	                      })
+	                    } else if (res.cancel) {
+	                      // 选择弹框内 不授权
+	                      console.log('用户点击不授权')
+	                    }
+	                  }
+	                })
+	              }
+	            })
+	          } else {
+	            // 有权限则直接获取 
+	            uni.getLocation({
+	              // type: 'gcj02',
+				  type: 'wgs84',
+				  // isHighAccuracy:true,
+	              success: function (res) {
+	                that.x = res.longitude
+	                that.y = res.latitude
+	                console.log(res)
+	                console.log('当前位置的经度：' + res.longitude)
+	                console.log('当前位置的纬度：' + res.latitude)
+	                uni.showToast({
+	                  title: '当前位置的经纬度：' + res.longitude + ',' + res.latitude,
+	                  icon: 'success',
+	                  mask: true
+	                })
+	              }, 
+				  fail (error) {
+	                uni.showToast({
+	                  title: '请勿频繁调用！',
+	                  icon: 'none',
+	                })
+	                console.log('失败', error)
+	              }
+	            })
+	          }
+	        }
+	      })	
+	
 }
 </script>
 
