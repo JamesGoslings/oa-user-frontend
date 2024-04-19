@@ -15,9 +15,10 @@
 					<view class="iconfont msgIco">&#xe817;</view>
 					<view class="msgContent">{{userDetailMsg.phone}}</view>
 				</view>
-				<view class="msgOne" @click="getLocation()">
+				<view class="msgOne" @click="getMyLocation()">
 					<view class="iconfont msgIco">&#xe818;</view>
-					<view class="msgContent">四川省成都市</view>
+					<!-- <view class="msgContent">四川省成都信息工程大学航空港校区</view> -->
+					<view class="msgContent">{{location}}</view>
 				</view>
 			</view>
 			
@@ -62,6 +63,7 @@
 
 <script setup>
 import { saveAndBackImg } from '@/api/i/i.js';
+import { getLocation,cancelChoose } from '@/utils/location/location';
 // 用于设定顶头信息
 let myLay = ref({title: '个人详情页',mainColor:"#fff",btnColor:"#F5F5F5"})
 // 用于接收和显示用户详细信息
@@ -85,95 +87,41 @@ onShow(()=>{
 function changeAvatar(){
 	saveAndBackImg(userDetailMsg)
 }
-function getLocation (){	
-	
-	let that = {x:0,y:0}
+
+let location = ref('未授权位置信息')
+let locationDetail = ref('未授权位置信息')
+// 获取当前位置信息（中文的详细信息）
+function getMyLocation (){	
+	// 先查看是否授权
 	uni.getSetting({
 	        success (res) {
 	          console.log(res)
-	
-	          // 如果没有授权
-	          if (!res.authSetting['scope.userLocation']) {
-	            // 则拉起授权窗口
-	            uni.authorize({
-	              scope: 'scope.userLocation',
-	              success () {
-	                //点击允许后--就一直会进入成功授权的回调 就可以使用获取的方法了
-	                uni.getLocation({
-	                  type: 'wgs84',
-	                  success: function (res) {
-	                    that.x = res.longitude
-	                    that.y = res.latitude
-	                    console.log(res)
-	                    console.log('当前位置的经度：' + res.longitude)
-	                    console.log('当前位置的纬度：' + res.latitude)
-	                    uni.showToast({
-	                      title: '当前位置的经纬度：' + res.longitude + ',' + res.latitude,
-	                      icon: 'success',
-	                      mask: true
-	                    })
-	                  }, fail (error) {
-	                    console.log('失败', error)
-	                  }
-	                })
-	              },
-	              fail (error) {
-	                //点击了拒绝授权后--就一直会进入失败回调函数--此时就可以在这里重新拉起授权窗口
-	                console.log('拒绝授权', error)
-	
-	                uni.showModal({
-	                  title: '提示',
-	                  content: '若点击不授权，将无法使用位置功能',
-	                  cancelText: '不授权',
-	                  cancelColor: '#999',
-	                  confirmText: '授权',
-	                  confirmColor: '#f94218',
-	                  success (res) {
-	                    console.log(res)
-	                    if (res.confirm) {
-	                      // 选择弹框内授权
-	                      uni.openSetting({
-	                        success (res) {
-	                          console.log(res.authSetting)
-	                        }
-	                      })
-	                    } else if (res.cancel) {
-	                      // 选择弹框内 不授权
-	                      console.log('用户点击不授权')
-	                    }
-	                  }
-	                })
-	              }
-	            })
+				// 如果没有授权
+				if (!res.authSetting['scope.userLocation']) {
+					// 则拉起授权窗口
+					uni.authorize({
+						scope: 'scope.userLocation',
+						success () {
+							// 点击允许后--就一直会进入成功授权的回调 就可以使用获取的方法了
+							let myLocationData = getLocation();
+							console.log('=========Location===========');
+							console.log(myLocationData);
+							console.log('=========Location===========');
+							// location.value = myLocationData.simpleLocation
+							// locationDetail.value = myLocationData.locationDetail
+						},
+						fail (error) {
+							console.log('拒绝授权', error)
+							// 点击了拒绝授权后--就一直会进入失败回调函数--此时就可以在这里重新拉起授权窗口
+							cancelChoose()
+						}
+					})
 	          } else {
-	            // 有权限则直接获取 
-	            uni.getLocation({
-	              // type: 'gcj02',
-				  type: 'wgs84',
-				  // isHighAccuracy:true,
-	              success: function (res) {
-	                that.x = res.longitude
-	                that.y = res.latitude
-	                console.log(res)
-	                console.log('当前位置的经度：' + res.longitude)
-	                console.log('当前位置的纬度：' + res.latitude)
-	                uni.showToast({
-	                  title: '当前位置的经纬度：' + res.longitude + ',' + res.latitude,
-	                  icon: 'success',
-	                  mask: true
-	                })
-	              }, 
-				  fail (error) {
-	                uni.showToast({
-	                  title: '请勿频繁调用！',
-	                  icon: 'none',
-	                })
-	                console.log('失败', error)
-	              }
-	            })
-	          }
-	        }
-	      })	
+	            // 有权限则直接获取
+				getLocation()
+			}
+	    }
+	})
 	
 }
 </script>
@@ -232,7 +180,7 @@ function getLocation (){
 				margin-bottom: 25rpx;
 			}
 			.msgOne{
-				width: 80%;
+				width: 90%;
 				margin-left: 30rpx;
 				margin-top: 15rpx;
 				margin-bottom: 15rpx;

@@ -90,7 +90,7 @@
   margin-bottom: 25rpx;
 }
 .userDetailSty .detailMsg .detailMsgOne .msgOne.data-v-82cda788 {
-  width: 80%;
+  width: 90%;
   margin-left: 30rpx;
   margin-top: 15rpx;
   margin-bottom: 15rpx;

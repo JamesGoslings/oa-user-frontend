@@ -1,6 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const api_i_i = require("../../api/i/i.js");
+const utils_location_location = require("../../utils/location/location.js");
 require("../../utils/common_utils/request.js");
 require("../../utils/common_utils/common.js");
 if (!Array) {
@@ -33,7 +34,9 @@ const _sfc_main = {
     function changeAvatar() {
       api_i_i.saveAndBackImg(userDetailMsg);
     }
-    function getLocation() {
+    let location = common_vendor.ref("未授权位置信息");
+    common_vendor.ref("未授权位置信息");
+    function getMyLocation() {
       common_vendor.index.getSetting({
         success(res) {
           console.log(res);
@@ -41,74 +44,18 @@ const _sfc_main = {
             common_vendor.index.authorize({
               scope: "scope.userLocation",
               success() {
-                common_vendor.index.getLocation({
-                  type: "wgs84",
-                  success: function(res2) {
-                    res2.longitude;
-                    res2.latitude;
-                    console.log(res2);
-                    console.log("当前位置的经度：" + res2.longitude);
-                    console.log("当前位置的纬度：" + res2.latitude);
-                    common_vendor.index.showToast({
-                      title: "当前位置的经纬度：" + res2.longitude + "," + res2.latitude,
-                      icon: "success",
-                      mask: true
-                    });
-                  },
-                  fail(error) {
-                    console.log("失败", error);
-                  }
-                });
+                let myLocationData = utils_location_location.getLocation();
+                console.log("=========Location===========");
+                console.log(myLocationData);
+                console.log("=========Location===========");
               },
               fail(error) {
                 console.log("拒绝授权", error);
-                common_vendor.index.showModal({
-                  title: "提示",
-                  content: "若点击不授权，将无法使用位置功能",
-                  cancelText: "不授权",
-                  cancelColor: "#999",
-                  confirmText: "授权",
-                  confirmColor: "#f94218",
-                  success(res2) {
-                    console.log(res2);
-                    if (res2.confirm) {
-                      common_vendor.index.openSetting({
-                        success(res3) {
-                          console.log(res3.authSetting);
-                        }
-                      });
-                    } else if (res2.cancel) {
-                      console.log("用户点击不授权");
-                    }
-                  }
-                });
+                utils_location_location.cancelChoose();
               }
             });
           } else {
-            common_vendor.index.getLocation({
-              // type: 'gcj02',
-              type: "wgs84",
-              // isHighAccuracy:true,
-              success: function(res2) {
-                res2.longitude;
-                res2.latitude;
-                console.log(res2);
-                console.log("当前位置的经度：" + res2.longitude);
-                console.log("当前位置的纬度：" + res2.latitude);
-                common_vendor.index.showToast({
-                  title: "当前位置的经纬度：" + res2.longitude + "," + res2.latitude,
-                  icon: "success",
-                  mask: true
-                });
-              },
-              fail(error) {
-                common_vendor.index.showToast({
-                  title: "请勿频繁调用！",
-                  icon: "none"
-                });
-                console.log("失败", error);
-              }
-            });
+            utils_location_location.getLocation();
           }
         }
       });
@@ -123,11 +70,12 @@ const _sfc_main = {
         d: common_vendor.t(common_vendor.unref(userDetailMsg).name),
         e: common_vendor.t(common_vendor.unref(userDetailMsg).dept),
         f: common_vendor.t(common_vendor.unref(userDetailMsg).phone),
-        g: common_vendor.o(($event) => getLocation()),
-        h: common_vendor.t(common_vendor.unref(userDetailMsg).post),
-        i: common_vendor.t(common_vendor.unref(userDetailMsg).dept),
-        j: common_vendor.t(common_vendor.unref(userDetailMsg).createTime),
-        k: common_vendor.p({
+        g: common_vendor.t(common_vendor.unref(location)),
+        h: common_vendor.o(($event) => getMyLocation()),
+        i: common_vendor.t(common_vendor.unref(userDetailMsg).post),
+        j: common_vendor.t(common_vendor.unref(userDetailMsg).dept),
+        k: common_vendor.t(common_vendor.unref(userDetailMsg).createTime),
+        l: common_vendor.p({
           spacing: "0"
         })
       };
