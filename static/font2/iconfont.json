@@ -1,0 +1,23 @@
+{
+  "id": "4516490",
+  "name": "demo2",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "741899",
+      "name": "统计分析",
+      "font_class": "tongjifenxi",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "19135429",
+      "name": "04 SFA_考勤规则",
+      "font_class": "04SFA_kaoqinguize",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    }
+  ]
+}
