@@ -2,8 +2,6 @@
 const common_vendor = require("../../common/vendor.js");
 let longitude = 0;
 let latitude = 0;
-let missingLongitude = 0.06051;
-let missingLatitude = 823e-5;
 function getLocation() {
   return new Promise((resolve, reject) => {
     common_vendor.index.getLocation({
@@ -39,7 +37,7 @@ function getAdress() {
         "Content-Type": "application/text"
       },
       // key值需要高德地图的 web服务生成的key  只有web服务才有逆地理编码
-      url: "https://restapi.amap.com/v3/geocode/regeo?output=JSON&location=" + (longitude + missingLongitude) + "," + (latitude + missingLatitude) + "&key=280802ed0116fef931dbcf5e7e9278d7&radius=1000&extensions=all",
+      url: "https://restapi.amap.com/v3/geocode/regeo?output=JSON&location=" + longitude + "," + latitude + "&key=280802ed0116fef931dbcf5e7e9278d7&radius=1000&extensions=all",
       success: function(res) {
         console.log(res);
         if (res.statusCode === 200) {

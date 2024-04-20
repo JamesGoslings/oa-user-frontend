@@ -6,8 +6,6 @@ let latitude = 0
 let missingLongitude = 0.06051
 let missingLatitude = 0.00823
 
-// export let locationData = {}
-// let locationData = {simpleLocation: '未授权位置信息', locationDetail: '未授权位置信息'}
 // 获取当前定位的经纬度（有误差）
 export function getLocation(){
 	return new Promise((resolve,reject)=>{
@@ -46,7 +44,7 @@ export function getAdress(){
 				"Content-Type": "application/text"
 			},
 			// key值需要高德地图的 web服务生成的key  只有web服务才有逆地理编码
-			url:'https://restapi.amap.com/v3/geocode/regeo?output=JSON&location='+(longitude + missingLongitude)+','+(latitude + missingLatitude)+'&key=280802ed0116fef931dbcf5e7e9278d7&radius=1000&extensions=all',
+			url:'https://restapi.amap.com/v3/geocode/regeo?output=JSON&location='+ longitude +','+ latitude +'&key=280802ed0116fef931dbcf5e7e9278d7&radius=1000&extensions=all',
 			success: function (res) {
 				console.log(res)
 				if(res.statusCode===200){
