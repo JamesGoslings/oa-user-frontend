@@ -29,6 +29,7 @@ function getLocation() {
     });
   });
 }
+let key = "91e69218a34541c5b850c28a0f4a908e";
 function getAdress() {
   return new Promise((resolve, reject) => {
     let locationData = { simpleLocation: "未授权位置信息", locationDetail: "未授权位置信息" };
@@ -37,7 +38,7 @@ function getAdress() {
         "Content-Type": "application/text"
       },
       // key值需要高德地图的 web服务生成的key  只有web服务才有逆地理编码
-      url: "https://restapi.amap.com/v3/geocode/regeo?output=JSON&location=" + longitude + "," + latitude + "&key=280802ed0116fef931dbcf5e7e9278d7&radius=1000&extensions=all",
+      url: "https://restapi.amap.com/v3/geocode/regeo?output=JSON&location=" + longitude + "," + latitude + "&key=" + key + "&radius=1000&extensions=all",
       success: function(res) {
         console.log(res);
         if (res.statusCode === 200) {
@@ -79,5 +80,21 @@ function cancelChoose() {
     }
   });
 }
+function distance(lon1, lat1, lon2, lat2) {
+  let dLon = toRadians(lon2 - lon1);
+  let dLat = toRadians(lat2 - lat1);
+  lon1 = toRadians(lon1);
+  lon2 = toRadians(lon2);
+  lat1 = toRadians(lat1);
+  lat2 = toRadians(lat2);
+  const r = 6371 * 1e3;
+  let sqrtContent = Math.pow(Math.sin(dLat / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dLon / 2), 2);
+  let distance2 = 2 * r * Math.asin(Math.sqrt(sqrtContent));
+  return distance2;
+}
+function toRadians(angle) {
+  return angle * (Math.PI / 180);
+}
 exports.cancelChoose = cancelChoose;
+exports.distance = distance;
 exports.getLocation = getLocation;

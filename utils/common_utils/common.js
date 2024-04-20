@@ -5,8 +5,8 @@
 export const SYSTEM_INFO = uni.getSystemInfoSync()
 
 //主机地址
-export const HOST = 'http://localhost:8800'
-// export const HOST = 'http://192.168.43.189:8800'
+// export const HOST = 'http://localhost:8800'
+export const HOST = 'http://192.168.43.189:8800'
 
 
 //api服务器

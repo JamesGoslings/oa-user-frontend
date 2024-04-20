@@ -6,7 +6,7 @@ let latitude = 0
 let missingLongitude = 0.06051
 let missingLatitude = 0.00823
 
-// 获取当前定位的经纬度（有误差）
+// 获取当前定位的经纬度并逆编码成中文地址（有误差）
 export function getLocation(){
 	return new Promise((resolve,reject)=>{
 		uni.getLocation({
@@ -34,7 +34,7 @@ export function getLocation(){
 		})
 	})
 }
-
+let key = '91e69218a34541c5b850c28a0f4a908e'
 // 向高德的接口发请求，将经纬度解析为具体地址
 export function getAdress(){
 	return new Promise((resolve,reject)=>{
@@ -44,7 +44,7 @@ export function getAdress(){
 				"Content-Type": "application/text"
 			},
 			// key值需要高德地图的 web服务生成的key  只有web服务才有逆地理编码
-			url:'https://restapi.amap.com/v3/geocode/regeo?output=JSON&location='+ longitude +','+ latitude +'&key=280802ed0116fef931dbcf5e7e9278d7&radius=1000&extensions=all',
+			url:'https://restapi.amap.com/v3/geocode/regeo?output=JSON&location='+ longitude +','+ latitude +'&key=' + key + '&radius=1000&extensions=all',
 			success: function (res) {
 				console.log(res)
 				if(res.statusCode===200){
@@ -93,3 +93,24 @@ export function cancelChoose(){
 	})
 }
 
+// 根据两个位置的经纬度来计算两个位置间的距离
+export function distance(lon1,lat1,lon2,lat2){
+	// 角度转弧度
+	let dLon = toRadians(lon2 - lon1)
+	let dLat = toRadians(lat2 - lat1)
+	lon1 = toRadians(lon1)
+	lon2 = toRadians(lon2)
+	lat1 = toRadians(lat1)
+	lat2 = toRadians(lat2)
+	// 地球平均半径
+	const r = 6371 * 1000
+	// 根号下的内容
+	let sqrtContent = Math.pow(Math.sin(dLat / 2.0), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dLon / 2.0),2)
+	// 具体计算
+	let distance = 2.0 * r * Math.asin(Math.sqrt(sqrtContent))
+	return distance
+}
+// 辅助函数，将角度转换为弧度  
+function toRadians(angle) {  
+  return angle * (Math.PI / 180);  
+}

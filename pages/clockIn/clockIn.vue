@@ -22,9 +22,9 @@
 			</view>
 		</view>
 		<view class="clockInFun">
-			<uni-steps class="steps" :options="options" direction="column" :active="1"></uni-steps>
+			<uni-steps class="steps" :options="options" direction="column" :active="0"></uni-steps>
 			<view class="btnBox">
-				<button class="btn" hover-class="btnA" >
+				<button class="btn" hover-class="btnA" :disabled="!isEntry" @click="getDistance()">
 					<view class="btnText">下班打卡</view>
 				</button>
 				<view class="clockInLocation iconfont" v-if="isEntry">&#xe6db; 已进入打卡范围</view>
@@ -35,6 +35,7 @@
 </template>
 
 <script setup>
+import { distance } from '@/utils/location/location';
 // myHeader组件的显示信息
 let myHead = ref({title: '考勤打卡',fun: '0',color: '#fff'})
 // 定义每个步骤的信息
@@ -49,7 +50,7 @@ let options = ref([
 	}
 ])
 // 判断是否已经进入可打卡范围
-let isEntry = ref(false)
+let isEntry = ref(true)
 
 // 接收用户信息
 let userMsg = ref(
@@ -63,6 +64,14 @@ let userMsg = ref(
 onShow(()=>{
 	userMsg.value = uni.getStorageSync('userMsg')
 })
+
+function getDistance(){
+	// let d = distance(103.98450168185764, 30.582784830729167, 103.951229, 30.559807)
+	let d = distance(116.368904, 39.923423, 116.387271, 39.922501)
+	console.log('===========distance===============');
+	console.log(d);
+	console.log('===========distance===============');
+}
 </script>
 
 <style lang="scss" scoped>

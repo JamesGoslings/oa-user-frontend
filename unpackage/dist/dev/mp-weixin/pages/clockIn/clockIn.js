@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const utils_location_location = require("../../utils/location/location.js");
 if (!Array) {
   const _easycom_myHeader2 = common_vendor.resolveComponent("myHeader");
   const _easycom_uni_steps2 = common_vendor.resolveComponent("uni-steps");
@@ -24,7 +25,7 @@ const _sfc_main = {
         desc: "2024-04-20"
       }
     ]);
-    let isEntry = common_vendor.ref(false);
+    let isEntry = common_vendor.ref(true);
     let userMsg = common_vendor.ref(
       {
         avatarUrl: "/static/image/default_avatar.png",
@@ -35,6 +36,12 @@ const _sfc_main = {
     common_vendor.onShow(() => {
       userMsg.value = common_vendor.index.getStorageSync("userMsg");
     });
+    function getDistance() {
+      let d = utils_location_location.distance(116.368904, 39.923423, 116.387271, 39.922501);
+      console.log("===========distance===============");
+      console.log(d);
+      console.log("===========distance===============");
+    }
     return (_ctx, _cache) => {
       return common_vendor.e({
         a: common_vendor.p({
@@ -46,9 +53,11 @@ const _sfc_main = {
         e: common_vendor.p({
           options: common_vendor.unref(options),
           direction: "column",
-          active: 1
+          active: 0
         }),
-        f: common_vendor.unref(isEntry)
+        f: !common_vendor.unref(isEntry),
+        g: common_vendor.o(($event) => getDistance()),
+        h: common_vendor.unref(isEntry)
       }, common_vendor.unref(isEntry) ? {} : {});
     };
   }
