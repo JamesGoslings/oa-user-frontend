@@ -84,6 +84,14 @@
 				"navigationBarTitleText" : "",
 				"enablePullDownRefresh" : false
 			}
+		},
+		{
+			"path" : "pages/clockIn/clockIn",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
 		}
 	],
 	"globalStyle": {
@@ -107,6 +115,12 @@
 				"text": "首页",
 				"iconPath": "static/image/icon/home.png",
 				"selectedIconPath": "static/image/icon/home_a.png"
+			},
+			{
+				"pagePath": "pages/clockIn/clockIn",
+				"text": "打卡",
+				"iconPath": "static/image/icon/clockIn.png",
+				"selectedIconPath": "static/image/icon/clockIn_a.png"
 			},
 			{
 				"pagePath": "pages/telep/telep",

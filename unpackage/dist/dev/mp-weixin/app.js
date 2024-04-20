@@ -13,6 +13,7 @@ if (!Math) {
   "./pages/linkManPage/linkManPage.js";
   "./pages/editLinkManPage/editLinkManPage.js";
   "./pages/userDetail/userDetail.js";
+  "./pages/clockIn/clockIn.js";
 }
 console.log("/???");
 const _sfc_main = {

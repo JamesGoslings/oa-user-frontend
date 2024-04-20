@@ -10,7 +10,8 @@
     "pages/searchLinkMan/searchLinkMan",
     "pages/linkManPage/linkManPage",
     "pages/editLinkManPage/editLinkManPage",
-    "pages/userDetail/userDetail"
+    "pages/userDetail/userDetail",
+    "pages/clockIn/clockIn"
   ],
   "window": {
     "navigationStyle": "custom",
@@ -29,6 +30,12 @@
         "text": "首页",
         "iconPath": "static/image/icon/home.png",
         "selectedIconPath": "static/image/icon/home_a.png"
+      },
+      {
+        "pagePath": "pages/clockIn/clockIn",
+        "text": "打卡",
+        "iconPath": "static/image/icon/clockIn.png",
+        "selectedIconPath": "static/image/icon/clockIn_a.png"
       },
       {
         "pagePath": "pages/telep/telep",

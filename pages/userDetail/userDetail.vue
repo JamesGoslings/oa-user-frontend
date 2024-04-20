@@ -84,6 +84,8 @@ function changeAvatar(){
 }
 
 let myLocationData = ref({simpleLoaction:'未授权位置信息',locationDetail: '未授权位置信息'})
+
+// 判断是否需要显示详细位置信息
 let isDetail = ref(false)
 
 // 获取信息同步到data中
