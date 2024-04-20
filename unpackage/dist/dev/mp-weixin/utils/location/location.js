@@ -4,55 +4,59 @@ let longitude = 0;
 let latitude = 0;
 let missingLongitude = 0.06051;
 let missingLatitude = 823e-5;
-let locationData = { simpleLocation: "未授权位置信息", locationDetail: "未授权位置信息" };
 function getLocation() {
-  common_vendor.index.getLocation({
-    // type: 'wgs84',
-    type: "gcj02",
-    geocode: true,
-    success: function(res) {
-      longitude = res.longitude;
-      latitude = res.latitude;
-      console.log(res);
-      console.log("当前位置的经度：" + res.longitude);
-      console.log("当前位置的纬度：" + res.latitude);
-      if (res.address !== void 0) {
-        console.log(res.address);
-      } else {
-        console.log("无法直接获取到地址信息");
+  return new Promise((resolve, reject) => {
+    common_vendor.index.getLocation({
+      // type: 'wgs84',
+      type: "gcj02",
+      geocode: true,
+      success: async function(res) {
+        longitude = res.longitude;
+        latitude = res.latitude;
+        console.log(res);
+        console.log("当前位置的经度：" + res.longitude);
+        console.log("当前位置的纬度：" + res.latitude);
+        if (res.address !== void 0) {
+          console.log(res.address);
+        } else {
+          console.log("无法直接获取到地址信息");
+        }
+        let myData = await getAdress();
+        resolve(myData);
+      },
+      fail(error) {
+        console.log("失败", error);
       }
-      getAdress();
-    },
-    fail(error) {
-      console.log("失败", error);
-    }
+    });
   });
-  return locationData;
 }
 function getAdress() {
-  common_vendor.index.request({
-    header: {
-      "Content-Type": "application/text"
-    },
-    // key值需要高德地图的 web服务生成的key  只有web服务才有逆地理编码
-    url: "https://restapi.amap.com/v3/geocode/regeo?output=JSON&location=" + (longitude + missingLongitude) + "," + (latitude + missingLatitude) + "&key=280802ed0116fef931dbcf5e7e9278d7&radius=1000&extensions=all",
-    success(res) {
-      console.log(res);
-      if (res.statusCode === 200) {
-        const regoe = res.data.regeocode;
-        const msg = regoe.addressComponent;
-        const aois = regoe.aois;
-        const locationStr = msg.province + aois[0].name;
-        locationData.simpleLocation = locationStr;
-        locationData.locationDetail = regoe.formatted_address;
-        console.log("获取中文街道地理位置成功", locationStr);
-        console.log(aois);
-      } else {
-        console.log("获取信息失败，请重试！");
+  return new Promise((resolve, reject) => {
+    let locationData = { simpleLocation: "未授权位置信息", locationDetail: "未授权位置信息" };
+    common_vendor.index.request({
+      header: {
+        "Content-Type": "application/text"
+      },
+      // key值需要高德地图的 web服务生成的key  只有web服务才有逆地理编码
+      url: "https://restapi.amap.com/v3/geocode/regeo?output=JSON&location=" + (longitude + missingLongitude) + "," + (latitude + missingLatitude) + "&key=280802ed0116fef931dbcf5e7e9278d7&radius=1000&extensions=all",
+      success: function(res) {
+        console.log(res);
+        if (res.statusCode === 200) {
+          const regoe = res.data.regeocode;
+          const msg = regoe.addressComponent;
+          const aois = regoe.aois;
+          const locationStr = msg.province + aois[0].name;
+          locationData.simpleLocation = locationStr;
+          locationData.locationDetail = regoe.formatted_address;
+          console.log("获取中文街道地理位置成功", locationStr);
+          console.log(aois);
+          resolve(locationData);
+        } else {
+          console.log("获取信息失败，请重试！");
+        }
       }
-    }
+    });
   });
-  return locationData;
 }
 function cancelChoose() {
   common_vendor.index.showModal({

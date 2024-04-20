@@ -34,20 +34,21 @@ const _sfc_main = {
     function changeAvatar() {
       api_i_i.saveAndBackImg(userDetailMsg);
     }
-    let myLocationData = common_vendor.ref({ simpleLocation: "未授权位置信息", locationDetail: "未授权位置信息" });
-    function getMyLocation() {
-      common_vendor.index.getSetting({
+    let myLocationData = common_vendor.ref({ simpleLoaction: "未授权位置信息", locationDetail: "未授权位置信息" });
+    const getMyLocation = async () => {
+      await common_vendor.index.getSetting({
         success(res) {
           console.log(res);
           if (!res.authSetting["scope.userLocation"]) {
             common_vendor.index.authorize({
               scope: "scope.userLocation",
-              success() {
-                myLocationData.value = utils_location_location.getLocation();
+              success: async function() {
+                myLocationData.value = await utils_location_location.getLocation();
                 console.log("=========Location===========");
                 console.log(myLocationData.value);
-                console.log("=========Location===========");
+                console.log(myLocationData.value.simpleLocation);
                 console.log(myLocationData.value.locationDetail);
+                console.log("=========Location===========");
               },
               fail(error) {
                 console.log("拒绝授权", error);
@@ -57,13 +58,13 @@ const _sfc_main = {
           } else {
             myLocationData.value = utils_location_location.getLocation();
             console.log("=========Location===========");
-            console.log(myLocationData.value);
+            console.log(myLocationData.value.data);
             console.log("=========Location===========");
             console.log(myLocationData.value.locationDetail);
           }
         }
       });
-    }
+    };
     return (_ctx, _cache) => {
       return {
         a: common_vendor.p({

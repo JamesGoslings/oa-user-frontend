@@ -88,13 +88,14 @@ function changeAvatar(){
 	saveAndBackImg(userDetailMsg)
 }
 
-let myLocationData = ref({simpleLocation: '未授权位置信息',locationDetail: '未授权位置信息'})
+let myLocationData = ref({simpleLoaction:'未授权位置信息',locationDetail: '未授权位置信息'})
 // let location = ref('未授权位置信息')
 // let locationDetail = ref('未授权位置信息')
 // 获取当前位置信息（中文的详细信息）
-function getMyLocation (){	
+// async function getMyLocation (){	
+const getMyLocation = async ()=>{
 	// 先查看是否授权
-	uni.getSetting({
+	await uni.getSetting({
 	        success (res) {
 	          console.log(res)
 				// 如果没有授权
@@ -102,15 +103,14 @@ function getMyLocation (){
 					// 则拉起授权窗口
 					uni.authorize({
 						scope: 'scope.userLocation',
-						success () {
+						success: async function () {
 							// 点击允许后--就一直会进入成功授权的回调 就可以使用获取的方法了
-							myLocationData.value = getLocation();
+							myLocationData.value = await getLocation()
 							console.log('=========Location===========');
 							console.log(myLocationData.value);
-							console.log('=========Location===========');
+							console.log(myLocationData.value.simpleLocation);
 							console.log(myLocationData.value.locationDetail);
-							// location.value = myLocationData.simpleLocation
-							// locationDetail.value = myLocationData.locationDetail
+							console.log('=========Location===========');
 						},
 						fail (error) {
 							console.log('拒绝授权', error)
@@ -122,13 +122,12 @@ function getMyLocation (){
 	            // 有权限则直接获取
 				myLocationData.value = getLocation();
 				console.log('=========Location===========');
-				console.log(myLocationData.value);
+				console.log(myLocationData.value.data);
 				console.log('=========Location===========');
 				console.log(myLocationData.value.locationDetail);
 			}
 	    }
 	})
-	
 }
 </script>
 
