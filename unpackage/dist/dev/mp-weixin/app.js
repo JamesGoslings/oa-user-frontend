@@ -14,6 +14,7 @@ if (!Math) {
   "./pages/editLinkManPage/editLinkManPage.js";
   "./pages/userDetail/userDetail.js";
   "./pages/clockIn/clockIn.js";
+  "./pages/clockInRule/clockInRule.js";
 }
 console.log("/???");
 const _sfc_main = {

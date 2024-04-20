@@ -19,11 +19,11 @@ const _sfc_main = {
     let options = common_vendor.ref([
       {
         title: "上班打卡 09:00",
-        desc: "2024-04-20"
+        desc: ""
       },
       {
         title: "下班打卡 18:00",
-        desc: "2024-04-20"
+        desc: ""
       }
     ]);
     let clockInText = common_vendor.ref("");
@@ -42,6 +42,7 @@ const _sfc_main = {
       stepIndex.value = stepIndex.value % 2;
       let str = options.value[stepIndex.value].title;
       clockInText = str.substring(0, 4);
+      options.value[stepIndex.value].desc = "打卡时间 " + utils_common_utils_formatDate.formattedTime();
       console.log(options.value[stepIndex.value].title);
       console.log(utils_common_utils_formatDate.formattedTime());
     }
@@ -69,6 +70,11 @@ const _sfc_main = {
       const timer = setInterval(updateTime, 1e3);
       return () => clearInterval(timer);
     });
+    function goToClockInRule() {
+      common_vendor.index.navigateTo({
+        url: "/pages/clockInRule/clockInRule"
+      });
+    }
     common_vendor.onShow(() => {
       userMsg.value = common_vendor.index.getStorageSync("userMsg");
       getDistance();
@@ -83,16 +89,17 @@ const _sfc_main = {
         b: common_vendor.unref(userMsg).avatarUrl,
         c: common_vendor.t(common_vendor.unref(userMsg).name),
         d: common_vendor.t("考勤部门：" + common_vendor.unref(userMsg).dept),
-        e: common_vendor.p({
+        e: common_vendor.o(($event) => goToClockInRule()),
+        f: common_vendor.p({
           options: common_vendor.unref(options),
           direction: "column",
           active: common_vendor.unref(stepIndex)
         }),
-        f: common_vendor.t(common_vendor.unref(clockInText)),
-        g: common_vendor.t(common_vendor.unref(currentTime)),
-        h: !common_vendor.unref(isEntry),
-        i: common_vendor.o(($event) => clockIn()),
-        j: common_vendor.unref(isEntry)
+        g: common_vendor.t(common_vendor.unref(clockInText)),
+        h: common_vendor.t(common_vendor.unref(currentTime)),
+        i: !common_vendor.unref(isEntry),
+        j: common_vendor.o(($event) => clockIn()),
+        k: common_vendor.unref(isEntry)
       }, common_vendor.unref(isEntry) ? {} : {});
     };
   }

@@ -11,7 +11,8 @@
     "pages/linkManPage/linkManPage",
     "pages/editLinkManPage/editLinkManPage",
     "pages/userDetail/userDetail",
-    "pages/clockIn/clockIn"
+    "pages/clockIn/clockIn",
+    "pages/clockInRule/clockInRule"
   ],
   "window": {
     "navigationStyle": "custom",

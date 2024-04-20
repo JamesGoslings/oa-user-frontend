@@ -123,7 +123,8 @@
   width: 350rpx;
   height: 350rpx;
   border-radius: 50%;
-  background: #2c65f0;
+  background: linear-gradient(to right, #00aaff 20%, #aa55ff);
+  box-shadow: 0px 0px 12px rgba(44, 101, 240, 0.9);
   display: flex;
   justify-content: center;
   align-items: center;

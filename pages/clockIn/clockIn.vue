@@ -15,7 +15,7 @@
 					<view class="iconfont funIco">&#xe626;</view>
 					<view class="funText">统计</view>
 				</view>
-				<view class="fun">
+				<view class="fun" @click="goToClockInRule()">
 					<view class="iconfont funIco">&#xe61e;</view>
 					<view class="funText">考勤规则</view>
 				</view>
@@ -46,11 +46,11 @@ let myHead = ref({title: '考勤打卡',fun: '0',color: '#fff'})
 let options = ref([
 	{
 		title:'上班打卡 09:00',
-		desc:'2024-04-20',
+		desc:'',
 	},
 	{
 		title:'下班打卡 18:00',
-		desc:'2024-04-20',
+		desc:'',
 	}
 ])
 //
@@ -71,14 +71,18 @@ let userMsg = ref(
 
 function clockIn(){
 	console.log('打卡成功');
+	// 运行打卡任务步骤
 	stepIndex.value++;
 	stepIndex.value = stepIndex.value % 2;
+	// 同步显示打卡文字
 	let str = options.value[stepIndex.value].title
 	clockInText = str.substring(0,4)
+	// 同步显示打卡时间
+	options.value[stepIndex.value].desc = '打卡时间 ' + formattedTime()
 	console.log(options.value[stepIndex.value].title);
 	console.log(formattedTime());
 }
-
+// 获取当前位置与寝室位置的距离并判断是否在打卡范围内
 const getDistance = async ()=>{
 	let here = await getOnlyLocation()
 	console.log('=========Here==========');
@@ -107,7 +111,12 @@ onMounted(() => {
 	const timer = setInterval(updateTime, 1000); // 每秒更新一次时间
 	return () => clearInterval(timer); // 清除计时器，当组件卸载时
 }); 
-
+// 转到打卡规则页面
+function goToClockInRule(){
+	uni.navigateTo({
+		url: '/pages/clockInRule/clockInRule'
+	})
+}
 
 onShow(()=>{
 	userMsg.value = uni.getStorageSync('userMsg')
@@ -199,7 +208,9 @@ onShow(()=>{
 				width: 350rpx;
 				height: 350rpx;
 				border-radius: 50%;
-				background: rgb(44,101,240);
+				// background: rgb(44,101,240);
+				background: linear-gradient(to right,#00aaff 20%,#aa55ff);
+				box-shadow: 0px 0px 12px rgba(44,101,240,0.9);
 				display: flex;
 				justify-content: center;
 				align-items: center;
