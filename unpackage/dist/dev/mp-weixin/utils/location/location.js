@@ -2,6 +2,7 @@
 const common_vendor = require("../../common/vendor.js");
 let longitude = 0;
 let latitude = 0;
+const location = [103.98450168185764, 30.582784830729167];
 function getLocation() {
   return new Promise((resolve, reject) => {
     common_vendor.index.getLocation({
@@ -21,6 +22,26 @@ function getLocation() {
         }
         let myData = await getAdress();
         resolve(myData);
+      },
+      fail(error) {
+        console.log("失败", error);
+        reject(error);
+      }
+    });
+  });
+}
+function getOnlyLocation() {
+  return new Promise((resolve, reject) => {
+    common_vendor.index.getLocation({
+      // type: 'wgs84',
+      type: "gcj02",
+      geocode: true,
+      success: async function(res) {
+        console.log(res);
+        console.log("当前位置的经度：" + res.longitude);
+        console.log("当前位置的纬度：" + res.latitude);
+        let myLocation = [res.longitude, res.latitude];
+        resolve(myLocation);
       },
       fail(error) {
         console.log("失败", error);
@@ -95,6 +116,10 @@ function distance(lon1, lat1, lon2, lat2) {
 function toRadians(angle) {
   return angle * (Math.PI / 180);
 }
+function distanceWithCompany(lon, lat) {
+  return distance(lon, lat, location[0], location[1]);
+}
 exports.cancelChoose = cancelChoose;
-exports.distance = distance;
+exports.distanceWithCompany = distanceWithCompany;
 exports.getLocation = getLocation;
+exports.getOnlyLocation = getOnlyLocation;

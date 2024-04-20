@@ -106,6 +106,7 @@
   font-size: 25rpx;
 }
 .clockInSty .clockInFun.data-v-10d1d18a {
+  margin-top: 50rpx;
   width: 100%;
   background: #FFF;
   padding: 50rpx 0;
@@ -126,11 +127,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 .clockInSty .clockInFun .btnBox .btn .btnText.data-v-10d1d18a {
   color: #FFF;
   font-weight: bold;
   font-size: 45rpx;
+}
+.clockInSty .clockInFun .btnBox .btn .btnText .nowTime.data-v-10d1d18a {
+  font-size: 25rpx;
+  font-weight: normal;
 }
 .clockInSty .clockInFun .btnBox .btnA.data-v-10d1d18a {
   width: 350rpx;

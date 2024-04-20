@@ -22,10 +22,13 @@
 			</view>
 		</view>
 		<view class="clockInFun">
-			<uni-steps class="steps" :options="options" direction="column" :active="0"></uni-steps>
+			<uni-steps class="steps" :options="options" direction="column" :active="stepIndex"></uni-steps>
 			<view class="btnBox">
-				<button class="btn" hover-class="btnA" :disabled="!isEntry" @click="getDistance()">
-					<view class="btnText">下班打卡</view>
+				<button class="btn" hover-class="btnA" :disabled="!isEntry" @click="clockIn()">
+					<view class="btnText">
+						<view v-text="clockInText"></view>
+						<view class="nowTime" v-text="currentTime"></view>
+					</view>
 				</button>
 				<view class="clockInLocation iconfont" v-if="isEntry">&#xe6db; 已进入打卡范围</view>
 				<view class="clockInLocation iconfont noEntry" v-else>&#xe6dc; 未进入打卡范围</view>
@@ -35,7 +38,8 @@
 </template>
 
 <script setup>
-import { distance } from '@/utils/location/location';
+import { distanceWithCompany,getOnlyLocation } from '@/utils/location/location';
+import { formattedTime } from '@/utils/common_utils/formatDate';
 // myHeader组件的显示信息
 let myHead = ref({title: '考勤打卡',fun: '0',color: '#fff'})
 // 定义每个步骤的信息
@@ -49,6 +53,10 @@ let options = ref([
 		desc:'2024-04-20',
 	}
 ])
+//
+let clockInText = ref('')
+// 判断打卡的步骤
+let stepIndex = ref(0)
 // 判断是否已经进入可打卡范围
 let isEntry = ref(true)
 
@@ -61,17 +69,53 @@ let userMsg = ref(
 	}
 )
 
+function clockIn(){
+	console.log('打卡成功');
+	stepIndex.value++;
+	stepIndex.value = stepIndex.value % 2;
+	let str = options.value[stepIndex.value].title
+	clockInText = str.substring(0,4)
+	console.log(options.value[stepIndex.value].title);
+	console.log(formattedTime());
+}
+
+const getDistance = async ()=>{
+	let here = await getOnlyLocation()
+	console.log('=========Here==========');
+	console.log(here);
+	console.log('=========Here==========');
+	let distance = distanceWithCompany(here[0],here[1])
+	console.log('==========D==========');
+	console.log(distance);
+	console.log('==========D==========');
+	if(distance <= 100){
+		isEntry.value = true
+		console.log('可打卡');
+	}else{
+		console.log('打不了卡，si一边去');
+	}
+}
+
+
+const currentTime = ref(formattedTime());
+
+const updateTime = () => {
+  currentTime.value = formattedTime();
+};  
+
+onMounted(() => {
+	const timer = setInterval(updateTime, 1000); // 每秒更新一次时间
+	return () => clearInterval(timer); // 清除计时器，当组件卸载时
+}); 
+
+
 onShow(()=>{
 	userMsg.value = uni.getStorageSync('userMsg')
+	getDistance()
+	let str = options.value[stepIndex.value].title
+	clockInText = str.substring(0,4)
 })
 
-function getDistance(){
-	// let d = distance(103.98450168185764, 30.582784830729167, 103.951229, 30.559807)
-	let d = distance(116.368904, 39.923423, 116.387271, 39.922501)
-	console.log('===========distance===============');
-	console.log(d);
-	console.log('===========distance===============');
-}
 </script>
 
 <style lang="scss" scoped>
@@ -140,6 +184,7 @@ function getDistance(){
 		}
 	}
 	.clockInFun{
+		margin-top: 50rpx;
 		width: 100%;
 		background: #FFF;
 		padding: 50rpx 0;
@@ -158,10 +203,15 @@ function getDistance(){
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				flex-wrap: wrap;
 				.btnText{
 					color: #FFF;
 					font-weight: bold;
 					font-size: 45rpx;
+					.nowTime{
+						font-size: 25rpx;
+						font-weight: normal;
+					}
 				}
 			}
 			.btnA{

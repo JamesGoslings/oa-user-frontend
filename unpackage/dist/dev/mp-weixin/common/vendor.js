@@ -6888,6 +6888,7 @@ exports.isRef = isRef;
 exports.n = n;
 exports.o = o;
 exports.onLoad = onLoad;
+exports.onMounted = onMounted;
 exports.onShow = onShow;
 exports.p = p;
 exports.ref = ref;

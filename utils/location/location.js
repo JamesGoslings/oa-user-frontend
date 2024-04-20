@@ -2,9 +2,12 @@
 let longitude = 0
 let latitude = 0
 
-// 手动粗略测出的经纬度误差
+// 手动粗略测出的经纬度误差（模拟器环境下存在的误差）
 let missingLongitude = 0.06051
 let missingLatitude = 0.00823
+
+// 固定的经纬度坐标（寝室坐标）
+const location = [103.98450168185764, 30.582784830729167]
 
 // 获取当前定位的经纬度并逆编码成中文地址（有误差）
 export function getLocation(){
@@ -34,6 +37,29 @@ export function getLocation(){
 		})
 	})
 }
+
+// 仅仅只是返回当前位置的经纬度
+export function getOnlyLocation(){
+	return new Promise((resolve,reject)=>{
+		uni.getLocation({
+		  // type: 'wgs84',
+		  type: 'gcj02',
+		  geocode:true,
+		  success: async function (res) {
+			console.log(res)
+			console.log('当前位置的经度：' + res.longitude)
+			console.log('当前位置的纬度：' + res.latitude)
+			let myLocation = [res.longitude, res.latitude]
+			resolve(myLocation)
+		  }, 
+		  fail (error) {
+			console.log('失败', error)
+			reject(error)
+		  }
+		})
+	})
+}
+
 let key = '91e69218a34541c5b850c28a0f4a908e'
 // 向高德的接口发请求，将经纬度解析为具体地址
 export function getAdress(){
@@ -111,6 +137,10 @@ export function distance(lon1,lat1,lon2,lat2){
 	return distance
 }
 // 辅助函数，将角度转换为弧度  
-function toRadians(angle) {  
-  return angle * (Math.PI / 180);  
+function toRadians(angle) {
+	return angle * (Math.PI / 180);
+}
+// 计算和寝室坐标之间的距离
+export function distanceWithCompany(lon,lat){
+	return distance(lon, lat, location[0], location[1])
 }
