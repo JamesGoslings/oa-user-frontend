@@ -1,10 +1,10 @@
 import { request } from "/utils/common_utils/request"
 
 const linkManUrl = '/admin/system/linkMan/'
-let userId = 0;
-userId = uni.getStorageSync('userMsg').userId
+// let userId = uni.getStorageSync('userMsg').userId
 
 export function getPrivateLinkManList(){
+	let userId = uni.getStorageSync('userMsg').userId
 	return request({url: linkManUrl + 'getPrivateList/' + userId})
 }
 
@@ -17,6 +17,7 @@ export function updatePrivateLinkMan(linkManData = {}){
 }
 
 export function savePrivateLinkMan(linkManData = {}){
+	let userId = uni.getStorageSync('userMsg').userId
 	linkManData.userId = userId
 	return request({url: linkManUrl + 'savePrivateLinkMan', method: 'POST', data: linkManData})
 }
@@ -26,5 +27,6 @@ export function removePrivateLinkMan(id = 0){
 }
 
 export function searchLinkManList(key = ''){
+	let userId = uni.getStorageSync('userMsg').userId
 	return request({url: linkManUrl + 'searchLinkManList/' + userId + '/' + key})
 }
