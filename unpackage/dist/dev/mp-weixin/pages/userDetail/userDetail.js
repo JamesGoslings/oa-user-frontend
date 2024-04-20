@@ -28,27 +28,28 @@ const _sfc_main = {
         dept: "无"
       }
     );
-    common_vendor.onShow(() => {
-      userDetailMsg.value = common_vendor.index.getStorageSync("userMsg");
-    });
     function changeAvatar() {
       api_i_i.saveAndBackImg(userDetailMsg);
     }
     let myLocationData = common_vendor.ref({ simpleLoaction: "未授权位置信息", locationDetail: "未授权位置信息" });
-    const getMyLocation = async () => {
-      await common_vendor.index.getSetting({
+    let isDetail = common_vendor.ref(false);
+    const location = async () => {
+      myLocationData.value = await utils_location_location.getLocation();
+      console.log("=========Location===========");
+      console.log(myLocationData.value);
+      console.log(myLocationData.value.simpleLocation);
+      console.log(myLocationData.value.locationDetail);
+      console.log("=========Location===========");
+    };
+    function getMyLocation() {
+      common_vendor.index.getSetting({
         success(res) {
           console.log(res);
           if (!res.authSetting["scope.userLocation"]) {
             common_vendor.index.authorize({
               scope: "scope.userLocation",
-              success: async function() {
-                myLocationData.value = await utils_location_location.getLocation();
-                console.log("=========Location===========");
-                console.log(myLocationData.value);
-                console.log(myLocationData.value.simpleLocation);
-                console.log(myLocationData.value.locationDetail);
-                console.log("=========Location===========");
+              success() {
+                location();
               },
               fail(error) {
                 console.log("拒绝授权", error);
@@ -56,17 +57,17 @@ const _sfc_main = {
               }
             });
           } else {
-            myLocationData.value = utils_location_location.getLocation();
-            console.log("=========Location===========");
-            console.log(myLocationData.value.data);
-            console.log("=========Location===========");
-            console.log(myLocationData.value.locationDetail);
+            location();
           }
         }
       });
-    };
+    }
+    common_vendor.onShow(() => {
+      userDetailMsg.value = common_vendor.index.getStorageSync("userMsg");
+      getMyLocation();
+    });
     return (_ctx, _cache) => {
-      return {
+      return common_vendor.e({
         a: common_vendor.p({
           lay: common_vendor.unref(myLay)
         }),
@@ -75,15 +76,21 @@ const _sfc_main = {
         d: common_vendor.t(common_vendor.unref(userDetailMsg).name),
         e: common_vendor.t(common_vendor.unref(userDetailMsg).dept),
         f: common_vendor.t(common_vendor.unref(userDetailMsg).phone),
-        g: common_vendor.t(common_vendor.unref(myLocationData).simpleLocation),
-        h: common_vendor.o(($event) => getMyLocation()),
-        i: common_vendor.t(common_vendor.unref(userDetailMsg).post),
-        j: common_vendor.t(common_vendor.unref(userDetailMsg).dept),
-        k: common_vendor.t(common_vendor.unref(userDetailMsg).createTime),
-        l: common_vendor.p({
+        g: !common_vendor.unref(isDetail)
+      }, !common_vendor.unref(isDetail) ? {
+        h: common_vendor.t(common_vendor.unref(myLocationData).simpleLocation),
+        i: common_vendor.o(($event) => common_vendor.isRef(isDetail) ? isDetail.value = !common_vendor.unref(isDetail) : isDetail = !common_vendor.unref(isDetail))
+      } : {
+        j: common_vendor.t(common_vendor.unref(myLocationData).locationDetail),
+        k: common_vendor.o(($event) => common_vendor.isRef(isDetail) ? isDetail.value = !common_vendor.unref(isDetail) : isDetail = !common_vendor.unref(isDetail))
+      }, {
+        l: common_vendor.t(common_vendor.unref(userDetailMsg).post),
+        m: common_vendor.t(common_vendor.unref(userDetailMsg).dept),
+        n: common_vendor.t(common_vendor.unref(userDetailMsg).createTime),
+        o: common_vendor.p({
           spacing: "0"
         })
-      };
+      });
     };
   }
 };

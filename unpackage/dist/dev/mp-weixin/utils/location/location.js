@@ -26,6 +26,7 @@ function getLocation() {
       },
       fail(error) {
         console.log("失败", error);
+        reject(error);
       }
     });
   });

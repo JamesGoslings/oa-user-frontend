@@ -15,10 +15,10 @@
 					<view class="iconfont msgIco">&#xe817;</view>
 					<view class="msgContent">{{userDetailMsg.phone}}</view>
 				</view>
-				<view class="msgOne" @click="getMyLocation()">
+				<view class="msgOne">
 					<view class="iconfont msgIco">&#xe818;</view>
-					<!-- <view class="msgContent">四川省成都信息工程大学航空港校区</view> -->
-					<view class="msgContent">{{myLocationData.simpleLocation}}</view>
+					<view class="msgContent" @click="isDetail = !isDetail" v-if="!isDetail" >{{myLocationData.simpleLocation}}</view>
+					<view class="msgContent" @click="isDetail = !isDetail" v-else>{{myLocationData.locationDetail}}</view>
 				</view>
 			</view>
 			
@@ -77,11 +77,6 @@ let userDetailMsg = ref(
 		dept:'无'
 	}
 )
-// 获取用户信息
-onShow(()=>{
-	userDetailMsg.value = uni.getStorageSync('userMsg')
-	// console.log(userDetailMsg.value);
-})
 
 // 修改头像并实现马上回显（非发网络请求回显）
 function changeAvatar(){
@@ -89,13 +84,22 @@ function changeAvatar(){
 }
 
 let myLocationData = ref({simpleLoaction:'未授权位置信息',locationDetail: '未授权位置信息'})
-// let location = ref('未授权位置信息')
-// let locationDetail = ref('未授权位置信息')
-// 获取当前位置信息（中文的详细信息）
-// async function getMyLocation (){	
-const getMyLocation = async ()=>{
+let isDetail = ref(false)
+
+// 获取信息同步到data中
+const location = async ()=>{
+	myLocationData.value = await getLocation()
+	console.log('=========Location===========');
+	console.log(myLocationData.value);
+	console.log(myLocationData.value.simpleLocation);
+	console.log(myLocationData.value.locationDetail);
+	console.log('=========Location===========');
+}
+
+// 拉起授权，并获取当前位置信息（中文的详细信息）
+function getMyLocation () {
 	// 先查看是否授权
-	await uni.getSetting({
+	uni.getSetting({
 	        success (res) {
 	          console.log(res)
 				// 如果没有授权
@@ -103,14 +107,9 @@ const getMyLocation = async ()=>{
 					// 则拉起授权窗口
 					uni.authorize({
 						scope: 'scope.userLocation',
-						success: async function () {
+						success () {
 							// 点击允许后--就一直会进入成功授权的回调 就可以使用获取的方法了
-							myLocationData.value = await getLocation()
-							console.log('=========Location===========');
-							console.log(myLocationData.value);
-							console.log(myLocationData.value.simpleLocation);
-							console.log(myLocationData.value.locationDetail);
-							console.log('=========Location===========');
+							location()
 						},
 						fail (error) {
 							console.log('拒绝授权', error)
@@ -120,15 +119,17 @@ const getMyLocation = async ()=>{
 					})
 	          } else {
 	            // 有权限则直接获取
-				myLocationData.value = getLocation();
-				console.log('=========Location===========');
-				console.log(myLocationData.value.data);
-				console.log('=========Location===========');
-				console.log(myLocationData.value.locationDetail);
+				location()
 			}
 	    }
 	})
 }
+
+// 获取用户信息
+onShow(()=>{
+	userDetailMsg.value = uni.getStorageSync('userMsg')
+	getMyLocation()
+})
 </script>
 
 <style lang="scss" scoped>
