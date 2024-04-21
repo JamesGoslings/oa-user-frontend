@@ -55,6 +55,9 @@ let linkManDetailData = ref([])
 
 // 发送搜索请求
 const search = async ()=>{
+	if(iptValue.value === '' || iptValue.value === null){
+		return;
+	}
 	console.log(iptValue.value);
 	let {data:{data}} = await searchLinkManList(iptValue.value)
 	linkManDetailData.value = data
@@ -138,7 +141,8 @@ justifyContentValue = 'flex-start'
 					// border: blue 1rpx solid;
 				}
 				.btn{
-					width: 16%;
+					width: 18%;
+					// width: 16%;
 					height: 100%;
 					// border: #000 1rpx solid;
 					

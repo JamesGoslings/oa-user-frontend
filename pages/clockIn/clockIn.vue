@@ -1,7 +1,7 @@
 <!-- 打卡页面 -->
 <template>
 	<view class="clockInSty">
-		<myHeader :head="myHead"></myHeader>
+		<myHeader :head="myHead" @value-sent="receiveValue" ></myHeader>
 		<view class="msgShow">
 			<view class="msg">
 				<image :src="userMsg.avatarUrl" mode="aspectFill" class="avatar"></image>
@@ -34,6 +34,25 @@
 				<view class="clockInLocation iconfont noEntry" v-else>&#xe6dc; 未进入打卡范围</view>
 			</view>
 		</view>
+		<uni-popup ref="morePopup" type="bottom">
+			<view class="menuWindow">
+				<view class="menuTitle">
+					更多打卡方式：
+				</view>
+				<view class="funAll">
+					<view class="funOne">
+						<view class="aIco iconfont">
+							&#xe988;
+						</view>
+						<view class="aText">
+							拍照打卡
+						</view>
+					</view>
+				</view>
+			</view>
+		</uni-popup>
+		
+		<loginFailPopup></loginFailPopup>
 	</view>
 </template>
 
@@ -41,7 +60,7 @@
 import { distanceWithCompany,getOnlyLocation } from '@/utils/location/location';
 import { formattedTime } from '@/utils/common_utils/formatDate';
 // myHeader组件的显示信息
-let myHead = ref({title: '考勤打卡',fun: '0',color: '#fff'})
+let myHead = ref({title: '考勤打卡',fun: '3',color: '#fff'})
 // 定义每个步骤的信息
 let options = ref([
 	{
@@ -117,7 +136,17 @@ function goToClockInRule(){
 		url: '/pages/clockInRule/clockInRule'
 	})
 }
-
+// 弹窗
+const morePopup = ref(null)
+const openPopup = ()=>{
+	morePopup.value.open()
+}
+// 判断是否打开弹窗
+function receiveValue(value){
+	if(value){
+		openPopup()
+	}
+}
 onShow(()=>{
 	userMsg.value = uni.getStorageSync('userMsg')
 	getDistance()
@@ -246,6 +275,36 @@ onShow(()=>{
 			}
 		}
 		
+	}
+	.menuWindow{
+		width: 100%;
+		height: 270rpx;
+		background: #FFF;
+		.menuTitle{
+			padding-top: 10rpx;
+			padding-left: 10rpx;
+			width: 80%;
+		}
+		.funAll{
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			.funOne{
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				align-items: center;
+				.aIco{
+					width: 100%;
+					font-size: 50rpx;
+					text-align: center;
+				}
+				.aText{
+					font-size: 25rpx;
+				}
+			}
+		}
 	}
 }
 </style>

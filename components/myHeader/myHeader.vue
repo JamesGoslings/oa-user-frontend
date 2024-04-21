@@ -12,6 +12,9 @@
 				<view class="search" v-else-if="head.fun === '2'">
 					<uni-icons type="gear" color="#888" size="22" class="icon"></uni-icons>
 				</view>
+				<view class="more" v-if="head.fun === '3'">
+					<uni-icons type="more" color="#888" size="22" @click="sendValueToParent()"></uni-icons>
+				</view>
 			</view>
 		</view>
 		<view class="fill" :style="{height: statusBarHeight+getTitleBarHeight()+'px'}">
@@ -30,6 +33,7 @@ defineProps({
 		}
 	}
 })
+// 扫码
 function onScan(){
 	uni.scanCode({
 		success: function (res) {
@@ -62,6 +66,13 @@ function onScan(){
 			})
 		}
 	});
+}
+// 自定义事件
+const emit = defineEmits(['value-sent'])
+// 点击更多之后向父页面/组件传值
+function sendValueToParent(){
+	const isOpen = true
+	emit('value-sent', isOpen);
 }
 
 //TODO 让h5和app端的头部图标位于最右，小程序中图标紧靠标题

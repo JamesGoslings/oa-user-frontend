@@ -36,7 +36,7 @@ let modes = ref([
 			{
 				icon: '&#xe844;',
 				title: '一键打卡',
-				description: '在公司指点打卡地点100m范围内即可一键打卡'
+				description: '在公司指点打卡地点 100m 范围内即可一键打卡'
 			},
 			{
 				icon: '&#xe845;',
@@ -51,12 +51,12 @@ let modes = ref([
 			{
 				icon: '&#xe842;',
 				title: '上班时间',
-				description: '早上9:00开始上班'
+				description: '早上 9:00 开始上班'
 			},
 			{
 				icon: '&#xe843;',
 				title: '下班时间',
-				description: '下午6:00结束工作'
+				description: '下午 6:00 结束工作'
 			}
 		]
 	},
@@ -66,12 +66,12 @@ let modes = ref([
 			{
 				icon: '&#xe846;',
 				title: '迟到',
-				description: '迟到超过15分钟算作迟到'
+				description: '迟到超过 15 分钟算作迟到'
 			},
 			{
 				icon: '&#xe846;',
 				title: '早退',
-				description: '早退超过15分钟算作早退'
+				description: '早退超过 15 分钟算作早退'
 			}
 		]
 	},
