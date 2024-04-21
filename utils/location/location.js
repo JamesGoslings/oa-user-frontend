@@ -9,7 +9,7 @@ let missingLatitude = 0.00823
 // 固定的经纬度坐标（寝室坐标）
 const location = [103.98450168185764, 30.582784830729167]
 
-// 获取当前定位的经纬度并逆编码成中文地址（有误差）
+// 获取当前定位的经纬度并逆编码成中文地址（模拟器环境下有误差）
 export function getLocation(){
 	return new Promise((resolve,reject)=>{
 		uni.getLocation({
