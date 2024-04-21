@@ -58,7 +58,8 @@
 
 <script setup>
 import { distanceWithCompany,getOnlyLocation } from '@/utils/location/location';
-import { formattedTime } from '@/utils/common_utils/formatDate';
+import { formattedTime,formattedCurrentTime } from '@/utils/common_utils/formatDate';
+import { addClockInRecord } from '@/api/clockIn/clockIn.js';
 // myHeader组件的显示信息
 let myHead = ref({title: '考勤打卡',fun: '3',color: '#fff'})
 // 定义每个步骤的信息
@@ -88,19 +89,38 @@ let userMsg = ref(
 	}
 )
 
+// 打卡方式(默认一键打卡)
+let clockInWay = 0
+const addRecord = async(record)=>{ 
+	let {data} = await addClockInRecord(record)
+	console.log(data);
+}
+// 完成打卡操作
 function clockIn(){
+	let now = new Date();
+	let record = {
+		userId: uni.getStorageSync('userMsg').userId,
+		type: stepIndex.value,
+		way: clockInWay,
+		clockInTime: formattedCurrentTime(now)
+	}
+	addRecord(record)
+	
+	
+	
 	console.log('打卡成功');
+	// 同步显示打卡时间
+	options.value[stepIndex.value].desc = '打卡时间 ' + formattedTime(now)
 	// 运行打卡任务步骤
 	stepIndex.value++;
 	stepIndex.value = stepIndex.value % 2;
 	// 同步显示打卡文字
 	let str = options.value[stepIndex.value].title
 	clockInText = str.substring(0,4)
-	// 同步显示打卡时间
-	options.value[stepIndex.value].desc = '打卡时间 ' + formattedTime()
 	console.log(options.value[stepIndex.value].title);
-	console.log(formattedTime());
+	console.log(formattedTime(now));
 }
+
 // 获取当前位置与寝室位置的距离并判断是否在打卡范围内
 const getDistance = async ()=>{
 	let here = await getOnlyLocation()
