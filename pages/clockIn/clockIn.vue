@@ -11,7 +11,7 @@
 				</view>
 			</view>
 			<view class="funs">
-				<view class="fun">
+				<view class="fun" @click="goToStatistic()">
 					<view class="iconfont funIco">&#xe626;</view>
 					<view class="funText">统计</view>
 				</view>
@@ -154,6 +154,12 @@ onMounted(() => {
 function goToClockInRule(){
 	uni.navigateTo({
 		url: '/pages/clockInRule/clockInRule'
+	})
+}
+// 转到打卡统计页面
+function goToStatistic(){
+	uni.navigateTo({
+		url: '/pages/statistic/statistic'
 	})
 }
 // 弹窗
