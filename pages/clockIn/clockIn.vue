@@ -281,8 +281,8 @@ onShow(()=>{
 				}
 			}
 			.btnA{
-				width: 350rpx;
-				height: 350rpx;
+				width: 320rpx;
+				height: 320rpx;
 				border-radius: 50%;
 				display: flex;
 				justify-content: center;

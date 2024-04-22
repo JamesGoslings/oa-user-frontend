@@ -23,7 +23,7 @@
 		<view class="mode" v-for="(item,index) in otherContent" :key="index">
 			<view class="title">
 				{{item.title}}
-				<view class="showAll">
+				<view class="showAll" @click="checkAll(index)">
 					查看全部
 					<text class="iconfont moreIco">&#xe989;</text>
 				</view>
@@ -94,6 +94,11 @@ let userMsg = ref({avatarUrl: '/static/image/img.gif',name: '未登录'})
 onShow(()=>{
 	userMsg.value = uni.getStorageSync('userMsg')
 })
+function checkAll(index){
+	uni.navigateTo({
+		url: '/pages/allRecords/allRecords?mode=' + index
+	})
+}
 </script>
 
 <style lang="scss" scoped>
