@@ -13,7 +13,8 @@
 				<view class="detail" v-for="(item,index) in basicMsg" :key="index">
 					<view class="ico iconfont" v-html="item.ico" ></view>
 					<text class="icoTxt">{{item.icoText + '：'}}</text>
-					<view class="msgContent">{{item.content}}</view>
+					<view class="msgContent" v-if="index !== 4">{{item.content}}</view>
+					<view class="msgContent" :style="{color: 'rgb(2,2,246)'}" v-else @click="goBanner()">{{item.content}}</view>
 				</view>
 			</view>
 			<view class="msgOne">
@@ -64,6 +65,11 @@ let basicMsg = ref([
 		content: '我的OA办公系统公众号'
 	}
 ])
+function goBanner(){
+	uni.navigateTo({
+		url: '/pages/banner/banner'
+	})
+}
 </script>
 
 <style lang="scss" scoped>
