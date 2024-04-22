@@ -44,9 +44,6 @@ const userName = uni.getStorageSync('userMsg').name
 const getClockInRecords = async()=>{
 	let {data:{data}} = await getClockInRecordList()
 	recordList.value = data
-	console.log('=============LIST============');
-	console.log(data);
-	console.log('=============LIST============');
 }
 
 onShow(()=>{
@@ -114,7 +111,7 @@ onShow(()=>{
 				}
 				.type{
 					color: #000;
-					font-size: 26rpx
+					font-size: 24rpx
 				}
 			}
 		}

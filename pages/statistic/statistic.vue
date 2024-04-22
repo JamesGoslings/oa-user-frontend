@@ -52,14 +52,14 @@
 </template>
 
 <script setup>
-import { getFirstRecord } from '@/api/clockIn/clockIn';
+import { getFirstRecord,getRecordCountThisMonth } from '@/api/clockIn/clockIn';
 // 用于设定顶头信息
 let myLay = ref({title: '统计',mainColor:"#fff",btnColor:"#F5F5F5"})
 // 用于展示第一项内容的各个元素
 let firstContent = ref([
 	{
 		title: '本月出勤天数',
-		num: 11
+		num: 0
 	},
 	{
 		title: '本月迟到次数',
@@ -93,6 +93,13 @@ let otherContent = ref([
 ])
 // 用户基础信息的默认值指定
 let userMsg = ref({avatarUrl: '/static/image/img.gif',name: '未登录'})
+
+// 获取本月的考勤次数
+const getClockInRecordCountThisMonth = async()=>{
+	let {data:{data}} = await getRecordCountThisMonth()
+	firstContent.value[0].num = data.recordCountThisMonth
+}
+
 // 调接口获得最新的一条打卡记录,并回显
 const getFirstClockInRecord = async()=>{
 	let {data:{data}} = await getFirstRecord()
@@ -105,6 +112,7 @@ const getFirstClockInRecord = async()=>{
 onShow(()=>{
 	userMsg.value = uni.getStorageSync('userMsg')
 	getFirstClockInRecord()
+	getClockInRecordCountThisMonth()
 })
 function checkAll(index){
 	uni.navigateTo({
