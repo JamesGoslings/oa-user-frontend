@@ -52,6 +52,7 @@
 </template>
 
 <script setup>
+import { getFirstRecord } from '@/api/clockIn/clockIn';
 // 用于设定顶头信息
 let myLay = ref({title: '统计',mainColor:"#fff",btnColor:"#F5F5F5"})
 // 用于展示第一项内容的各个元素
@@ -90,9 +91,20 @@ let otherContent = ref([
 		type: '加班申请'
 	}
 ])
+// 用户基础信息的默认值指定
 let userMsg = ref({avatarUrl: '/static/image/img.gif',name: '未登录'})
+// 调接口获得最新的一条打卡记录,并回显
+const getFirstClockInRecord = async()=>{
+	let {data:{data}} = await getFirstRecord()
+	otherContent.value[0].time = data.clockInTime
+	let type = data.type
+	let way = data.way
+	otherContent.value[0].status = way === 0 ? '正常' : '拍照打卡'
+	otherContent.value[0].type = type === 0 ? '上班打卡' : '下班打卡'
+}
 onShow(()=>{
 	userMsg.value = uni.getStorageSync('userMsg')
+	getFirstClockInRecord()
 })
 function checkAll(index){
 	uni.navigateTo({

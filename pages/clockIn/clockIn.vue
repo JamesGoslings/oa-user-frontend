@@ -78,7 +78,7 @@ let clockInText = ref('')
 // 判断打卡的步骤
 let stepIndex = ref(0)
 // 判断是否已经进入可打卡范围
-let isEntry = ref(true)
+let isEntry = ref(false)
 
 // 接收用户信息
 let userMsg = ref(
