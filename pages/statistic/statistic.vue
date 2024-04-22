@@ -20,9 +20,9 @@
 			</uni-card>
 		</view>
 		
-		<view class="mode">
+		<view class="mode" v-for="(item,index) in otherContent" :key="index">
 			<view class="title">
-				考勤记录
+				{{item.title}}
 				<view class="showAll">
 					查看全部
 					<text class="iconfont moreIco">&#xe989;</text>
@@ -33,52 +33,21 @@
 					<view class="msg">
 						<image class="avatar" :src="userMsg.avatarUrl" mode="aspectFill"></image>
 						<view class="textMsg">
-							<view class="name">未登录</view>
-							<view class="time">2024-02-30至2024-04-22</view>
+							<view class="name">{{userMsg.name}}</view>
+							<view class="time">{{item.time}}</view>
 						</view>
 					</view>
 					<view class="state">
 						<view class="status">
-							正常
+							{{item.status}}
 						</view>
 						<view class="type">
-							上班打卡
+							{{item.type}}
 						</view>
 					</view>
 				</view>
 			</uni-card>
 		</view>
-		
-		<view class="mode">
-			<view class="title">
-				请假记录
-				<view class="showAll">
-					查看全部
-					<text class="iconfont moreIco">&#xe989;</text>
-				</view>
-			</view>
-			<uni-card padding="20rpx 0">
-				<view class="recordOne">
-					
-				</view>
-			</uni-card>
-		</view>
-		
-		<view class="mode">
-			<view class="title">
-				加班记录
-				<view class="showAll">
-					查看全部
-					<text class="iconfont moreIco">&#xe989;</text>
-				</view>
-			</view>
-			<uni-card padding="20rpx 0">
-				<view class="recordOne">
-					
-				</view>
-			</uni-card>
-		</view>
-		
 	</view>
 </template>
 
@@ -100,10 +69,30 @@ let firstContent = ref([
 		num: 1
 	}
 ])
-
-let userMsg = ref({avatarUrl: '/static/image/img.gif'})
+// 用于展示除第一个模块以外的模块内容(均只显示最近的一条记录)
+let otherContent = ref([
+	{
+		title: '考勤记录',
+		time: '2024-02-30至2024-04-22',
+		status: '正常',
+		type: '上班打卡'
+	},
+	{
+		title: '请假记录',
+		time: '2024-02-30至2024-04-22',
+		status: '已批准',
+		type: '事假'
+	},
+	{
+		title: '加班记录',
+		time: '2024-02-30至2024-04-22',
+		status: '未批准',
+		type: '加班申请'
+	}
+])
+let userMsg = ref({avatarUrl: '/static/image/img.gif',name: '未登录'})
 onShow(()=>{
-	// userMsg.value = uni.getStorageSync('userMsg')
+	userMsg.value = uni.getStorageSync('userMsg')
 })
 </script>
 
@@ -198,6 +187,7 @@ onShow(()=>{
 				}
 				.type{
 					color: #000;
+					font-size: 26rpx
 				}
 			}
 		}

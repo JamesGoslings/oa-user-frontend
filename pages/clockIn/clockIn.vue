@@ -260,8 +260,8 @@ onShow(()=>{
 			margin-bottom: 30rpx;
 			width: 100%;
 			.btn{
-				width: 350rpx;
-				height: 350rpx;
+				width: 320rpx;
+				height: 320rpx;
 				border-radius: 50%;
 				// background: rgb(44,101,240);
 				background: linear-gradient(to right,#00aaff 20%,#aa55ff);
