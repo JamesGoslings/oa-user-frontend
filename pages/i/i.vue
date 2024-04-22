@@ -38,7 +38,7 @@
 					</view>
 				</template>
 				<template v-slot:body>
-					<text class="slot-box slot-text">企业信息</text>
+					<text class="slot-box slot-text" @click="goToCompanyMsg()">企业信息</text>
 				</template>
 			</uni-list-item>
 			
@@ -121,7 +121,11 @@ function goUserDetailPage(){
 		url: '/pages/userDetail/userDetail'
 	})
 }
-
+function goToCompanyMsg(){
+	uni.navigateTo({
+		url: '/pages/companyMsg/companyMsg'
+	})
+}
 </script>
 
 <style lang="scss" scoped>
