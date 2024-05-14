@@ -12,7 +12,11 @@
     "pages/editLinkManPage/editLinkManPage",
     "pages/userDetail/userDetail",
     "pages/clockIn/clockIn",
-    "pages/clockInRule/clockInRule"
+    "pages/clockInRule/clockInRule",
+    "pages/statistic/statistic",
+    "pages/allRecords/allRecords",
+    "pages/companyMsg/companyMsg",
+    "pages/banner/banner"
   ],
   "window": {
     "navigationStyle": "custom",

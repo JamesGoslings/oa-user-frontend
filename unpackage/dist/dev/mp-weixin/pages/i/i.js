@@ -64,6 +64,11 @@ const _sfc_main = {
         url: "/pages/userDetail/userDetail"
       });
     }
+    function goToCompanyMsg() {
+      common_vendor.index.navigateTo({
+        url: "/pages/companyMsg/companyMsg"
+      });
+    }
     return (_ctx, _cache) => {
       return {
         a: common_vendor.p({
@@ -80,20 +85,21 @@ const _sfc_main = {
         h: common_vendor.p({
           showArrow: true
         }),
-        i: common_vendor.p({
+        i: common_vendor.o(($event) => goToCompanyMsg()),
+        j: common_vendor.p({
           showArrow: true,
           border: false
         }),
-        j: common_vendor.o(($event) => test()),
-        k: common_vendor.p({
-          showArrow: true,
-          border: false
-        }),
+        k: common_vendor.o(($event) => test()),
         l: common_vendor.p({
           showArrow: true,
           border: false
         }),
         m: common_vendor.p({
+          showArrow: true,
+          border: false
+        }),
+        n: common_vendor.p({
           border: false
         })
       };

@@ -3,6 +3,8 @@
   "enablePullDownRefresh": false,
   "usingComponents": {
     "my-header": "../../components/myHeader/myHeader",
-    "uni-steps": "../../uni_modules/uni-steps/components/uni-steps/uni-steps"
+    "uni-steps": "../../uni_modules/uni-steps/components/uni-steps/uni-steps",
+    "uni-popup": "../../uni_modules/uni-popup/components/uni-popup/uni-popup",
+    "login-fail-popup": "../../components/loginFailPopup/loginFailPopup"
   }
 }

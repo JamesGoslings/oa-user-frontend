@@ -42,7 +42,7 @@
 					<view class="iconfont iconSize">&#xedba;</view>
 					<text class="icoText">打卡</text>
 				</view>
-				<view class="modeOne">
+				<view class="modeOne" @click="goToProcessPage()">
 					<view class="iconfont iconSize">&#x100cb;</view>
 					<text class="icoText">审批</text>
 				</view>
@@ -70,11 +70,19 @@
 </template>
 
 <script setup>
-function onPage(){
+// function onPage(){
+// 	uni.navigateTo({
+// 		url:"/pages/demo/demo"
+// 	})
+// }
+
+// 跳转功能页面
+function goToProcessPage(){
+	// 跳转到审批页面
 	uni.navigateTo({
-		url:"/pages/demo/demo"
+		url:"/pages/processFun/processFun"
 	})
-}	
+}
 
 let homeHead = ref({title:"首页",fun:"1",color:"#FFF"})
 

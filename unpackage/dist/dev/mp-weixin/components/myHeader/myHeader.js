@@ -19,7 +19,8 @@ const _sfc_main = {
       }
     }
   },
-  setup(__props) {
+  emits: ["value-sent"],
+  setup(__props, { emit: __emit }) {
     function onScan() {
       common_vendor.index.scanCode({
         success: function(res) {
@@ -45,6 +46,11 @@ const _sfc_main = {
           });
         }
       });
+    }
+    const emit = __emit;
+    function sendValueToParent() {
+      const isOpen = true;
+      emit("value-sent", isOpen);
     }
     let justifyContentValue = "space-between";
     justifyContentValue = "flex-start";
@@ -76,10 +82,19 @@ const _sfc_main = {
         })
       } : {}, {
         h: __props.head.fun === "2",
-        j: common_vendor.unref(utils_common_utils_system.getTitleBarHeight)() + "px",
-        k: common_vendor.unref(justifyContentValue),
-        l: __props.head.color,
-        m: common_vendor.unref(utils_common_utils_system.statusBarHeight) + common_vendor.unref(utils_common_utils_system.getTitleBarHeight)() + "px"
+        j: __props.head.fun === "3"
+      }, __props.head.fun === "3" ? {
+        k: common_vendor.o(($event) => sendValueToParent()),
+        l: common_vendor.p({
+          type: "more",
+          color: "#888",
+          size: "22"
+        })
+      } : {}, {
+        m: common_vendor.unref(utils_common_utils_system.getTitleBarHeight)() + "px",
+        n: common_vendor.unref(justifyContentValue),
+        o: __props.head.color,
+        p: common_vendor.unref(utils_common_utils_system.statusBarHeight) + common_vendor.unref(utils_common_utils_system.getTitleBarHeight)() + "px"
       });
     };
   }

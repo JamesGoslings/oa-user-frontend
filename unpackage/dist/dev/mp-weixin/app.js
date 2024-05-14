@@ -15,6 +15,10 @@ if (!Math) {
   "./pages/userDetail/userDetail.js";
   "./pages/clockIn/clockIn.js";
   "./pages/clockInRule/clockInRule.js";
+  "./pages/statistic/statistic.js";
+  "./pages/allRecords/allRecords.js";
+  "./pages/companyMsg/companyMsg.js";
+  "./pages/banner/banner.js";
 }
 console.log("/???");
 const _sfc_main = {

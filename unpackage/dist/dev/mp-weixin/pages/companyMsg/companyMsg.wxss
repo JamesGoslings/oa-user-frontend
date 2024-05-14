@@ -30,20 +30,20 @@
        url('//at.alicdn.com/t/c/font_4516490_g5o6medp7l.woff?t=1713798720136') format('woff'),
        url('//at.alicdn.com/t/c/font_4516490_g5o6medp7l.ttf?t=1713798720136') format('truetype');
 }
-.iconfont.data-v-711046ea {
+.iconfont.data-v-84c712f4 {
   font-family: "iconfont" !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-tongjifenxi.data-v-711046ea:before {
+.icon-tongjifenxi.data-v-84c712f4:before {
   content: "\e626";
 }
-.icon-04SFA_kaoqinguize.data-v-711046ea:before {
+.icon-04SFA_kaoqinguize.data-v-84c712f4:before {
   content: "\e61e";
 }
-.ruleSty.data-v-711046ea {
+.companyMsgSty.data-v-84c712f4 {
   position: fixed;
   top: 0;
   left: 0;
@@ -51,48 +51,55 @@
   height: 100%;
   overflow: auto;
 }
-.ruleSty .modes.data-v-711046ea {
+.companyMsgSty .topImgShow.data-v-84c712f4 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.companyMsgSty .topImgShow .topImg.data-v-84c712f4 {
+  width: 95%;
+  height: 250rpx;
+  border-radius: 30rpx;
+}
+.companyMsgSty .msgs.data-v-84c712f4 {
   width: 90%;
+  padding: 40rpx 30rpx;
   display: flex;
   flex-wrap: wrap;
-  padding: 25rpx 30rpx;
 }
-.ruleSty .modes .mode.data-v-711046ea {
+.companyMsgSty .msgs .msgOne.data-v-84c712f4 {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 70rpx;
+  margin-bottom: 50rpx;
 }
-.ruleSty .modes .mode .title.data-v-711046ea {
-  width: 90%;
+.companyMsgSty .msgs .msgOne .title.data-v-84c712f4 {
+  width: 100%;
   font-size: 35rpx;
   font-weight: bold;
+  margin-bottom: 30rpx;
 }
-.ruleSty .modes .mode .contentOne.data-v-711046ea {
-  margin-top: 30rpx;
+.companyMsgSty .msgs .msgOne .detail.data-v-84c712f4 {
   width: 100%;
   display: flex;
   align-items: center;
+  margin-bottom: 25rpx;
 }
-.ruleSty .modes .mode .contentOne .icoAll.data-v-711046ea {
-  width: 75rpx;
-  height: 75rpx;
-  border-radius: 50%;
-  background: #2563eb;
+.companyMsgSty .msgs .msgOne .detail .ico.data-v-84c712f4 {
+  font-size: 50rpx;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
-.ruleSty .modes .mode .contentOne .icoAll .ico.data-v-711046ea {
-  font-size: 40rpx;
+.companyMsgSty .msgs .msgOne .detail .icoTxt.data-v-84c712f4 {
+  margin-left: 15rpx;
+  color: #9ca3af;
+  font-size: 32rpx;
 }
-.ruleSty .modes .mode .contentOne .textAll.data-v-711046ea {
-  margin-left: 30rpx;
+.companyMsgSty .msgs .msgOne .detail .msgContent.data-v-84c712f4 {
+  color: #9ca3af;
+  font-size: 32rpx;
 }
-.ruleSty .modes .mode .contentOne .textAll .textTitle.data-v-711046ea {
-  font-size: 33rpx;
-}
-.ruleSty .modes .mode .contentOne .textAll .textContent.data-v-711046ea {
-  margin-top: 5rpx;
-  font-size: 25rpx;
+.companyMsgSty .msgs .msgOne .mainText.data-v-84c712f4 {
+  font-size: 32rpx;
 }

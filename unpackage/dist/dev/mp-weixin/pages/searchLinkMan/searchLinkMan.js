@@ -19,6 +19,9 @@ const _sfc_main = {
     let iptValue = common_vendor.ref("");
     let linkManDetailData = common_vendor.ref([]);
     const search = async () => {
+      if (iptValue.value === "" || iptValue.value === null) {
+        return;
+      }
       console.log(iptValue.value);
       let { data: { data } } = await api_linkMan_linkMan.searchLinkManList(iptValue.value);
       linkManDetailData.value = data;
