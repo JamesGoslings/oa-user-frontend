@@ -1,6 +1,7 @@
 <template>
 	<layout :lay="myLay"></layout>
 	<view class="detailAll"></view>
+	<el-button>56</el-button>
 </template>
 
 <script setup>

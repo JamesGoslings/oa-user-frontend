@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
 import uni from '@dcloudio/vite-plugin-uni'
 import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
  
 export default defineConfig({
     plugins: [
@@ -10,9 +12,13 @@ export default defineConfig({
             imports:[
                 // 预设
                 'vue',
-                'uni-app'  
-            ]
-        })
+                'uni-app'
+            ],
+			resolvers: [ElementPlusResolver()],
+        }),
+		Components({
+		  resolvers: [ElementPlusResolver()],
+		}),
     ],
 	  server: {
 	    host: "localhost", // 指定服务器应该监听哪个IP地址,默认：localhost
