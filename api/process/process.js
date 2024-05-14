@@ -16,3 +16,9 @@ export function getAllProcessTemplate(){
 		url: PROCESS_TEMPLETE_URL + 'all'
 	})
 }
+// 获取单个模板
+export function getOneTemplate(id){
+	return request({
+		url: PROCESS_TEMPLETE_URL + 'get/' + id
+	})
+}

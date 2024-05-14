@@ -4,7 +4,7 @@
 		<view v-for="(type) in processTypeAll">
 			<view class="type funTitle">{{type.name}}</view>
 			<view v-for="(tmp) in processTemplateAll">
-				<uni-card padding="20rpx 0" v-if="tmp.processTypeId === type.id">
+				<uni-card padding="20rpx 0" v-if="tmp.processTypeId === type.id" @click="goToDetail(tmp)">
 						<view class="tmpOne">
 							<view class="icoBox" :style="getIcoSty(type.id)">
 								<view class="myIconfont ico" v-html="tmp.iconUrl"></view>
@@ -23,6 +23,12 @@ import { colors } from '../../utils/common_utils/staticData';
 // 用于设定顶头信息
 let myLay = ref({title: '审批页面',mainColor:"#fff",btnColor:"#F5F5F5"})
 
+// 跳转到对应的详情页
+function goToDetail(tmp){
+	uni.navigateTo({
+		url:'/pages/processDetail/processDetail?tmpId=' + tmp.id
+	})
+}
 // 用于设置当前图标背景色
 function getIcoSty(id){
 	id %= colors.length
