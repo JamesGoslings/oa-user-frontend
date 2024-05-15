@@ -5,6 +5,10 @@ import Vue from 'vue'
 import './uni.promisify.adaptor'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+// import formCreate from '@form-create/element-ui'
+// import FcDesigner from '@form-create/designer'
+
+
 Vue.config.productionTip = false
 App.mpType = 'app'
 const app = new Vue({
@@ -12,6 +16,9 @@ const app = new Vue({
 })
 app.$mount()
 app.use(ElementPlus)
+
+app.use(formCreate)
+app.use(FcDesigner)
 // #endif
 
 // #ifdef VUE3

@@ -1,0 +1,53 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8" />  
+  <title>Embedded Page</title>  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus@2.0.0/dist/index.css">  
+</head>  
+<body>  
+  <div id="app">  
+    <div id="form-create"></div>  
+  </div>
+</body>  
+  <!-- import Vue -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <!-- import element-ui -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus@2.0.0/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/element-plus@2.0.0/dist/index.full.min.js"></script>
+  <!-- import formCreate -->
+  <script src="https://cdn.jsdelivr.net/npm/@form-create/element-ui@^3/dist/form-create.min.js"></script>
+<!-- 挂载组件 -->
+  <script>
+    const app = Vue.createApp({});  
+    app.use(ElementPlus);  
+	app.use(formCreate);
+	app.mount('#app');
+    const root = document.getElementById('form-create');  
+    const fApi = window.formCreate.create(
+        //表单生成规则
+        [
+            {
+                type: 'input',
+                field: 'goods_name',
+                title: '商品名称'
+            },
+            {
+                type: 'datePicker',
+                field: 'created_at',
+                title: '创建时间'
+            }
+        ],
+        //组件参数配置
+        {
+            el: root,
+            //显示表单重置按钮
+            resetBtn: true,
+            //表单提交事件
+            onSubmit: function (formData) {
+                //按钮进入提交状态
+                fApi.btn.loading()
+            }
+        })
+  </script>  
+</html>

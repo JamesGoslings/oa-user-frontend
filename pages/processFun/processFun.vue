@@ -26,7 +26,7 @@ let myLay = ref({title: '审批页面',mainColor:"#fff",btnColor:"#F5F5F5"})
 // 跳转到对应的详情页
 function goToDetail(tmp){
 	uni.navigateTo({
-		url:'/pages/processDetail/processDetail?tmpId=' + tmp.id
+		url: '/pages/processDetail/processDetail?tmpId=' + tmp.id
 	})
 }
 // 用于设置当前图标背景色

@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@form-create/designer": "^3.1.5",
-    "element-plus": "^2.7.3"
+    "element-plus": "^2.7.2"
   },
   "devDependencies": {
     "unplugin-auto-import": "^0.17.6",
