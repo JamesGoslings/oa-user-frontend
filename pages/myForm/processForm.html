@@ -6,10 +6,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus@2.0.0/dist/index.css">  
 </head>  
 <body>  
-  <div id="app">  
+  <div id="app" style="margin-top: 8vh;">  
     <div id="form-create"></div>  
   </div>
-</body>  
+</body>
   <!-- import Vue -->
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <!-- import element-ui -->
@@ -19,35 +19,35 @@
   <script src="https://cdn.jsdelivr.net/npm/@form-create/element-ui@^3/dist/form-create.min.js"></script>
 <!-- 挂载组件 -->
   <script>
-    const app = Vue.createApp({});  
+	  
+    const app = Vue.createApp({});
     app.use(ElementPlus);  
 	app.use(formCreate);
 	app.mount('#app');
-    const root = document.getElementById('form-create');  
-    const fApi = window.formCreate.create(
-        //表单生成规则
-        [
-            {
-                type: 'input',
-                field: 'goods_name',
-                title: '商品名称'
-            },
-            {
-                type: 'datePicker',
-                field: 'created_at',
-                title: '创建时间'
-            }
-        ],
-        //组件参数配置
-        {
-            el: root,
-            //显示表单重置按钮
-            resetBtn: true,
-            //表单提交事件
-            onSubmit: function (formData) {
-                //按钮进入提交状态
-                fApi.btn.loading()
-            }
-        })
+    const root = document.getElementById('form-create');
+	
+	// 拿到传过来的表单结构
+	console.log('=================>>>>>>');
+	
+	const urlParams = new URLSearchParams(window.location.search);
+	const myRule = JSON.parse(urlParams.get('rule'));
+	const myOption = JSON.parse(urlParams.get('option'));
+	myOption.el = root
+	myOption.onSubmit = function (formData) {
+			    //按钮进入提交状态
+			    // fApi.btn.loading()
+				sendDataToParent(formData)
+			}
+	console.log(myRule);
+	console.log(myOption);
+	
+	console.log('====================>>>>>>>>>');
+    const fApi = window.formCreate.create(myRule,myOption)
+	// 向主页面传用户输入值
+	function sendDataToParent(data) {
+		const dataToSend = { msg: data };
+		window.parent.postMessage(dataToSend, '*');
+	}
   </script>  
+	
 </html>

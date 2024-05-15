@@ -17,8 +17,8 @@ const app = new Vue({
 app.$mount()
 app.use(ElementPlus)
 
-app.use(formCreate)
-app.use(FcDesigner)
+// app.use(formCreate)
+// app.use(FcDesigner)
 // #endif
 
 // #ifdef VUE3

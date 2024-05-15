@@ -21,6 +21,11 @@ if (!Math) {
 const _sfc_main = {
   __name: "home",
   setup(__props) {
+    function goToProcessPage() {
+      common_vendor.index.navigateTo({
+        url: "/pages/processFun/processFun"
+      });
+    }
     let homeHead = common_vendor.ref({ title: "首页", fun: "1", color: "#FFF" });
     let isShow = common_vendor.ref(true);
     common_vendor.onShow(() => {
@@ -91,7 +96,8 @@ const _sfc_main = {
           title: "未读消息",
           extra: "点击查看全部"
         }),
-        k: common_vendor.p({
+        k: common_vendor.o(($event) => goToProcessPage()),
+        l: common_vendor.p({
           title: "功能"
         })
       };

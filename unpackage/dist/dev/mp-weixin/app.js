@@ -19,6 +19,8 @@ if (!Math) {
   "./pages/allRecords/allRecords.js";
   "./pages/companyMsg/companyMsg.js";
   "./pages/banner/banner.js";
+  "./pages/processFun/processFun.js";
+  "./pages/processDetail/processDetail.js";
 }
 console.log("/???");
 const _sfc_main = {

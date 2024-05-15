@@ -16,7 +16,9 @@
     "pages/statistic/statistic",
     "pages/allRecords/allRecords",
     "pages/companyMsg/companyMsg",
-    "pages/banner/banner"
+    "pages/banner/banner",
+    "pages/processFun/processFun",
+    "pages/processDetail/processDetail"
   ],
   "window": {
     "navigationStyle": "custom",
