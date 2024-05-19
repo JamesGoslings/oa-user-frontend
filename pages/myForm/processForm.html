@@ -27,8 +27,6 @@
     const root = document.getElementById('form-create');
 	
 	// 拿到传过来的表单结构
-	console.log('=================>>>>>>');
-	
 	const urlParams = new URLSearchParams(window.location.search);
 	const myRule = JSON.parse(urlParams.get('rule'));
 	const myOption = JSON.parse(urlParams.get('option'));
@@ -38,10 +36,6 @@
 			    // fApi.btn.loading()
 				sendDataToParent(formData)
 			}
-	console.log(myRule);
-	console.log(myOption);
-	
-	console.log('====================>>>>>>>>>');
     const fApi = window.formCreate.create(myRule,myOption)
 	// 向主页面传用户输入值
 	function sendDataToParent(data) {

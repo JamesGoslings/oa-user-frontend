@@ -1,5 +1,5 @@
 import { request } from "/utils/common_utils/request"
-const clockInRecordUrl = '/admin/system/clockInRecord/'
+const clockInRecordUrl = '/admin/attendance/clockInRecord/'
 
 // 添加打卡记录
 export function addClockInRecord(record){
