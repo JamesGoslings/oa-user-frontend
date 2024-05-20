@@ -3,11 +3,11 @@
 	<view class="processAll">
 		<view class="funBar">
 			<uni-card class="funCard">
-				<view class="funOne">
+				<view class="funOne" @click="goToFunPage(0)">
 					<view class="iconfont funIco">&#xe620;</view>
 					<text>我审批的</text>
 				</view>
-				<view class="funOne">
+				<view class="funOne" @click="goToFunPage(1)">
 					<view class="iconfont funIco">&#xe714;</view>
 					<text>我发起的</text>
 				</view>
@@ -38,6 +38,13 @@ import { colors } from '../../utils/common_utils/staticData';
 // 用于设定顶头信息
 let myLay = ref({title: '审批页面',mainColor:"#fff",btnColor:"#F5F5F5"})
 
+// 跳转到对应功能页
+function goToFunPage(i){
+	let myUrl = i === 0 ? '/pages/myDoingProcess/myDoingProcess' : '/pages/mySendProcess/mySendProcess'
+	uni.navigateTo({
+		url: myUrl
+	})
+}
 // 跳转到对应的详情页
 function goToDetail(tmp){
 	uni.navigateTo({
@@ -89,6 +96,7 @@ onShow(()=>{
 					@include flex-box;
 					justify-content: space-around;
 					.funOne{
+						padding: 1vh;
 						text-align: center;
 						font-size: $title-font-size - 2rpx;
 						font-weight: 550;
