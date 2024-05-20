@@ -1,6 +1,18 @@
 <template>
 	<layout :lay="myLay"></layout>
 	<view class="processAll">
+		<view class="funBar">
+			<uni-card class="funCard">
+				<view class="funOne">
+					<view class="iconfont funIco">&#xe620;</view>
+					<text>我审批的</text>
+				</view>
+				<view class="funOne">
+					<view class="iconfont funIco">&#xe714;</view>
+					<text>我发起的</text>
+				</view>
+			</uni-card>
+		</view>
 		<view v-for="(type) in processTypeAll">
 			<view class="type funTitle">{{type.name}}</view>
 			<view v-for="(tmp) in processTemplateAll">
@@ -9,7 +21,10 @@
 							<view class="icoBox" :style="getIcoSty(type.id)">
 								<view class="myIconfont ico" v-html="tmp.iconUrl"></view>
 							</view>
-							<view class="tmpMsg">{{tmp.name}}</view>
+							<view class="tmpMsg">
+								<view style="color: rgb(36,47,87);font-size: 28rpx;font-weight: 550;">{{tmp.name}}</view>
+								<view style="color: RGB(194,194,194);font-size: 25rpx;">{{tmp.description}}</view>
+							</view>
 						</view>
 				</uni-card>
 			</view>
@@ -59,28 +74,51 @@ onShow(()=>{
 @import '@/common/myStyles/globalPage.scss';
 @import '@/common/myStyles/commonStyles.scss';
 @import url('@/static/fontTotal/iconfont.css');
+@import url('@/static/font2/iconfont.css');
 
 .processAll{
 	padding: 0 2vw;
+	background: #F5F5F5;
+	.funBar{
+		background: #F5F5F5;
+		padding-top: 1vh;
+		padding-bottom: 0.5vh;
+		.funCard{
+			:deep(){
+				.uni-card__content{
+					@include flex-box;
+					justify-content: space-around;
+					.funOne{
+						text-align: center;
+						font-size: $title-font-size - 2rpx;
+						font-weight: 550;
+						color: $title-font-color;
+						.funIco{
+							font-size: 60rpx;
+						}
+					}
+				}
+			}
+		}
+	}
 	.type{
 		margin: 1vh 0;
 	}
-		.tmpOne{
+	.tmpOne{
+		@include flex-box;
+		justify-content: left;
+		.icoBox{
 			@include flex-box;
-			justify-content: left;
-			.icoBox{
-				@include flex-box;
-				// padding: 2vh 2.7vw;
-				width: 100rpx;
-				height: 100rpx;
-				border-radius: 50%;
-				background: rgb(48,207,149);
-				.ico{
-					font-size: 50rpx;
-					color: #FFF;
-				}
+			// padding: 2vh 2.7vw;
+			width: 100rpx;
+			height: 100rpx;
+			border-radius: 50%;
+			background: rgb(48,207,149);
+			.ico{
+				font-size: 50rpx;
+				color: #FFF;
 			}
+		}
 	}
-	
 }
 </style>
