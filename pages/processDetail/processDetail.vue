@@ -33,7 +33,10 @@ let iframeUrl = ref(`/pages/myForm/processForm.html`)
 const getOne = async(id)=>{
 	let {data:{data}} = await getOneTemplate(id);
 	myTemplate.value = data
-	iframeUrl.value = `/pages/myForm/processForm.html?rule=${data.formProps}&option=${data.formOptions}`
+	// 拿表单数据
+	let myFormValue = ''
+	myFormValue = uni.getStorageSync('formValues')
+	iframeUrl.value = `/pages/myForm/processForm.html?rule=${data.formProps}&option=${data.formOptions}&formValue=${myFormValue}`
 	myProcess.value.processTemplateId = data.id
 	myProcess.value.processTypeId = data.processTypeId
 }

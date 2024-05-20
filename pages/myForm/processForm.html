@@ -18,10 +18,10 @@
   <!-- import formCreate -->
   <script src="https://cdn.jsdelivr.net/npm/@form-create/element-ui@^3/dist/form-create.min.js"></script>
 <!-- 挂载组件 -->
-  <script>
-	  
+  <script type="module">
+	// import {ref} from 'vue'
     const app = Vue.createApp({});
-    app.use(ElementPlus);  
+    app.use(ElementPlus);
 	app.use(formCreate);
 	app.mount('#app');
     const root = document.getElementById('form-create');
@@ -30,18 +30,24 @@
 	const urlParams = new URLSearchParams(window.location.search);
 	const myRule = JSON.parse(urlParams.get('rule'));
 	const myOption = JSON.parse(urlParams.get('option'));
+	// 拿表单值
+	// let myValue = ref(JSON.parse(urlParams.get('formValue')))
+	let myValue = JSON.parse(urlParams.get('formValue'))
+	console.log(myValue.value);
 	myOption.el = root
 	myOption.onSubmit = function (formData) {
 			    //按钮进入提交状态
 			    // fApi.btn.loading()
 				sendDataToParent(formData)
 			}
+	myOption.value = myValue
     const fApi = window.formCreate.create(myRule,myOption)
 	// 向主页面传用户输入值
 	function sendDataToParent(data) {
 		const dataToSend = { msg: data };
 		window.parent.postMessage(dataToSend, '*');
 	}
+	
   </script>  
 	
 </html>

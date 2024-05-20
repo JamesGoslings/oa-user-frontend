@@ -32,3 +32,19 @@ export function addProcess(process = {}){
 		data: process
 	})
 }
+// 获取需要自己审批的申请
+export function getDoingProcess(){
+	let userId = uni.getStorageSync('userMsg').userId
+	return request({
+		url: PROCESS_URL + 'doProcess/' + userId,
+		method: 'GET'
+	})
+}
+// 执行任务
+export function doTask(processId = 0){
+	let userId = uni.getStorageSync('userMsg').userId
+	return request({
+		url: PROCESS_URL + `doTask/${processId}/${userId}`,
+		method: 'POST'
+	})
+}

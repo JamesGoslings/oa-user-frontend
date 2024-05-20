@@ -21,7 +21,7 @@
 							<view class="icoBox" :style="getIcoSty(type.id)">
 								<view class="myIconfont ico" v-html="tmp.iconUrl"></view>
 							</view>
-							<view class="tmpMsg">
+							<view class="tmpMsg" style="margin-left: 2vw;">
 								<view style="color: rgb(36,47,87);font-size: 28rpx;font-weight: 550;">{{tmp.name}}</view>
 								<view style="color: RGB(194,194,194);font-size: 25rpx;">{{tmp.description}}</view>
 							</view>
@@ -29,6 +29,7 @@
 				</uni-card>
 			</view>
 		</view>
+		<view style="height: 5vh;background: #F5F5F5;"></view>
 	</view>
 </template>
 
