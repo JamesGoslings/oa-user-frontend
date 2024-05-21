@@ -53,10 +53,18 @@ const handleMessage = (event) => {
 	myProcess.value.formValues = JSON.stringify(event.data.msg)
 	let userInfo = uni.getStorageSync('userMsg')
 	myProcess.value.userId = userInfo.userId
-	console.log('====================>>>>')
-	console.log(myProcess.value);
-	console.log('====================>>>>')
-	addMyProcess()
+	
+	uni.showModal({
+		title:'你确定要提交吗？',
+		success: res => {
+			if (res.confirm) {
+				addMyProcess()
+			} else if (res.cancel) {
+				// console.log('用户点击取消~');
+			}
+		}
+	})
+	
 };
 const addMyProcess = async()=>{
 	let {data} = await addProcess(myProcess.value)

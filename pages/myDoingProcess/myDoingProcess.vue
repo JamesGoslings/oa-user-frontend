@@ -20,7 +20,7 @@
 			</view>
 			<view v-if="isMe(process) && process.status !== -1" class="btnAll">
 				<myBtn style="margin: 0 1vw;font-size: 25rpx;padding: 0 2vw;" content="通过" radius="5rpx"
-				 @click="doThisTask(process.processId)"/>
+				 @click="doThisTask(process)"/>
 				 <myBtn style="margin: 0 1vw;font-size: 25rpx;padding: 0 2vw;" content="驳回" radius="5rpx"
 				 mainBackColor="rgb(234,123,54)"  @click="backThisProcess(process)"/>
 			</view>
@@ -79,11 +79,23 @@ function goToDetail(process){
 }
 // 驳回该流程
 const backThisProcess = async(process)=>{
-	// alert('驳回')
-	let data = await quitProcess(process.processId)
-	console.log(data);
+	uni.showModal({
+		title: `你确定要驳回申请 “${process.title}” 吗？`,
+		success: async (res) => {
+			if (res.confirm) {
+				let data = await quitProcess(process.processId)
+				flush()
+				// console.log(data);
+			} else if (res.cancel) {
+				console.log('用户点击取消~');
+			}
+		}
+	})
 }
-
+// 刷新数据
+function flush(){
+	getMyDoingProcess()
+}
 // 存拿到的申请
 let processAll = ref([])
 // 获取待审批申请
@@ -94,9 +106,20 @@ const getMyDoingProcess = async()=>{
 	// console.log("=====================??>>>")
 	processAll.value = data
 }
-const doThisTask = async(processId)=>{
-	console.log(processId);
-	let data = await doTask(processId)
+// 通过审批
+const doThisTask = async(process)=>{
+	uni.showModal({
+		title: `你确定要驳回申请 “${process.title}” 吗？`,
+		success: async (res) => {
+			if (res.confirm) {
+				let data = await doTask(process.processId)
+				flush()
+				// console.log(data);
+			} else if (res.cancel) {
+				console.log('用户点击取消~');
+			}
+		}
+	})
 }
 onShow(()=>{
 	getMyDoingProcess()

@@ -56,23 +56,11 @@ let myProcessAll = ref([])
 const getMyProcessList = async(status = -2)=>{
 	let {data:{data}} = await listMyProcess(status)
 	myProcessAll.value = data
-	console.log('=====================>>>>>');
-	console.log(data);
-	console.log('=====================>>>>>');
 }
 
-// 返回驳回信息
 function getQuitMsg(process){
-	// let peoStr = isMe(process) ? '你' : ``
 	return `已被“${process.currentAuditor}"驳回`
 }
-// // 判断当前申请人是不是自己
-// function isMe(process){
-// 	let username = uni.getStorageSync('userMsg').username
-// 	// console.log(username);
-// 	return process.currentAuditor == username
-// }
-
 // 跳转到对应的详情页并存下表单值
 function goToDetail(process){
 	uni.setStorageSync('formValues',process.formValues)
