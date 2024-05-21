@@ -48,3 +48,11 @@ export function doTask(processId = 0){
 		method: 'POST'
 	})
 }
+// 驳回申请
+export function quitProcess(processId = 0){
+	let userId = uni.getStorageSync('userMsg').userId
+	return request({
+		url: PROCESS_URL + `quit/${processId}/${userId}`,
+		method: 'DELETE'
+	})
+}

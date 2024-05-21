@@ -1,7 +1,15 @@
 <template>
 	<layout :lay="myLay"></layout>
 	<view class="doingAll">
-		<uni-card class="processOne" v-for="(process,i) in processAll" :key="i">
+		<view style="background: #FFF;">
+		    <uni-data-select
+		      v-model="chooseIndex"
+		      :localdata="[{value: 0,text:'全部'},{value: 1,text: '待处理'}
+			  ,{value: 2,text: '已通过'},{value: 3,text:'已驳回'}]"
+		    ></uni-data-select>
+		</view>
+		<view v-for="(process,i) in processAll" :key="i">
+		<uni-card class="processOne" v-if="isShowCard(process,chooseIndex)">
 			<view class="msg" @click="goToDetail(process)"> 
 				<view class="iconfont ico">&#xe72a;</view>
 				<view class="msgDetail" style="margin-left: 2vw;">
@@ -10,32 +18,56 @@
 					<view style="color: RGB(194,194,194);font-size: 25rpx;">申请标题：{{process.title}}</view>
 				</view>
 			</view>
-			<view v-if="isMe(process.currentAuditor)" class="btnAll">
+			<view v-if="isMe(process) && process.status !== -1" class="btnAll">
 				<myBtn style="margin: 0 1vw;font-size: 25rpx;padding: 0 2vw;" content="通过" radius="5rpx"
 				 @click="doThisTask(process.processId)"/>
 				 <myBtn style="margin: 0 1vw;font-size: 25rpx;padding: 0 2vw;" content="驳回" radius="5rpx"
 				 mainBackColor="rgb(234,123,54)"  @click="backThisProcess(process)"/>
 			</view>
+			<view v-else-if="process.status === -1">
+				<view v-text="getQuitMsg(process)"></view>
+			</view>
 			<view v-else>
 				<view class="endBox">已操作</view>
 			</view>
 		</uni-card>
+		</view>
+		<view style="height: 5vh;background: #F5F5F5;"></view>
 	</view>
 </template>
 
 <script setup>
 import myBtn from '@/components/myBtn/myBtn.vue';
-import { getDoingProcess,doTask } from '@/api/process/process';
+import { getDoingProcess,doTask,quitProcess } from '@/api/process/process';
 import {isSpace} from '@/utils/common_utils/stringUtils.js'
 
 // 用于设定顶头信息
 let myLay = ref({title: '我审批的申请',mainColor:"#fff",btnColor:"#F5F5F5"})
-
+// 判断该审批卡片是否显示
+function isShowCard(process,choose){
+	if(choose === 1){
+		return process.status === 1 && isMe(process)
+	}
+	if(choose === 2){
+		return process.status !== -1 && !isMe(process)
+	}
+	if(choose === 3){
+		return process.status === -1
+	}
+	return true;
+}
+// 存选中的下标
+let chooseIndex = ref(0)
+// 返回驳回信息
+function getQuitMsg(process){
+	let peoStr = isMe(process) ? '你' : `${process.currentAuditor}`
+	return `已被“${peoStr}"驳回`
+}
 // 判断当前审批人是不是自己
-function isMe(currentAuditor){
+function isMe(process){
 	let username = uni.getStorageSync('userMsg').username
 	// console.log(username);
-	return currentAuditor == username
+	return process.currentAuditor == username
 }
 
 // 跳转到对应的详情页并存下表单值
@@ -46,8 +78,10 @@ function goToDetail(process){
 	})
 }
 // 驳回该流程
-function backThisProcess(process){
-	alert('驳回')
+const backThisProcess = async(process)=>{
+	// alert('驳回')
+	let data = await quitProcess(process.processId)
+	console.log(data);
 }
 
 // 存拿到的申请
@@ -86,6 +120,7 @@ onShow(()=>{
 	left: 0;
 	width: 100%; 
 	height: 100%;
+	margin-bottom: 5vh;
 	overflow: auto;
 	.processOne{
 		:deep(){
