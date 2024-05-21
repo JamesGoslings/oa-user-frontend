@@ -53,7 +53,7 @@
 				</template>
 			</uni-list-item>
 			
-			<uni-list-item showArrow :border="false">
+			<!-- <uni-list-item showArrow :border="false">
 				<template v-slot:header>
 					<view class="slot-box">
 						<text class="iconfont iconFun">&#xe63d;</text>
@@ -62,7 +62,7 @@
 				<template v-slot:body>
 					<text class="slot-box slot-text">关于我们</text>
 				</template>
-			</uni-list-item>
+			</uni-list-item> -->
 			
 			
 		</uni-list>			

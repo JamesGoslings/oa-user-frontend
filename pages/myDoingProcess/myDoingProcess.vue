@@ -57,7 +57,7 @@ function isShowCard(process,choose){
 	return true;
 }
 // 存选中的下标
-let chooseIndex = ref(0)
+let chooseIndex = ref(1)
 // 返回驳回信息
 function getQuitMsg(process){
 	let peoStr = isMe(process) ? '你' : `${process.currentAuditor}`
@@ -89,17 +89,14 @@ let processAll = ref([])
 // 获取待审批申请
 const getMyDoingProcess = async()=>{
 	let {data:{data}} = await getDoingProcess()
-	console.log("=====================??>>>")
-	console.log(data);
-	console.log("=====================??>>>")
+	// console.log("=====================??>>>")
+	// console.log(data);
+	// console.log("=====================??>>>")
 	processAll.value = data
 }
 const doThisTask = async(processId)=>{
 	console.log(processId);
 	let data = await doTask(processId)
-	console.log('===============================>>>>>>')
-	console.log(data);
-	console.log('===============================>>>>>>')
 }
 onShow(()=>{
 	getMyDoingProcess()

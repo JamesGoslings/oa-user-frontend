@@ -56,3 +56,11 @@ export function quitProcess(processId = 0){
 		method: 'DELETE'
 	})
 }
+// 拿到自己发出的申请
+export function listMyProcess(status = -2){
+	let userId = uni.getStorageSync('userMsg').userId
+	return request({
+		url: PROCESS_URL + `myProcess/${userId}/${status}`,
+		method: 'GET'
+	})
+}

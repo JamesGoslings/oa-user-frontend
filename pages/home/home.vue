@@ -24,7 +24,7 @@
 			</view>
 		</uni-card>
 			
-		<uni-card title="未读消息" extra="点击查看全部">
+		<!-- <uni-card title="未读消息" extra="点击查看全部">
 			<view slot="actions" class="card-actions no-border">
 				<uni-list :border="false">
 					<uni-list-item title="管理员消息" showArrow badge-text="1" :show-badge="true"
@@ -32,32 +32,32 @@
 					<uni-list-item title="系统消息" showArrow badge-text="2" :show-badge="true"
 					note="2小时前"></uni-list-item>
 				</uni-list>
-			</view>
-		</uni-card>
+			</view> 
+		</uni-card> -->
 		
 		<uni-card title="功能">
 			
 			 <view slot="actions" class="card-actions no-border funMode">
 				<view class="modeOne">
-					<view class="iconfont iconSize">&#xedba;</view>
+					<view class="iconfont iconSize" @click="goToClockPage()">&#xedba;</view>
 					<text class="icoText">打卡</text>
 				</view>
 				<view class="modeOne" @click="goToProcessPage()">
 					<view class="iconfont iconSize">&#x100cb;</view>
 					<text class="icoText">审批</text>
 				</view>
-				<view class="modeOne">
+				<!-- <view class="modeOne">
 					<view class="iconfont iconSize">&#x100cd;</view>
 					<text class="icoText">日程</text>
-				</view>
-				<view class="modeOne">
+				</view> -->
+				<!-- <view class="modeOne">
 					<view class="iconfont iconSize">&#x100cf;</view>
 					<text class="icoText">绩效</text>
-				</view>
-				<view class="modeOne">
+				</view> -->
+				<!-- <view class="modeOne">
 					<view class="iconfont iconSize">&#x100d0;</view>
 					<text class="icoText">文档库</text>
-				</view>
+				</view> -->
 				<view class="modeOne">
 					<view class="iconfont iconSize">&#x100cc;</view>
 					<text class="icoText">更多</text>
@@ -83,7 +83,11 @@ function goToProcessPage(){
 		url:"/pages/processFun/processFun"
 	})
 }
-
+function goToClockPage(){
+	uni.navigateTo({
+		url: '/pages/clockIn/clockIn'
+	})
+}
 let homeHead = ref({title:"首页",fun:"1",color:"#FFF"})
 
 let isShow = ref(true)
